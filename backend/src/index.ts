@@ -1,14 +1,17 @@
 import express from "express";
-import cors from "cors";
+import { createServer } from "http";
+import { initRestApi } from "./rest";
+import { initWebSockets } from "./websockets";
+
+const PORT = process.env.PORT || 3000;
+
 const app = express();
-const port = 3000;
 
-app.use(cors());
+const server = createServer(app);
 
-app.get("/", (req, res) => {
-  res.json({ message: "hello world" });
-});
+initRestApi(app);
+initWebSockets(server);
 
-app.listen(port, () => {
-  console.log(`App started on port: ${port}`);
+server.listen(PORT, () => {
+  console.log(`Server started on port: ${PORT}`);
 });
