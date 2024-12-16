@@ -1,13 +1,13 @@
-import { Application } from "express";
+import { Application, json } from "express";
 import cors from "cors";
-import { pool } from "../database";
+import { router } from "./router";
+import { errorMiddleware } from "./middlewares/errorMiddleware";
 
 export function initRestApi(app: Application): void {
   app.use(cors());
+  app.use(json());
 
-  app.get("/", async (req, res) => {
-    const queryRes = await pool.query("SELECT $1::text as name", ["brianc"]);
-    console.log(queryRes);
-    res.json({ message: "hello world" });
-  });
+  app.use("/api", router);
+
+  app.use(errorMiddleware);
 }
