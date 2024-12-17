@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "build": "tsc",
-    "dev": "concurrently \"tsc -w --noEmitOnError\" \"nodemon dist/index.js\""
+    "dev": "concurrently \"tsc -w --noEmitOnError\" \"nodemon dist/index.js\"",
+    "createTables": "tsc && node dist/database/scripts/createTables.js",
+    "deleteTables": "tsc && node dist/database/scripts/deleteTables.js"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

@@ -9,5 +9,5 @@ export const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
     return;
   }
 
-  res.status(500).json({ error: "" });
+  res.status(500).json({ error: "Unknown error" });
 };

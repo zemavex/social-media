@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
-import { userSchema } from "../../schemas/userSchema";
+import { userRegistrationService } from "../services/userService";
 
 export const userRegistrationController: RequestHandler = async (req, res) => {
-  const data = userSchema.parse(req.body);
+  const user = await userRegistrationService(req.body);
 
-  res.json({ message: "User successfully created", data });
+  res.json({ message: "User created", user });
 };
