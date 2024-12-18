@@ -1,19 +1,23 @@
-import { z } from "zod";
+import bcrypt from "bcrypt";
 import {
-  userLoginValidation,
-  userPasswordValidation,
-} from "../../validations/userValidation";
-import { dbUserInsert } from "../../database/queries/userQueries";
+  dbUserCreate,
+  dbUserFindByLogin,
+} from "../../database/queries/userQueries";
+import { userSchema } from "../../schemas/userSchema";
+import { ConflictError } from "../../errors";
 
-const userRegistrationSchema = z.object({
-  login: userLoginValidation,
-  password: userPasswordValidation,
-});
+const userRegistrationSchema = userSchema.pick({ login: true, password: true });
 
 export async function userRegistrationService(data: unknown) {
-  const validatedData = userRegistrationSchema.parse(data);
+  const { login, password } = userRegistrationSchema.parse(data);
 
-  const user = await dbUserInsert(validatedData);
+  const foundUser = await dbUserFindByLogin(login);
+  if (foundUser)
+    throw new ConflictError(`User with login "${login}" already exists`);
 
-  return user;
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const newUser = await dbUserCreate({ login, password: hashedPassword });
+
+  return newUser;
 }
