@@ -1,11 +1,15 @@
 import { pool } from "..";
+import { UserSchema } from "../../schemas/userSchema";
 
 interface InsertUserParams {
   login: string;
   password: string;
 }
 
-export async function dbUserCreate({ login, password }: InsertUserParams) {
+export async function dbUserCreate({
+  login,
+  password,
+}: InsertUserParams): Promise<UserSchema> {
   const query =
     "INSERT INTO users (login, password) VALUES ($1, $2) RETURNING *";
   const values = [login, password];
@@ -14,10 +18,12 @@ export async function dbUserCreate({ login, password }: InsertUserParams) {
   return res.rows[0];
 }
 
-export async function dbUserFindByLogin(login: string) {
+export async function dbUserFindByLogin(
+  login: string
+): Promise<UserSchema | null> {
   const query = "SELECT * FROM users WHERE login = $1";
   const values = [login];
 
   const res = await pool.query(query, values);
-  return res.rows[0];
+  return res.rows[0] || null;
 }

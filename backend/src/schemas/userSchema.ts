@@ -6,3 +6,5 @@ export const userSchema = z.object({
   password: z.string().min(8).max(30),
   email: z.string().email(),
 });
+
+export type UserSchema = z.infer<typeof userSchema>;

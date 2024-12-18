@@ -3,14 +3,13 @@ import {
   dbUserCreate,
   dbUserFindByLogin,
 } from "../../database/queries/userQueries";
-import { userSchema } from "../../schemas/userSchema";
-import { ConflictError } from "../../errors";
+import { UserSchema } from "../../schemas/userSchema";
+import { ConflictError, UnauthorizedError } from "../../errors";
 
-const userRegistrationSchema = userSchema.pick({ login: true, password: true });
-
-export async function userRegistrationService(data: unknown) {
-  const { login, password } = userRegistrationSchema.parse(data);
-
+export async function userRegistrationService(
+  login: string,
+  password: string
+): Promise<UserSchema> {
   const foundUser = await dbUserFindByLogin(login);
   if (foundUser)
     throw new ConflictError(`User with login "${login}" already exists`);
@@ -20,4 +19,19 @@ export async function userRegistrationService(data: unknown) {
   const newUser = await dbUserCreate({ login, password: hashedPassword });
 
   return newUser;
+}
+
+export async function userLoginService(
+  login: string,
+  password: string
+): Promise<UserSchema> {
+  const LoginError = new UnauthorizedError("Invalid login or password");
+
+  const foundUser = await dbUserFindByLogin(login);
+  if (!foundUser) throw LoginError;
+
+  const isPasswordValid = await bcrypt.compare(password, foundUser.password);
+  if (!isPasswordValid) throw LoginError;
+
+  return foundUser;
 }
