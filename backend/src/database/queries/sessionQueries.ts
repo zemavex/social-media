@@ -34,6 +34,13 @@ export async function dbSessionDelete(sessionId: string): Promise<void> {
   await pool.query(query, values);
 }
 
+export async function dbSessionDeleteExpired(): Promise<number | null> {
+  const query = "DELETE FROM sessions WHERE expires_at < NOW()";
+
+  const result = await pool.query(query);
+  return result.rowCount;
+}
+
 export async function dbSessionFindById(
   sessionId: string
 ): Promise<SessionSchema | null> {
