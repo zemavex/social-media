@@ -1,13 +1,15 @@
 import { Router } from "express";
 import {
+  userAuthController,
   userLoginController,
   userRegistrationController,
 } from "../controllers/userController";
-import { withErrorHandling } from "../middlewares/withErrorHandling";
+import { authMiddleware } from "../middlewares/authMiddleware";
 
 const userRouter = Router();
 
-userRouter.post("/registration", withErrorHandling(userRegistrationController));
-userRouter.post("/login", withErrorHandling(userLoginController));
+userRouter.post("/registration", userRegistrationController);
+userRouter.post("/login", userLoginController);
+userRouter.get("/auth", authMiddleware, userAuthController);
 
 export { userRouter };

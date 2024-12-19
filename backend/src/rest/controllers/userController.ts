@@ -5,30 +5,54 @@ import {
 } from "../services/userService";
 import { userSchema } from "../../schemas/userSchema";
 import { sessionCreateService } from "../services/sessionService";
+import { setSessionCookie } from "../utils/cookieUtils";
 
 const userRegistrationSchema = userSchema.pick({ login: true, password: true });
 const userLoginSchema = userSchema.pick({ login: true, password: true });
 
-export const userRegistrationController: RequestHandler = async (req, res) => {
-  const { login, password } = userRegistrationSchema.parse(req.body);
+export const userRegistrationController: RequestHandler = async (
+  req,
+  res,
+  next
+) => {
+  try {
+    const { login, password } = userRegistrationSchema.parse(req.body);
 
-  const user = await userRegistrationService(login, password);
+    const user = await userRegistrationService(login, password);
 
-  res.json({ message: "User created", user });
+    const session = await sessionCreateService(user.id);
+    setSessionCookie(res, session.id);
+
+    res.json({ message: "User created", user });
+  } catch (err) {
+    next(err);
+  }
 };
 
-export const userLoginController: RequestHandler = async (req, res) => {
-  const { login, password } = userLoginSchema.parse(req.body);
+export const userLoginController: RequestHandler = async (req, res, next) => {
+  try {
+    const { login, password } = userLoginSchema.parse(req.body);
 
-  const user = await userLoginService(login, password);
+    const user = await userLoginService(login, password);
 
-  const session = await sessionCreateService(user.id);
+    const session = await sessionCreateService(user.id);
+    setSessionCookie(res, session.id);
 
-  res.cookie("session_id", session.id, {
-    httpOnly: true,
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    sameSite: "strict",
-  });
+    res.json({ message: "Login successfully", user });
+  } catch (err) {
+    next(err);
+  }
+};
 
-  res.json({ message: "Login successfully", user });
+export const userAuthController: RequestHandler = async (req, res, next) => {
+  try {
+    if (req.session) {
+      res.json({ message: "okay", user: { id: req.session.userId } });
+      return;
+    }
+
+    res.json({ message: "ok" });
+  } catch (err) {
+    next(err);
+  }
 };
