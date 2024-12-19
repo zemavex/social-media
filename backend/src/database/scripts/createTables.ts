@@ -11,6 +11,16 @@ const createUsersTable = `
   )
 `;
 
+const createSessionsTable = `
+  CREATE TABLE IF NOT EXISTS sessions (
+    id UUID PRIMARY KEY,
+    user_id INT NOT NULL, 
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_online TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+  )
+`;
+
 const createTables = async () => {
   const confirmed = await askConfirmation("Create tables?");
   if (!confirmed) {
@@ -20,6 +30,7 @@ const createTables = async () => {
 
   try {
     await pool.query(createUsersTable);
+    await pool.query(createSessionsTable);
 
     console.log("All tables created");
   } catch (err) {
