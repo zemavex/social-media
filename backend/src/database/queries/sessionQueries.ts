@@ -16,12 +16,11 @@ export async function dbSessionCreate(
   return res.rows[0];
 }
 
-export async function dbSessionUpdateExpiresAt(
-  sessionId: string
-): Promise<void> {
+export async function dbSessionExtend(sessionId: string): Promise<void> {
   const sessionExpiresAt = new Date(Date.now() + SESSION_MAX_AGE_MS);
 
-  const query = "UPDATE sessions SET expires_at = $1 WHERE id = $2";
+  const query =
+    "UPDATE sessions SET expires_at = $1, last_online = NOW() WHERE id = $2";
   const values = [sessionExpiresAt, sessionId];
 
   await pool.query(query, values);

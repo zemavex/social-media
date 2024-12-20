@@ -3,7 +3,7 @@ import { z } from "zod";
 import {
   dbSessionFindById,
   dbSessionDelete,
-  dbSessionUpdateExpiresAt,
+  dbSessionExtend,
 } from "@/database/queries/sessionQueries";
 import { SESSION_ID_COOKIE_NAME } from "../config/constants";
 import { AuthError } from "@/errors/customErrors";
@@ -25,7 +25,7 @@ export const authMiddleware: RequestHandler = async (req, res, next) => {
       throw new Error("Session expired");
     }
 
-    await dbSessionUpdateExpiresAt(sessionId);
+    await dbSessionExtend(sessionId);
 
     req.session = {
       id: sessionId,

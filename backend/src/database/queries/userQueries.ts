@@ -1,5 +1,5 @@
 import { pool } from "..";
-import { UserSchema } from "@/schemas/userSchema";
+import { UserRole, UserSchema } from "@/schemas/userSchema";
 
 interface InsertUserParams {
   login: string;
@@ -26,4 +26,22 @@ export async function dbUserFindByLogin(
 
   const res = await pool.query(query, values);
   return res.rows[0] || null;
+}
+
+export async function dbUserFindById(id: number): Promise<UserSchema | null> {
+  const query = "SELECT * FROM users WHERE id = $1";
+  const values = [id];
+
+  const res = await pool.query(query, values);
+  return res.rows[0] || null;
+}
+
+export async function dbUserFindRoleByUserId(
+  id: number
+): Promise<UserRole | null> {
+  const query = "SELECT role FROM users WHERE id = $1";
+  const values = [id];
+
+  const res = await pool.query(query, values);
+  return res.rows[0]?.role || null;
 }

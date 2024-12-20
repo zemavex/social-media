@@ -72,3 +72,13 @@ export const userLogoutController: RequestHandler = async (req, res, next) => {
     next(err);
   }
 };
+
+export const userTestController: RequestHandler = async (req, res, next) => {
+  try {
+    if (!req.session) throw AuthError;
+
+    res.json({ message: "Secret route" });
+  } catch (err) {
+    next(err);
+  }
+};
