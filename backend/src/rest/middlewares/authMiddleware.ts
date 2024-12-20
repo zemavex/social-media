@@ -5,8 +5,8 @@ import {
   dbSessionDelete,
   dbSessionUpdateExpiresAt,
 } from "@/database/queries/sessionQueries";
-import { UnauthorizedError } from "@/errors";
 import { SESSION_ID_COOKIE_NAME } from "../config/constants";
+import { AuthError } from "@/errors/customErrors";
 
 export const authMiddleware: RequestHandler = async (req, res, next) => {
   try {
@@ -35,6 +35,6 @@ export const authMiddleware: RequestHandler = async (req, res, next) => {
     next();
   } catch (err) {
     console.log(err);
-    next(new UnauthorizedError("Authentication error"));
+    next(AuthError);
   }
 };

@@ -6,6 +6,9 @@ import {
   userRegistrationService,
   userLoginService,
 } from "../services/userService";
+import { AuthError } from "@/errors/customErrors";
+import { dbSessionDelete } from "@/database/queries/sessionQueries";
+import { SESSION_ID_COOKIE_NAME } from "../config/constants";
 
 const userRegistrationSchema = userSchema.pick({ login: true, password: true });
 const userLoginSchema = userSchema.pick({ login: true, password: true });
@@ -46,12 +49,25 @@ export const userLoginController: RequestHandler = async (req, res, next) => {
 
 export const userAuthController: RequestHandler = async (req, res, next) => {
   try {
-    if (req.session) {
-      res.json({ message: "okay", user: { id: req.session.userId } });
-      return;
-    }
+    if (!req.session) throw AuthError;
 
-    res.json({ message: "ok" });
+    res.json({
+      message: "Successfully authenticated",
+      user: { id: req.session.userId },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const userLogoutController: RequestHandler = async (req, res, next) => {
+  try {
+    if (!req.session) throw AuthError;
+
+    res.clearCookie(SESSION_ID_COOKIE_NAME);
+    await dbSessionDelete(req.session.id);
+
+    res.json({ message: "Successfully logged out" });
   } catch (err) {
     next(err);
   }
