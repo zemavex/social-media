@@ -1,5 +1,5 @@
 import { pool } from "..";
-import { UserSchema } from "../../schemas/userSchema";
+import { UserSchema } from "@/schemas/userSchema";
 
 interface InsertUserParams {
   login: string;

@@ -1,6 +1,6 @@
 import { pool } from "..";
-import { SESSION_MAX_AGE_MS } from "../../rest/config/constants";
-import { SessionSchema } from "../../schemas/sessionSchema";
+import { SESSION_MAX_AGE_MS } from "@/rest/config/constants";
+import { SessionSchema } from "@/schemas/sessionSchema";
 
 export async function dbSessionCreate(
   sessionId: string,

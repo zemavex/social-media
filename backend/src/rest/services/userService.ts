@@ -1,10 +1,10 @@
 import bcrypt from "bcrypt";
 import {
-  dbUserCreate,
   dbUserFindByLogin,
-} from "../../database/queries/userQueries";
-import { UserSchema } from "../../schemas/userSchema";
-import { ConflictError, UnauthorizedError } from "../../errors";
+  dbUserCreate,
+} from "@/database/queries/userQueries";
+import { ConflictError, UnauthorizedError } from "@/errors";
+import { UserSchema } from "@/schemas/userSchema";
 
 export async function userRegistrationService(
   login: string,

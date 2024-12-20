@@ -1,5 +1,5 @@
 import { CronJob } from "cron";
-import { dbSessionDeleteExpired } from "../database/queries/sessionQueries";
+import { dbSessionDeleteExpired } from "@/database/queries/sessionQueries";
 
 const cleanExpiredSessions = async () => {
   try {

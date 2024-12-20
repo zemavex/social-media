@@ -7,6 +7,11 @@
     "strict": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
-    "typeRoots": ["./src/types", "./node_modules/@types"]
+    "noEmitOnError": true,
+    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   }
 }

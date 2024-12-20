@@ -1,12 +1,12 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
-import { SESSION_ID_COOKIE_NAME } from "../config/constants";
-import { UnauthorizedError } from "../../errors";
 import {
-  dbSessionDelete,
   dbSessionFindById,
+  dbSessionDelete,
   dbSessionUpdateExpiresAt,
-} from "../../database/queries/sessionQueries";
+} from "@/database/queries/sessionQueries";
+import { UnauthorizedError } from "@/errors";
+import { SESSION_ID_COOKIE_NAME } from "../config/constants";
 
 export const authMiddleware: RequestHandler = async (req, res, next) => {
   try {

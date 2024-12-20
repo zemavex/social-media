@@ -1,11 +1,11 @@
 import { RequestHandler } from "express";
-import {
-  userLoginService,
-  userRegistrationService,
-} from "../services/userService";
-import { userSchema } from "../../schemas/userSchema";
+import { userSchema } from "@/schemas/userSchema";
 import { sessionCreateService } from "../services/sessionService";
 import { setSessionCookie } from "../utils/cookieUtils";
+import {
+  userRegistrationService,
+  userLoginService,
+} from "../services/userService";
 
 const userRegistrationSchema = userSchema.pick({ login: true, password: true });
 const userLoginSchema = userSchema.pick({ login: true, password: true });
