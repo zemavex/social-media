@@ -9,6 +9,8 @@ import {
 import { AuthError } from "@/errors/customErrors";
 import { dbSessionDelete } from "@/database/queries/sessionQueries";
 import { SESSION_ID_COOKIE_NAME } from "../config/constants";
+import { dbUserFindById } from "@/database/queries/userQueries";
+import { UserAuthResponse } from "../types/responseTypes";
 
 const userRegistrationSchema = userSchema.pick({ login: true, password: true });
 const userLoginSchema = userSchema.pick({ login: true, password: true });
@@ -51,10 +53,19 @@ export const userAuthController: RequestHandler = async (req, res, next) => {
   try {
     if (!req.session) throw AuthError;
 
-    res.json({
+    const user = await dbUserFindById(req.session.userId);
+    if (!user) throw AuthError;
+
+    const response: UserAuthResponse = {
       message: "Successfully authenticated",
-      user: { id: req.session.userId },
-    });
+      user: {
+        id: user.id,
+        login: user.login,
+        role: user.role,
+      },
+    };
+
+    res.json(response);
   } catch (err) {
     next(err);
   }

@@ -9,6 +9,7 @@ declare global {
       DB_HOST: EnvVarString;
       DB_PORT: EnvVarNumber;
       DB_DATABASE_NAME: EnvVarString;
+      CLIENT_URL: EnvVarString;
     }
   }
 }
