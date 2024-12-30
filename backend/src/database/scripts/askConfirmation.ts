@@ -16,7 +16,7 @@ export const askConfirmation = (
 ) => {
   const { confirmText = "y", rejectText = "n" } = options || {};
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     rl.question(`${text} (${confirmText}/${rejectText}): `, (answer) => {
       if (answer === confirmText) {
         resolve(true);

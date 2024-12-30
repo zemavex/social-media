@@ -2,12 +2,7 @@ import { ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
 import { CustomError } from "@/errors";
 
-export const errorMiddleware: ErrorRequestHandler = async (
-  err,
-  req,
-  res,
-  next
-) => {
+export const errorMiddleware: ErrorRequestHandler = async (err, req, res) => {
   console.error(err.stack);
 
   if (err instanceof ZodError) {
