@@ -1,7 +1,6 @@
 import { RuleSetRule } from "webpack";
-import { BuildOptions } from "./types/config";
 
-export function buildLoaders(options: BuildOptions): RuleSetRule[] {
+export function buildLoaders(): RuleSetRule[] {
   const typescriptLoader = {
     test: /\.tsx?$/,
     use: "ts-loader",

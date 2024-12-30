@@ -20,19 +20,19 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(authenticateThunk.pending, (state, action) => {
+    builder.addCase(authenticateThunk.pending, (state) => {
       state.isAuthenticating = true;
     });
-    builder.addCase(authenticateThunk.fulfilled, (state, action) => {
+    builder.addCase(authenticateThunk.fulfilled, (state) => {
       state.isAuthenticated = true;
       state.isAuthenticating = false;
     });
-    builder.addCase(authenticateThunk.rejected, (state, action) => {
+    builder.addCase(authenticateThunk.rejected, (state) => {
       state.isAuthenticated = false;
       state.isAuthenticating = false;
     });
 
-    builder.addCase(loginThunk.fulfilled, (state, action) => {
+    builder.addCase(loginThunk.fulfilled, (state) => {
       state.isAuthenticated = true;
     });
   },
