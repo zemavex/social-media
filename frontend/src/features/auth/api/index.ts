@@ -16,3 +16,14 @@ export const login = async (
   });
   return res.data;
 };
+
+export const register = async (
+  login: string,
+  password: string
+): Promise<AuthResponse> => {
+  const res = await apiInstance.post<AuthResponse>("/users/registration", {
+    login,
+    password,
+  });
+  return res.data;
+};

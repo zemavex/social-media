@@ -1,23 +1,23 @@
+import { registerThunk } from "features/auth/model/authThunks";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { loginThunk } from "features/auth";
-import { useAppDispatch } from "shared/lib";
 import { Link } from "react-router";
+import { useAppDispatch } from "shared/lib";
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
   const [formData, setFormData] = useState({ login: "", password: "" });
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
   const dispatch = useAppDispatch();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    if (isLoggingIn) return;
-    setIsLoggingIn(true);
+    if (isRegistering) return;
+    setIsRegistering(true);
 
     try {
-      await dispatch(loginThunk(formData));
+      await dispatch(registerThunk(formData));
     } finally {
-      setIsLoggingIn(false);
+      setIsRegistering(false);
     }
   };
 
@@ -27,7 +27,7 @@ export const LoginPage = () => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="login-form__input-login">login</label>
@@ -49,10 +49,10 @@ export const LoginPage = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button disabled={isLoggingIn}>login</button>
+        <button disabled={isRegistering}>register</button>
       </form>
       <p>
-        {"Don't have account?"} <Link to={"/register"}>Register</Link>
+        Have account? <Link to={"/login"}>Log in</Link>
       </p>
     </div>
   );

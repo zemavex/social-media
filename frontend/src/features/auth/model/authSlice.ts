@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { authenticateThunk, loginThunk } from "./authThunks";
+import { authenticateThunk, loginThunk, registerThunk } from "./authThunks";
 
 interface AuthState {
   isAuthenticated: boolean;
@@ -33,6 +33,10 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(loginThunk.fulfilled, (state) => {
+      state.isAuthenticated = true;
+    });
+
+    builder.addCase(registerThunk.fulfilled, (state) => {
       state.isAuthenticated = true;
     });
   },
