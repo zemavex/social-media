@@ -2,7 +2,13 @@ import { ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
 import { CustomError } from "@/errors";
 
-export const errorMiddleware: ErrorRequestHandler = async (err, req, res) => {
+export const errorMiddleware: ErrorRequestHandler = async (
+  err,
+  req,
+  res,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  next
+) => {
   console.error(err.stack);
 
   if (err instanceof ZodError) {

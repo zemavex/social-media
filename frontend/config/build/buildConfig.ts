@@ -19,9 +19,9 @@ export const buildConfig = (options: BuildOptions): Configuration => {
       clean: true,
     },
     module: {
-      rules: buildLoaders(options),
+      rules: buildLoaders(),
     },
     plugins: buildPlugins(options),
-    resolve: buildResolvers(options),
+    resolve: buildResolvers(),
   };
 };
