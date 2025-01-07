@@ -6,10 +6,15 @@ type NullableUser = {
   [K in keyof User]: User[K] | null;
 };
 
-const initialState: NullableUser = {
+type UserState = NullableUser & {
+  isAuthenticated: boolean;
+};
+
+const initialState: UserState = {
   id: null,
   login: null,
   role: null,
+  isAuthenticated: false,
 };
 
 export const userSlice = createSlice({
@@ -17,10 +22,13 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action: PayloadAction<NullableUser>) {
-      return action.payload;
+      Object.assign(state, action.payload);
+    },
+    setIsAuthenticated(state, action: PayloadAction<boolean>) {
+      state.isAuthenticated = action.payload;
     },
   },
 });
 
-export const { setUser } = userSlice.actions;
+export const { setUser, setIsAuthenticated } = userSlice.actions;
 export const userReducer = userSlice.reducer;

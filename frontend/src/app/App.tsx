@@ -1,15 +1,8 @@
-import { useEffect } from "react";
 import { AppRouter } from "./router";
-import { authenticateThunk, selectIsAuthenticating } from "features/auth";
-import { useAppDispatch, useAppSelector } from "shared/lib";
+import { useAuthenticate } from "./model/useAuthenticate";
 
 const App = () => {
-  const isAuthenticating = useAppSelector(selectIsAuthenticating);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(authenticateThunk());
-  }, []);
+  const { isAuthenticating } = useAuthenticate();
 
   if (isAuthenticating) return "loading...";
 

@@ -1,10 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { authReducer, setupAuthApiInterceptors } from "features/auth";
+import { setupAuthApiInterceptors } from "features/auth";
 import { userReducer } from "entities/user";
 
 export const store = configureStore({
   reducer: {
-    auth: authReducer,
     user: userReducer,
   },
 });

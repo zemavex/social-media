@@ -1,55 +1,50 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { loginThunk } from "features/auth";
-import { useAppDispatch } from "shared/lib";
+import { ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router";
+import { useLogin } from "../model/useLogin";
 
 export const LoginPage = () => {
-  const [formData, setFormData] = useState({ login: "", password: "" });
-  const [isLoggingIn, setIsLoggingIn] = useState(false);
-  const dispatch = useAppDispatch();
+  const { credentials, setCredentials, isPending, errors, login } = useLogin();
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
-    if (isLoggingIn) return;
-    setIsLoggingIn(true);
-
-    try {
-      await dispatch(loginThunk(formData));
-    } finally {
-      setIsLoggingIn(false);
-    }
+    login();
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <div>
       <h1>Login</h1>
+      {errors?.general && <p>{errors.general}</p>}
       <form onSubmit={handleSubmit}>
         <div>
+          {errors?.login && <p>{errors.login}</p>}
           <label htmlFor="login-form__input-login">login</label>
           <input
+            style={{ outline: errors?.login ? "1px solid red" : "" }}
             type="text"
             name="login"
             id="login-form__input-login"
-            value={formData.login}
+            value={credentials.login}
             onChange={handleInputChange}
           />
         </div>
         <div>
+          {errors?.password && <p>{errors.password}</p>}
           <label htmlFor="login-form__input-password">password</label>
           <input
+            style={{ outline: errors?.password ? "1px solid red" : "" }}
             type="password"
             name="password"
             id="login-form__input-password"
-            value={formData.password}
+            value={credentials.password}
             onChange={handleInputChange}
           />
         </div>
-        <button disabled={isLoggingIn}>login</button>
+        <button disabled={isPending}>login</button>
       </form>
       <p>
         {"Don't have account?"} <Link to={"/register"}>Register</Link>

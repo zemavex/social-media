@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
+import { setIsAuthenticated } from "entities/user";
 import { apiInstance } from "shared/api";
-import { setIsAuthenticated } from "../model/authSlice";
 
 export const setupAuthApiInterceptors = (dispatch: AppDispatchGlobal) => {
   apiInstance.interceptors.response.use(

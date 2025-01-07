@@ -6,24 +6,21 @@ export const authenticate = async (): Promise<AuthResponse> => {
   return res.data;
 };
 
-export const login = async (
-  login: string,
-  password: string
-): Promise<AuthResponse> => {
-  const res = await apiInstance.post<AuthResponse>("/users/login", {
-    login,
-    password,
-  });
+export const login = async (payload: {
+  login: string;
+  password: string;
+}): Promise<AuthResponse> => {
+  const res = await apiInstance.post<AuthResponse>("/users/login", payload);
   return res.data;
 };
 
-export const register = async (
-  login: string,
-  password: string
-): Promise<AuthResponse> => {
-  const res = await apiInstance.post<AuthResponse>("/users/registration", {
-    login,
-    password,
-  });
+export const register = async (payload: {
+  login: string;
+  password: string;
+}): Promise<AuthResponse> => {
+  const res = await apiInstance.post<AuthResponse>(
+    "/users/registration",
+    payload
+  );
   return res.data;
 };

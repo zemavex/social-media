@@ -1,9 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
-import { HomePage } from "pages/home";
 import { LoginPage } from "pages/login";
-import { selectIsAuthenticated } from "features/auth";
-import { useAppSelector } from "shared/lib";
 import { RegisterPage } from "pages/register";
+import { HomePage } from "pages/home";
+import { selectIsAuthenticated } from "entities/user";
+import { useAppSelector } from "shared/lib";
 
 export const AppRouter = () => {
   const isAuthenticated = useAppSelector(selectIsAuthenticated);
