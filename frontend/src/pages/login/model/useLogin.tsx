@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { isAxiosError } from "axios";
-import { login as loginRequest } from "features/auth";
+import { ZodIssue } from "zod";
+import { login as loginRequest, loginSchema, LoginSchema } from "features/auth";
 import { setIsAuthenticated, setUser } from "entities/user";
 import { useAppDispatch } from "shared/lib";
 
@@ -12,22 +13,49 @@ interface LoginErrors {
 
 interface LoginAxiosErrorData {
   message: string;
-  details?: {
-    path: ["login" | "password"];
-    message: string;
-  }[];
+  details?: ZodIssue[];
 }
 
 export const useLogin = () => {
-  const [credentials, setCredentials] = useState({ login: "", password: "" });
+  const [credentials, setCredentials] = useState<LoginSchema>({
+    login: "",
+    password: "",
+  });
   const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState<LoginErrors | null>(null);
   const dispatch = useAppDispatch();
+
+  const setValidationErrors = (details: ZodIssue[]) => {
+    const newErrors: LoginErrors = {};
+
+    details.forEach((e) => {
+      const path = e.path[0] as keyof LoginSchema;
+      newErrors[path] = e.message;
+    });
+
+    setErrors((prev) => ({ ...prev, ...newErrors }));
+  };
+
+  const validateCredentials = (): boolean => {
+    const result = loginSchema.safeParse(credentials);
+
+    if (!result.success) {
+      setValidationErrors(result.error.issues);
+    }
+
+    return result.success;
+  };
 
   const login = async () => {
     if (isPending) return;
     setIsPending(true);
     setErrors(null);
+
+    const isCredentialsValid = validateCredentials();
+    if (!isCredentialsValid) {
+      setIsPending(false);
+      return;
+    }
 
     try {
       const res = await loginRequest(credentials);
@@ -49,11 +77,7 @@ export const useLogin = () => {
         return;
       }
 
-      const newErrors: LoginErrors = {};
-      error.details.forEach((e) => {
-        newErrors[e.path[0]] = e.message;
-      });
-      setErrors(newErrors);
+      setValidationErrors(error.details);
     } finally {
       setIsPending(false);
     }
@@ -62,6 +86,7 @@ export const useLogin = () => {
   return {
     credentials,
     setCredentials,
+    validateCredentials,
     isPending,
     errors,
     login,
