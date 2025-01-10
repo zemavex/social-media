@@ -1,9 +1,26 @@
-import { ChangeEvent, FormEvent } from "react";
+import { ChangeEvent, FormEvent, useCallback, useEffect, useRef } from "react";
 import { Link } from "react-router";
+import { LoginSchema } from "features/auth";
+import { debounce } from "shared/lib";
 import { useLogin } from "../model/useLogin";
 
 export const LoginPage = () => {
-  const { credentials, setCredentials, isPending, errors, login } = useLogin();
+  const {
+    credentials,
+    setCredentials,
+    validateCredentials,
+    isPending,
+    errors,
+    login,
+  } = useLogin();
+  const credentialsRef = useRef(credentials);
+
+  const debouncedValidation = useCallback(
+    debounce((field: keyof LoginSchema) => {
+      validateCredentials(field, credentialsRef.current);
+    }, 300),
+    []
+  );
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -13,7 +30,13 @@ export const LoginPage = () => {
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setCredentials((prev) => ({ ...prev, [name]: value }));
+
+    debouncedValidation(name as keyof LoginSchema);
   };
+
+  useEffect(() => {
+    credentialsRef.current = credentials;
+  }, [credentials]);
 
   return (
     <div>

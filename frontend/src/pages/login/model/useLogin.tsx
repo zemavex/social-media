@@ -36,8 +36,26 @@ export const useLogin = () => {
     setErrors((prev) => ({ ...prev, ...newErrors }));
   };
 
-  const validateCredentials = (): boolean => {
-    const result = loginSchema.safeParse(credentials);
+  const validateCredentials = (
+    field?: keyof LoginSchema,
+    credentialsToValidate = credentials
+  ): boolean => {
+    if (!field) {
+      const result = loginSchema.safeParse(credentialsToValidate);
+      if (!result.success) {
+        setValidationErrors(result.error.issues);
+      }
+      return result.success;
+    }
+
+    setErrors((prev) => ({ ...prev, [field]: null }));
+
+    const fieldToPick = {} as { [K in keyof LoginSchema]: true };
+    fieldToPick[field] = true;
+
+    const result = loginSchema
+      .pick(fieldToPick)
+      .safeParse(credentialsToValidate);
 
     if (!result.success) {
       setValidationErrors(result.error.issues);
