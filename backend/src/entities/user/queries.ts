@@ -15,6 +15,14 @@ async function create(userData: {
   return res.rows[0];
 }
 
+async function createWithGithub(github_id: number): Promise<UserModel> {
+  const query = "INSERT INTO users (github_id) VALUES ($1) RETURNING *";
+  const values = [github_id];
+
+  const res = await pool.query(query, values);
+  return res.rows[0];
+}
+
 async function findById(userId: number): Promise<UserModel | null> {
   const query = "SELECT * FROM users WHERE id = $1";
   const values = [userId];
@@ -49,6 +57,7 @@ async function findRole(userId: number): Promise<UserRole | null> {
 
 export const User = {
   create,
+  createWithGithub,
   findById,
   findByEmail,
   findByGithubId,

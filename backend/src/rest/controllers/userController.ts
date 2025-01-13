@@ -12,14 +12,10 @@ const githubOAuth: RequestHandler = async (req, res, next) => {
   try {
     const code = z.string().parse(req.body.code);
 
-    const userInfo = await authService.githubOAuth(code);
+    const user = await authService.githubOAuth(code);
 
-    const foundUser = await User.findByGithubId(userInfo.id);
-    if (foundUser) console.log(foundUser);
-
-    // const user = await userLoginService(login, password);
-    // const session = await sessionCreateService(user.id);
-    // setSessionCookie(res, session.id);
+    const session = await sessionService.create(user.id);
+    setSessionCookie(res, session.id);
 
     res.json({ message: "github oauth test" });
   } catch (err) {

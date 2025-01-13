@@ -3,14 +3,14 @@ import bcrypt from "bcrypt";
 import { User, UserModel } from "entities/user";
 import { ConflictError, UnauthorizedError } from "errors";
 
-interface GithubUserInfo {
-  login: string;
+interface GithubUser {
   id: number;
-  avatar_url: string | null;
-  name: string | null;
+  login: string;
+  avatar_url?: string;
+  name?: string;
 }
 
-const githubOAuth = async (code: string): Promise<GithubUserInfo> => {
+const githubOAuth = async (code: string): Promise<UserModel> => {
   const {
     GITHUB_OAUTH_CLIENT_ID: client_id,
     GITHUB_OAUTH_CLIENT_SECRET: client_secret,
@@ -29,14 +29,19 @@ const githubOAuth = async (code: string): Promise<GithubUserInfo> => {
     }
   );
 
-  const userInfo = await axios.get<GithubUserInfo>(
+  const { data: githubUser } = await axios.get<GithubUser>(
     `https://api.github.com/user`,
     {
       headers: { Authorization: `Bearer ${oauthRes.data.access_token}` },
     }
   );
 
-  return userInfo.data;
+  let user = await User.findByGithubId(githubUser.id);
+  if (!user) {
+    user = await User.createWithGithub(githubUser.id);
+  }
+
+  return user;
 };
 
 async function register(email: string, password: string): Promise<UserModel> {
