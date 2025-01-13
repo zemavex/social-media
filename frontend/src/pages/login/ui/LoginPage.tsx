@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useCallback, useEffect, useRef } from "react";
 import { Link } from "react-router";
 import { LoginSchema } from "features/auth";
 import { debounce } from "shared/lib";
+import { githubOAuthClientID } from "shared/config";
 import { useLogin } from "../model/useLogin";
 
 export const LoginPage = () => {
@@ -32,6 +33,12 @@ export const LoginPage = () => {
     setCredentials((prev) => ({ ...prev, [name]: value }));
 
     debouncedValidation(name as keyof LoginSchema);
+  };
+
+  const loginWithGithub = () => {
+    window.location.assign(
+      `https://github.com/login/oauth/authorize?client_id=${githubOAuthClientID}`
+    );
   };
 
   useEffect(() => {
@@ -69,6 +76,7 @@ export const LoginPage = () => {
         </div>
         <button disabled={isPending}>login</button>
       </form>
+      <button onClick={loginWithGithub}>login with github</button>
       <p>
         {"Don't have account?"} <Link to={"/register"}>Register</Link>
       </p>

@@ -17,7 +17,7 @@ const githubOAuth: RequestHandler = async (req, res, next) => {
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
 
-    res.json({ message: "github oauth test" });
+    res.json({ message: "Github OAuth success", user });
   } catch (err) {
     next(err);
   }

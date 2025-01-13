@@ -6,8 +6,13 @@ export const authenticate = async (): Promise<AuthResponse> => {
   return res.data;
 };
 
-export const login = async (payload: LoginSchema): Promise<AuthResponse> => {
-  const res = await apiInstance.post<AuthResponse>("/users/login", payload);
+export const oauthGithub = async (payload: {
+  code: string;
+}): Promise<AuthResponse> => {
+  const res = await apiInstance.post<AuthResponse>(
+    "/users/oauth/github",
+    payload
+  );
   return res.data;
 };
 
@@ -19,4 +24,13 @@ export const register = async (
     payload
   );
   return res.data;
+};
+
+export const login = async (payload: LoginSchema): Promise<AuthResponse> => {
+  const res = await apiInstance.post<AuthResponse>("/users/login", payload);
+  return res.data;
+};
+
+export const logout = async (): Promise<void> => {
+  return apiInstance.post("/users/logout");
 };
