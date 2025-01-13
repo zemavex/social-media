@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
-import { CustomError } from "@/errors";
+import { CustomError } from "errors";
 
 export const errorMiddleware: ErrorRequestHandler = async (
   err,

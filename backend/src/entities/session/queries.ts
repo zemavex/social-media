@@ -1,11 +1,11 @@
-import { pool } from "..";
-import { SESSION_MAX_AGE_MS } from "@/rest/config/constants";
-import { SessionSchema } from "@/schemas/sessionSchema";
+import { pool } from "database";
+import { SESSION_MAX_AGE_MS } from "config/constants";
+import { SessionModel } from "./types";
 
-export async function dbSessionCreate(
+async function create(
   sessionId: string,
   userId: number
-): Promise<SessionSchema> {
+): Promise<SessionModel> {
   const sessionExpiresAt = new Date(Date.now() + SESSION_MAX_AGE_MS);
 
   const query =
@@ -16,7 +16,7 @@ export async function dbSessionCreate(
   return res.rows[0];
 }
 
-export async function dbSessionExtend(sessionId: string): Promise<void> {
+async function extend(sessionId: string): Promise<void> {
   const sessionExpiresAt = new Date(Date.now() + SESSION_MAX_AGE_MS);
 
   const query =
@@ -26,26 +26,32 @@ export async function dbSessionExtend(sessionId: string): Promise<void> {
   await pool.query(query, values);
 }
 
-export async function dbSessionDelete(sessionId: string): Promise<void> {
+async function deleteSession(sessionId: string): Promise<void> {
   const query = "DELETE FROM sessions WHERE id = $1";
   const values = [sessionId];
 
   await pool.query(query, values);
 }
 
-export async function dbSessionDeleteExpired(): Promise<number | null> {
+async function deleteExpired(): Promise<number | null> {
   const query = "DELETE FROM sessions WHERE expires_at < NOW()";
 
-  const result = await pool.query(query);
-  return result.rowCount;
+  const res = await pool.query(query);
+  return res.rowCount || null;
 }
 
-export async function dbSessionFindById(
-  sessionId: string
-): Promise<SessionSchema | null> {
+async function findById(sessionId: string): Promise<SessionModel | null> {
   const query = "SELECT * FROM sessions WHERE id = $1";
   const values = [sessionId];
 
   const res = await pool.query(query, values);
   return res.rows[0] || null;
 }
+
+export const Session = {
+  create,
+  extend,
+  delete: deleteSession,
+  deleteExpired,
+  findById,
+};

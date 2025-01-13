@@ -1,8 +1,6 @@
 import { RequestHandler } from "express";
-import { AuthError } from "@/errors/customErrors";
-import { UserRole } from "@/schemas/userSchema";
-import { dbUserFindRoleByUserId } from "@/database/queries/userQueries";
-import { ForbiddenError } from "@/errors";
+import { User, UserRole } from "entities/user";
+import { AuthError, ForbiddenError } from "errors";
 
 const roleHierarchy: { [key in UserRole]: number } = {
   user: 0,
@@ -16,7 +14,7 @@ export const checkRoleMiddleware = (minimumRole: UserRole): RequestHandler => {
     try {
       if (!req.session) throw AuthError;
 
-      const userRole = await dbUserFindRoleByUserId(req.session.userId);
+      const userRole = await User.findRole(req.session.userId);
       if (!userRole) throw new Error("User role not found");
 
       const hasAccess = roleHierarchy[userRole] >= roleHierarchy[minimumRole];

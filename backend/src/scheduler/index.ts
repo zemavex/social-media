@@ -1,9 +1,9 @@
 import { CronJob } from "cron";
-import { dbSessionDeleteExpired } from "@/database/queries/sessionQueries";
+import { Session } from "entities/session";
 
 const cleanExpiredSessions = async () => {
   try {
-    const count = await dbSessionDeleteExpired();
+    const count = await Session.deleteExpired();
     console.log(
       `CronJob finished. Count of deleted expired sessions: ${count || 0}`
     );

@@ -25,3 +25,5 @@ export class ConflictError extends CustomError {
     super(message, 409);
   }
 }
+
+export const AuthError = new UnauthorizedError("Authentication error");

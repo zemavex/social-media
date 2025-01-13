@@ -1,25 +1,20 @@
 import { Router } from "express";
-import {
-  userRegistrationController,
-  userLoginController,
-  userAuthController,
-  userLogoutController,
-  userTestController,
-} from "../controllers/userController";
-import { authMiddleware } from "../middlewares/authMiddleware";
-import { checkRoleMiddleware } from "../middlewares/checkRoleMiddleware";
+import { userController } from "rest/controllers/userController";
+import { middleware } from "rest/middlewares";
 
 const userRouter = Router();
 
-userRouter.post("/registration", userRegistrationController);
-userRouter.post("/login", userLoginController);
-userRouter.post("/auth", authMiddleware, userAuthController);
-userRouter.post("/logout", authMiddleware, userLogoutController);
+userRouter.post("/oauth/github", userController.githubOAuth);
+userRouter.post("/register", userController.register);
+userRouter.post("/login", userController.login);
+userRouter.post("/auth", middleware.auth, userController.auth);
+userRouter.post("/logout", middleware.auth, userController.logout);
+
 userRouter.get(
   "/test",
-  authMiddleware,
-  checkRoleMiddleware("admin"),
-  userTestController
+  middleware.auth,
+  middleware.checkRole("admin"),
+  userController.test
 );
 
 export { userRouter };
