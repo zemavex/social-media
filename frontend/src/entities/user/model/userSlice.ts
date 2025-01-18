@@ -1,34 +1,40 @@
-import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
-import { User } from "./user";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { User } from "./types";
 
-type NullableUser = {
-  [K in keyof User]: User[K] | null;
-};
-
-type UserState = NullableUser & {
-  isAuthenticated: boolean;
+type UserState = {
+  user: User;
+  authState: "idle" | "pending" | "authenticated" | "unauthenticated";
 };
 
 const initialState: UserState = {
-  id: null,
-  login: null,
-  role: null,
-  isAuthenticated: false,
+  user: {
+    id: -1,
+    username: undefined,
+    first_name: "",
+    last_name: undefined,
+    role: "user",
+  },
+  authState: "idle",
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<NullableUser>) {
-      Object.assign(state, action.payload);
+    authenticateUser(state, action: PayloadAction<User>) {
+      state.user = action.payload;
+      state.authState = "authenticated";
     },
-    setIsAuthenticated(state, action: PayloadAction<boolean>) {
-      state.isAuthenticated = action.payload;
+    setAuthState(state, action: PayloadAction<UserState["authState"]>) {
+      state.authState = action.payload;
+    },
+    unauthenticateUser(state) {
+      state.authState = "unauthenticated";
+      state.user = initialState.user;
     },
   },
 });
 
-export const { setUser, setIsAuthenticated } = userSlice.actions;
+export const { authenticateUser, setAuthState, unauthenticateUser } =
+  userSlice.actions;
 export const userReducer = userSlice.reducer;

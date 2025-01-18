@@ -1,25 +1,25 @@
 import { useState } from "react";
 import { isAxiosError } from "axios";
-import { register as registerRequest } from "features/auth";
-import { setIsAuthenticated, setUser } from "entities/user";
+import { apiRegister } from "features/auth";
+import { authenticateUser } from "entities/user";
 import { useAppDispatch } from "shared/lib";
 
 interface RegisterErrors {
   general?: string;
-  login?: string;
+  email?: string;
   password?: string;
 }
 
 interface RegisterAxiosErrorData {
   message: string;
   details?: {
-    path: ["login" | "password"];
+    path: ["email" | "password"];
     message: string;
   }[];
 }
 
 export const useRegister = () => {
-  const [registerData, setRegisterData] = useState({ login: "", password: "" });
+  const [registerData, setRegisterData] = useState({ email: "", password: "" });
   const [isPending, setIsPending] = useState(false);
   const [errors, setErrors] = useState<RegisterErrors | null>(null);
   const dispatch = useAppDispatch();
@@ -30,10 +30,9 @@ export const useRegister = () => {
     setErrors(null);
 
     try {
-      const res = await registerRequest(registerData);
+      const userData = await apiRegister(registerData);
 
-      dispatch(setUser(res.user));
-      dispatch(setIsAuthenticated(true));
+      dispatch(authenticateUser(userData));
     } catch (err) {
       console.error(err);
 

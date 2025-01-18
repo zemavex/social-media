@@ -1,12 +1,13 @@
+import { Provider } from "react-redux";
 import { AppRouter } from "./router";
-import { useAuthenticate } from "./model/useAuthenticate";
+import { store } from "./store";
 
 const App = () => {
-  const { isAuthenticating } = useAuthenticate();
-
-  if (isAuthenticating) return "loading...";
-
-  return <AppRouter />;
+  return (
+    <Provider store={store}>
+      <AppRouter />
+    </Provider>
+  );
 };
 
 export default App;

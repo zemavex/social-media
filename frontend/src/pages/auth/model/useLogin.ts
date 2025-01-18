@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { isAxiosError } from "axios";
 import { ZodIssue } from "zod";
-import { login as loginRequest, loginSchema, LoginSchema } from "features/auth";
-import { setIsAuthenticated, setUser } from "entities/user";
+import { apiLogin, loginSchema, type LoginSchema } from "features/auth";
+import { authenticateUser } from "entities/user";
 import { useAppDispatch } from "shared/lib";
 
 interface LoginErrors {
   general?: string;
-  login?: string;
+  email?: string;
   password?: string;
 }
 
@@ -18,7 +18,7 @@ interface LoginAxiosErrorData {
 
 export const useLogin = () => {
   const [credentials, setCredentials] = useState<LoginSchema>({
-    login: "",
+    email: "",
     password: "",
   });
   const [isPending, setIsPending] = useState(false);
@@ -76,10 +76,9 @@ export const useLogin = () => {
     }
 
     try {
-      const res = await loginRequest(credentials);
+      const userData = await apiLogin(credentials);
 
-      dispatch(setUser(res.user));
-      dispatch(setIsAuthenticated(true));
+      dispatch(authenticateUser(userData));
     } catch (err) {
       console.error(err);
 

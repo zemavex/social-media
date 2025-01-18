@@ -51,14 +51,14 @@ export const LoginPage = () => {
       {errors?.general && <p>{errors.general}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          {errors?.login && <p>{errors.login}</p>}
-          <label htmlFor="login-form__input-login">login</label>
+          {errors?.email && <p>{errors.email}</p>}
+          <label htmlFor="login-form__input-email">email</label>
           <input
-            style={{ outline: errors?.login ? "1px solid red" : "" }}
+            style={{ outline: errors?.email ? "1px solid red" : "" }}
             type="text"
-            name="login"
-            id="login-form__input-login"
-            value={credentials.login}
+            name="email"
+            id="login-form__input-email"
+            value={credentials.email}
             onChange={handleInputChange}
           />
         </div>
