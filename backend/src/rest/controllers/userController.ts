@@ -1,7 +1,12 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
 import { Session } from "entities/session";
-import { User, loginSchema, registrationSchema } from "entities/user";
+import {
+  User,
+  loginSchema,
+  registrationSchema,
+  toUserDTO,
+} from "entities/user";
 import { authService } from "services/authService";
 import { sessionService } from "services/sessionService";
 import { setSessionCookie } from "rest/helpers";
@@ -17,7 +22,7 @@ const githubOAuth: RequestHandler = async (req, res, next) => {
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
 
-    res.json({ message: "Github OAuth success", user });
+    res.json(toUserDTO(user));
   } catch (err) {
     next(err);
   }
@@ -32,7 +37,7 @@ const register: RequestHandler = async (req, res, next) => {
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
 
-    res.json({ message: "User created", user });
+    res.json(toUserDTO(user));
   } catch (err) {
     next(err);
   }
@@ -47,7 +52,7 @@ const login: RequestHandler = async (req, res, next) => {
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
 
-    res.json({ message: "Login successfully", user });
+    res.json(toUserDTO(user));
   } catch (err) {
     next(err);
   }
@@ -60,15 +65,7 @@ const auth: RequestHandler = async (req, res, next) => {
     const user = await User.findById(req.session.userId);
     if (!user) throw AuthError;
 
-    const response = {
-      message: "Successfully authenticated",
-      user: {
-        id: user.id,
-        role: user.role,
-      },
-    };
-
-    res.json(response);
+    res.json(toUserDTO(user));
   } catch (err) {
     next(err);
   }
