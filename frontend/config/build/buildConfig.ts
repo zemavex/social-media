@@ -15,6 +15,7 @@ export const buildConfig = (options: BuildOptions): Configuration => {
     },
     output: {
       path: options.paths.output,
+      publicPath: "/",
       filename: "[name].[contenthash].js",
       clean: true,
     },
