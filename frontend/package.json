@@ -4,7 +4,7 @@
   "scripts": {
     "build": "webpack --env production",
     "dev": "webpack serve --open",
-    "lint:ts": "eslint"
+    "lint:ts": "eslint & tsc --noEmit"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
