@@ -1,6 +1,12 @@
-import { ChangeEvent, FormEvent, useCallback, useEffect, useRef } from "react";
+import {
+  useRef,
+  useCallback,
+  type FormEvent,
+  type ChangeEvent,
+  useEffect,
+} from "react";
 import { Link } from "react-router";
-import { LoginSchema } from "features/auth";
+import type { LoginSchema } from "features/auth";
 import { debounce } from "shared/lib";
 import { githubOAuthClientID } from "shared/config";
 import { useLogin } from "../model/useLogin";

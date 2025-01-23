@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { isAxiosError } from "axios";
-import { ZodIssue } from "zod";
+import type { ZodIssue } from "zod";
 import { apiLogin, loginSchema, type LoginSchema } from "features/auth";
 import { authenticateUser } from "entities/user";
 import { useAppDispatch } from "shared/lib";

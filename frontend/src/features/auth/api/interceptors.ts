@@ -1,4 +1,4 @@
-import { AxiosError } from "axios";
+import type { AxiosError } from "axios";
 import { unauthenticateUser } from "entities/user";
 import { apiInstance } from "shared/api";
 

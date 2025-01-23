@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent } from "react";
+import type { FormEvent, ChangeEvent } from "react";
 import { Link } from "react-router";
 import { useRegister } from "../model/useRegister";
 
