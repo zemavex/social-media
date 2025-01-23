@@ -15,7 +15,7 @@ import { AuthError } from "errors";
 
 const githubOAuth: RequestHandler = async (req, res, next) => {
   try {
-    const code = z.string().parse(req.body.code);
+    const { code } = z.object({ code: z.string() }).parse(req.body);
 
     const user = await authService.githubOAuth(code);
 
@@ -84,7 +84,7 @@ const logout: RequestHandler = async (req, res, next) => {
   }
 };
 
-const test: RequestHandler = async (req, res, next) => {
+const test: RequestHandler = (req, res, next) => {
   try {
     if (!req.session) throw AuthError;
 

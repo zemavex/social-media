@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "build": "tsc && tsc-alias",
-    "dev": "concurrently \"tsc -w\" \"tsc-alias -w\" \"nodemon dist/index.js\"",
-    "lint:ts": "eslint",
+    "dev": "tsc && tsc-alias && (concurrently \"tsc -w\" \"tsc-alias -w\" \"nodemon ./dist/index.js\")",
+    "lint:ts": "eslint & tsc --noEmit",
     "createTables": "tsc && tsc-alias && node dist/database/scripts/createTables.js",
     "deleteTables": "tsc && tsc-alias && node dist/database/scripts/deleteTables.js"
   },

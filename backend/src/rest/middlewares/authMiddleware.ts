@@ -4,9 +4,15 @@ import { Session } from "entities/session";
 import { SESSION_ID_COOKIE_NAME } from "config/constants";
 import { AuthError } from "errors";
 
+const cookieSchema = z.object({
+  [SESSION_ID_COOKIE_NAME]: z.string(),
+});
+
 export const authMiddleware: RequestHandler = async (req, res, next) => {
   try {
-    const sessionId = z.string().parse(req.cookies[SESSION_ID_COOKIE_NAME]);
+    const { [SESSION_ID_COOKIE_NAME]: sessionId } = cookieSchema.parse(
+      req.cookies
+    );
 
     const foundSession = await Session.findById(sessionId);
     if (!foundSession) {

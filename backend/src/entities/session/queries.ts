@@ -12,7 +12,7 @@ async function create(
     "INSERT INTO sessions (id, user_id, expires_at) VALUES ($1, $2, $3) RETURNING *";
   const values = [sessionId, userId, sessionExpiresAt];
 
-  const res = await pool.query(query, values);
+  const res = await pool.query<SessionModel>(query, values);
   return res.rows[0];
 }
 
@@ -44,7 +44,7 @@ async function findById(sessionId: string): Promise<SessionModel | null> {
   const query = "SELECT * FROM sessions WHERE id = $1";
   const values = [sessionId];
 
-  const res = await pool.query(query, values);
+  const res = await pool.query<SessionModel>(query, values);
   return res.rows[0] || null;
 }
 

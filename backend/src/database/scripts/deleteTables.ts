@@ -28,4 +28,4 @@ const deleteTables = async () => {
   }
 };
 
-deleteTables();
+void deleteTables();

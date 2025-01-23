@@ -58,4 +58,4 @@ const createTables = async () => {
   }
 };
 
-createTables();
+void createTables();

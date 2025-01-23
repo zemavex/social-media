@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
 const server = createServer(app);
 
 initRestApi(app);
