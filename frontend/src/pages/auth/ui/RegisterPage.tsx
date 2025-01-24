@@ -1,19 +1,31 @@
-import type { FormEvent, ChangeEvent } from "react";
+import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
-import { useRegister } from "../model/useRegister";
+import { apiRegister, registerSchema } from "features/auth";
+import { useAuthForm } from "../model/useAuthForm";
 
 export const RegisterPage = () => {
-  const { registerData, setRegisterData, isPending, errors, register } =
-    useRegister();
+  const {
+    formData,
+    setFormData,
+    validateDebounced,
+    submitForm,
+    isPending,
+    errors,
+  } = useAuthForm({
+    apiCall: apiRegister,
+    validationSchema: registerSchema,
+    initialFormData: { email: "", password: "" },
+  });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    register();
+    submitForm();
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setRegisterData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    validateDebounced();
   };
 
   return (
@@ -29,7 +41,7 @@ export const RegisterPage = () => {
             type="text"
             name="email"
             id="login-form__input-email"
-            value={registerData.email}
+            value={formData.email}
             onChange={handleInputChange}
           />
         </div>
@@ -41,7 +53,7 @@ export const RegisterPage = () => {
             type="password"
             name="password"
             id="login-form__input-password"
-            value={registerData.password}
+            value={formData.password}
             onChange={handleInputChange}
           />
         </div>

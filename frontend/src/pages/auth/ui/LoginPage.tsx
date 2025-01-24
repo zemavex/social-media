@@ -1,44 +1,32 @@
-import {
-  useRef,
-  useCallback,
-  type FormEvent,
-  type ChangeEvent,
-  useEffect,
-} from "react";
+import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
-import type { LoginSchema } from "features/auth";
-import { debounce } from "shared/lib";
+import { apiLogin, loginSchema } from "features/auth";
 import { githubOAuthClientID } from "shared/config";
-import { useLogin } from "../model/useLogin";
+import { useAuthForm } from "../model/useAuthForm";
 
 export const LoginPage = () => {
   const {
-    credentials,
-    setCredentials,
-    validateCredentials,
+    formData,
+    setFormData,
+    validateDebounced,
+    submitForm,
     isPending,
     errors,
-    login,
-  } = useLogin();
-  const credentialsRef = useRef(credentials);
-
-  const debouncedValidation = useCallback(
-    debounce((field: keyof LoginSchema) => {
-      validateCredentials(field, credentialsRef.current);
-    }, 300),
-    []
-  );
+  } = useAuthForm({
+    apiCall: apiLogin,
+    validationSchema: loginSchema,
+    initialFormData: { email: "", password: "" },
+  });
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    login();
+    submitForm();
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setCredentials((prev) => ({ ...prev, [name]: value }));
-
-    debouncedValidation(name as keyof LoginSchema);
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    validateDebounced();
   };
 
   const loginWithGithub = () => {
@@ -46,10 +34,6 @@ export const LoginPage = () => {
       `https://github.com/login/oauth/authorize?client_id=${githubOAuthClientID}`
     );
   };
-
-  useEffect(() => {
-    credentialsRef.current = credentials;
-  }, [credentials]);
 
   return (
     <div>
@@ -64,7 +48,7 @@ export const LoginPage = () => {
             type="text"
             name="email"
             id="login-form__input-email"
-            value={credentials.email}
+            value={formData.email}
             onChange={handleInputChange}
           />
         </div>
@@ -76,7 +60,7 @@ export const LoginPage = () => {
             type="password"
             name="password"
             id="login-form__input-password"
-            value={credentials.password}
+            value={formData.password}
             onChange={handleInputChange}
           />
         </div>
