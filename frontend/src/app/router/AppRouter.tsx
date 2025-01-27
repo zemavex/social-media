@@ -1,8 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
-import { AuthPage, GithubOAuthPage, LoginPage, RegisterPage } from "pages/auth";
+import { AuthPage, OAuthPage, LoginPage, RegisterPage } from "pages/auth";
 import { HomePage } from "pages/home";
 import { selectAuthState } from "entities/user";
 import { useAppSelector } from "shared/lib";
+import { ROUTES } from "shared/config";
 
 export const AppRouter = () => {
   const authState = useAppSelector(selectAuthState);
@@ -12,23 +13,30 @@ export const AppRouter = () => {
   if (authState === "idle" || authState === "pending") {
     routes = (
       <>
-        <Route path="/oauth/github" element={<GithubOAuthPage />} />
+        <Route
+          path={ROUTES.GITHUB_AUTH}
+          element={<OAuthPage action="auth" />}
+        />
+        <Route
+          path={ROUTES.GITHUB_CONNECT}
+          element={<OAuthPage action="connect" />}
+        />
         <Route path="*" element={<AuthPage />} />
       </>
     );
   } else if (authState === "unauthenticated") {
     routes = (
       <>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="*" element={<Navigate to={"/login"} replace />} />
+        <Route path={ROUTES.LOGIN} element={<LoginPage />} />
+        <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
+        <Route path="*" element={<Navigate to={ROUTES.LOGIN} replace />} />
       </>
     );
   } else if (authState === "authenticated") {
     routes = (
       <>
-        <Route path="/" element={<HomePage />} />
-        <Route path="*" element={<Navigate to={"/"} replace />} />
+        <Route path={ROUTES.HOME} element={<HomePage />} />
+        <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
       </>
     );
   }

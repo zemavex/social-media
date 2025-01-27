@@ -1,7 +1,7 @@
 import axios from "axios";
-import { backendBaseUrl } from "shared/config";
+import { BACKEND_BASE_URL } from "shared/config";
 
 export const apiInstance = axios.create({
-  baseURL: backendBaseUrl,
+  baseURL: BACKEND_BASE_URL,
   withCredentials: true,
 });

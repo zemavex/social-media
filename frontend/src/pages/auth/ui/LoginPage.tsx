@@ -1,7 +1,7 @@
 import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
-import { apiLogin, loginSchema } from "features/auth";
-import { githubOAuthClientID } from "shared/config";
+import { apiLogin, loginSchema, startGithubOAuth } from "features/auth";
+import { ROUTES } from "shared/config";
 import { useAuthForm } from "../model/useAuthForm";
 
 export const LoginPage = () => {
@@ -29,10 +29,8 @@ export const LoginPage = () => {
     validateDebounced();
   };
 
-  const loginWithGithub = () => {
-    window.location.assign(
-      `https://github.com/login/oauth/authorize?client_id=${githubOAuthClientID}`
-    );
+  const handleGithubOAuth = () => {
+    startGithubOAuth(ROUTES.GITHUB_AUTH);
   };
 
   return (
@@ -66,7 +64,7 @@ export const LoginPage = () => {
         </div>
         <button disabled={isPending}>login</button>
       </form>
-      <button onClick={loginWithGithub}>login with github</button>
+      <button onClick={handleGithubOAuth}>continue with github</button>
       <p>
         {"Don't have account?"} <Link to={"/register"}>Register</Link>
       </p>

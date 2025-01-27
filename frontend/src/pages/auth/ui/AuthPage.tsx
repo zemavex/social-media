@@ -1,12 +1,12 @@
 import { useEffect } from "react";
-import { apiAuthenticate } from "features/auth";
-import { useAuthenticate } from "../model/useAuthenticate";
+import { authenticateThunk } from "features/auth";
+import { useAppDispatch } from "shared/lib";
 
 export const AuthPage = () => {
-  const { handleAuth } = useAuthenticate();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    handleAuth(apiAuthenticate);
+    dispatch(authenticateThunk());
   }, []);
 
   return <div>authenticating...</div>;

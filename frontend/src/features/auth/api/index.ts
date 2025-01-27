@@ -2,8 +2,15 @@ import type { User } from "entities/user";
 import { apiInstance } from "shared/api";
 import type { LoginSchema, RegisterSchema } from "../model/schemas";
 
-export const apiGithubOAuth = async (code: string): Promise<User> => {
-  const res = await apiInstance.post<User>("/users/oauth/github", {
+export const apiGithubAuth = async (code: string): Promise<User> => {
+  const res = await apiInstance.post<User>("/users/oauth/github/auth", {
+    code,
+  });
+  return res.data;
+};
+
+export const apiGithubConnect = async (code: string): Promise<User> => {
+  const res = await apiInstance.post<User>("/users/oauth/github/connect", {
     code,
   });
   return res.data;
