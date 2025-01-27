@@ -11,6 +11,7 @@ export const startGithubOAuth = (redirectUri: string) => {
 
   window.location.assign(
     "https://github.com/login/oauth/authorize?" +
+      `prompt=select_account&` +
       `client_id=${GITHUB_OAUTH_CLIENT_ID}&` +
       `redirect_uri=${window.location.origin}/${redirectUri}&` +
       `state=${csrfToken}`
