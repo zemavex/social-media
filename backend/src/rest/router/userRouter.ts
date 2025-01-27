@@ -4,7 +4,12 @@ import { middleware } from "rest/middlewares";
 
 const userRouter = Router();
 
-userRouter.post("/oauth/github", userController.githubOAuth);
+userRouter.post("/oauth/github/auth", userController.githubAuth);
+userRouter.post(
+  "/oauth/github/connect",
+  middleware.auth,
+  userController.githubConnect
+);
 userRouter.post("/register", userController.register);
 userRouter.post("/login", userController.login);
 userRouter.post("/auth", middleware.auth, userController.auth);

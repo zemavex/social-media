@@ -1,7 +1,7 @@
 import axios from "axios";
 import bcrypt from "bcrypt";
 import { User, UserModel } from "entities/user";
-import { ConflictError, UnauthorizedError } from "errors";
+import { AuthError, ConflictError, UnauthorizedError } from "errors";
 
 interface GithubUser {
   id: number;
@@ -10,7 +10,7 @@ interface GithubUser {
   name?: string;
 }
 
-const githubOAuth = async (code: string): Promise<UserModel> => {
+const getGithubUser = async (code: string): Promise<GithubUser> => {
   const {
     GITHUB_OAUTH_CLIENT_ID: client_id,
     GITHUB_OAUTH_CLIENT_SECRET: client_secret,
@@ -36,10 +36,30 @@ const githubOAuth = async (code: string): Promise<UserModel> => {
     }
   );
 
+  return githubUser;
+};
+
+const githubAuth = async (code: string): Promise<UserModel> => {
+  const githubUser = await getGithubUser(code);
+
   let user = await User.findByGithubId(githubUser.id);
   if (!user) {
     user = await User.createWithGithub(githubUser.id);
   }
+
+  return user;
+};
+
+const githubConnect = async (
+  userId: number,
+  code: string
+): Promise<UserModel> => {
+  const foundUser = await User.findById(userId);
+  if (!foundUser) throw AuthError;
+
+  const githubUser = await getGithubUser(code);
+
+  const user = await User.updateGithubId(githubUser.id, userId);
 
   return user;
 };
@@ -70,7 +90,8 @@ async function login(email: string, password: string): Promise<UserModel> {
 }
 
 export const authService = {
-  githubOAuth,
+  githubAuth,
+  githubConnect,
   register,
   login,
 };

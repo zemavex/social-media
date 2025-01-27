@@ -13,14 +13,27 @@ import { setSessionCookie } from "rest/helpers";
 import { SESSION_ID_COOKIE_NAME } from "config/constants";
 import { AuthError } from "errors";
 
-const githubOAuth: RequestHandler = async (req, res, next) => {
+const githubAuth: RequestHandler = async (req, res, next) => {
   try {
     const { code } = z.object({ code: z.string() }).parse(req.body);
 
-    const user = await authService.githubOAuth(code);
+    const user = await authService.githubAuth(code);
 
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
+
+    res.json(toUserDTO(user));
+  } catch (err) {
+    next(err);
+  }
+};
+
+const githubConnect: RequestHandler = async (req, res, next) => {
+  try {
+    if (!req.session) throw AuthError;
+    const { code } = z.object({ code: z.string() }).parse(req.body);
+
+    const user = await authService.githubConnect(req.session.userId, code);
 
     res.json(toUserDTO(user));
   } catch (err) {
@@ -95,7 +108,8 @@ const test: RequestHandler = (req, res, next) => {
 };
 
 export const userController = {
-  githubOAuth,
+  githubAuth,
+  githubConnect,
   register,
   login,
   auth,
