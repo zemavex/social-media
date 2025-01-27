@@ -1,4 +1,6 @@
 import type { FC } from "react";
+import { useNavigate } from "react-router";
+import { ROUTES } from "shared/config";
 import { useOAuthHandler } from "../model/useOAuthHandler";
 
 interface OAuthPageProps {
@@ -6,7 +8,20 @@ interface OAuthPageProps {
 }
 
 export const OAuthPage: FC<OAuthPageProps> = ({ action }) => {
-  useOAuthHandler(action);
+  const { error } = useOAuthHandler(action);
+  const navigate = useNavigate();
+
+  if (error) {
+    return (
+      <div>
+        <div>{`Error during Github ${
+          action === "auth" ? "authentication" : "connection"
+        }`}</div>
+        <div>{error}</div>
+        <button onClick={() => navigate(ROUTES.AUTH)}>Go back</button>
+      </div>
+    );
+  }
 
   if (action === "auth") {
     return <div>Github authorization...</div>;

@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import { useSearchParams, useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router";
 import {
   apiGithubAuth,
   apiGithubConnect,
@@ -7,23 +7,26 @@ import {
 } from "features/auth";
 import { setAuthState, authenticateUser, type User } from "entities/user";
 import { useAppDispatch } from "shared/lib";
-import { ROUTES } from "shared/config";
 
 export const useOAuthHandler = (action: "auth" | "connect") => {
+  const [error, setError] = useState<string | null>(null);
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    const defaultError = "An unexpected error occurred.";
+
     const state = searchParams.get("state");
-    if (state !== localStorage.getItem(GITHUB_OAUTH_CSRF_TOKEN)) {
-      // TODO
+    const storedState = localStorage.getItem(GITHUB_OAUTH_CSRF_TOKEN);
+    localStorage.removeItem(GITHUB_OAUTH_CSRF_TOKEN);
+    if (!state || state !== storedState) {
+      setError(defaultError);
+      return;
     }
 
     const code = searchParams.get("code");
-
     if (!code) {
-      navigate(ROUTES.AUTH);
+      setError(defaultError);
       return;
     }
 
@@ -35,7 +38,7 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
       } catch (err) {
         console.error(err);
         dispatch(setAuthState("idle"));
-        navigate(ROUTES.AUTH);
+        setError(defaultError);
       }
     };
 
@@ -45,4 +48,8 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
       handleOAuth(() => apiGithubConnect(code));
     }
   }, []);
+
+  return {
+    error,
+  };
 };
