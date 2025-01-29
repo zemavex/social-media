@@ -2,7 +2,12 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { isAxiosError } from "axios";
 import type { ZodIssue, ZodType } from "zod";
 import { authenticateUser, type User } from "entities/user";
-import { debounce, useAppDispatch } from "shared/lib";
+import {
+  debounce,
+  useAppDispatch,
+  formatZodIssues,
+  type FormattedZodIssues,
+} from "shared/lib";
 
 interface UseAuthFormOptions<Payload> {
   apiCall: (payload: Payload) => Promise<User>;
@@ -10,7 +15,10 @@ interface UseAuthFormOptions<Payload> {
   initialFormData: Payload;
 }
 
-type FormErrors<Payload> = { [K in keyof Payload | "general"]?: string };
+interface FormErrors<Keys extends string> {
+  general?: string;
+  fields?: FormattedZodIssues<Keys>;
+}
 
 interface AxiosErrorData {
   message: string;
@@ -24,20 +32,16 @@ export const useAuthForm = <Payload extends Record<string, unknown>>({
 }: UseAuthFormOptions<Payload>) => {
   const [formData, setFormData] = useState<Payload>(initialFormData);
   const [isPending, setIsPending] = useState(false);
-  const [errors, setErrors] = useState<FormErrors<Payload>>({});
+  const [errors, setErrors] = useState<FormErrors<keyof Payload & string>>({});
   const formDataRef = useRef(formData);
   const hasSubmitted = useRef(false);
   const dispatch = useAppDispatch();
 
-  const setValidationErrors = (details: ZodIssue[]) => {
-    const newErrors: FormErrors<Payload> = {};
-
-    details.forEach((e) => {
-      const path = e.path[0] as keyof Payload;
-      newErrors[path] = e.message;
-    });
-
-    setErrors((prev) => ({ ...prev, ...newErrors }));
+  const setValidationErrors = (issues: ZodIssue[]) => {
+    setErrors((prev) => ({
+      ...prev,
+      fields: formatZodIssues(issues),
+    }));
   };
 
   const validate = (dataToValidate = formData): boolean => {
@@ -102,7 +106,6 @@ export const useAuthForm = <Payload extends Record<string, unknown>>({
   return {
     formData,
     setFormData,
-    /** Validate only if sumbitted at least once */
     validateDebounced,
     submitForm,
     isPending,

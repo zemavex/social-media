@@ -46,10 +46,10 @@ export const LoginPage = () => {
       {errors?.general && <p>{errors.general}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          {errors?.email && <p>{errors.email}</p>}
+          {errors.fields?.email && <p>{errors.fields.email.code}</p>}
           <label htmlFor="login-form__input-email">email</label>
           <input
-            style={{ outline: errors?.email ? "1px solid red" : "" }}
+            style={{ outline: errors.fields?.email ? "1px solid red" : "" }}
             type="text"
             name="email"
             id="login-form__input-email"
@@ -58,10 +58,10 @@ export const LoginPage = () => {
           />
         </div>
         <div>
-          {errors?.password && <p>{errors.password}</p>}
+          {errors.fields?.password && <p>{errors.fields.password.code}</p>}
           <label htmlFor="login-form__input-password">password</label>
           <input
-            style={{ outline: errors?.password ? "1px solid red" : "" }}
+            style={{ outline: errors.fields?.password ? "1px solid red" : "" }}
             type="password"
             name="password"
             id="login-form__input-password"
