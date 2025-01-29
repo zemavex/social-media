@@ -1,5 +1,6 @@
 import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { apiLogin, loginSchema, startGithubOAuth } from "features/auth";
 import { ROUTES } from "shared/config";
 import { useAuthForm } from "../model/useAuthForm";
@@ -17,6 +18,11 @@ export const LoginPage = () => {
     validationSchema: loginSchema,
     initialFormData: { email: "", password: "" },
   });
+  const { t, i18n } = useTranslation();
+
+  const handleChangeLang = () => {
+    i18n.changeLanguage(i18n.language === "ru" ? "en" : "ru");
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -35,7 +41,8 @@ export const LoginPage = () => {
 
   return (
     <div>
-      <h1>Login</h1>
+      <button onClick={handleChangeLang}>{t("current_language")}</button>
+      <h1>{t("login")}</h1>
       {errors?.general && <p>{errors.general}</p>}
       <form onSubmit={handleSubmit}>
         <div>
