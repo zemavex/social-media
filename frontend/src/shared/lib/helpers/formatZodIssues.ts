@@ -13,14 +13,15 @@ export const formatZodIssues = <Keys extends string>(
       case ZodIssueCode.invalid_string:
         formattedIssues[path] = {
           code: i.code,
+          path,
           validation: i.validation,
         };
         break;
       case ZodIssueCode.too_small:
-        formattedIssues[path] = { code: i.code, minimum: i.minimum };
+        formattedIssues[path] = { code: i.code, path, min: i.minimum };
         break;
       case ZodIssueCode.too_big:
-        formattedIssues[path] = { code: i.code, maximum: i.maximum };
+        formattedIssues[path] = { code: i.code, path, max: i.maximum };
         break;
     }
   });

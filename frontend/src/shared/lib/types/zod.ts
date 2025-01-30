@@ -2,17 +2,20 @@ import { ZodIssueCode, type StringValidation } from "zod";
 
 interface InvalidStringIssue {
   code: typeof ZodIssueCode.invalid_string;
+  path: string;
   validation: StringValidation;
 }
 
 interface TooSmallIssue {
   code: typeof ZodIssueCode.too_small;
-  minimum: number | bigint;
+  path: string;
+  min: number | bigint;
 }
 
 interface TooBigIssue {
   code: typeof ZodIssueCode.too_big;
-  maximum: number | bigint;
+  path: string;
+  max: number | bigint;
 }
 
 export type SingleZodIssue = InvalidStringIssue | TooSmallIssue | TooBigIssue;

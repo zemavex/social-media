@@ -1,4 +1,13 @@
 {
+  "current_language": "English",
   "login": "Login",
-  "current_language": "English"
+  "email": "Email",
+  "password": "Password",
+  "error": {
+    "validation": {
+      "invalid_string": "$t({{field}}) is invalid",
+      "too_small": "$t({{field}}) is too short. Minimum length: {{min}}",
+      "too_big": "$t({{field}}) is too long. Maximum length: {{max}}"
+    }
+  }
 }

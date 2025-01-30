@@ -2,6 +2,7 @@ import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { apiLogin, loginSchema, startGithubOAuth } from "features/auth";
+import { useErrorTranslate } from "shared/lib";
 import { ROUTES } from "shared/config";
 import { useAuthForm } from "../model/useAuthForm";
 
@@ -18,6 +19,7 @@ export const LoginPage = () => {
     validationSchema: loginSchema,
     initialFormData: { email: "", password: "" },
   });
+  const { tZodIssue } = useErrorTranslate();
   const { t, i18n } = useTranslation();
 
   const handleChangeLang = () => {
@@ -46,7 +48,7 @@ export const LoginPage = () => {
       {errors?.general && <p>{errors.general}</p>}
       <form onSubmit={handleSubmit}>
         <div>
-          {errors.fields?.email && <p>{errors.fields.email.code}</p>}
+          {errors.fields?.email && <p>{tZodIssue(errors.fields.email)}</p>}
           <label htmlFor="login-form__input-email">email</label>
           <input
             style={{ outline: errors.fields?.email ? "1px solid red" : "" }}
@@ -58,7 +60,9 @@ export const LoginPage = () => {
           />
         </div>
         <div>
-          {errors.fields?.password && <p>{errors.fields.password.code}</p>}
+          {errors.fields?.password && (
+            <p>{tZodIssue(errors.fields.password)}</p>
+          )}
           <label htmlFor="login-form__input-password">password</label>
           <input
             style={{ outline: errors.fields?.password ? "1px solid red" : "" }}

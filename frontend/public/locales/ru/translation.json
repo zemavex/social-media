@@ -1,4 +1,13 @@
 {
+  "current_language": "Русский",
   "login": "Вход",
-  "current_language": "Русский"
+  "email": "Почта",
+  "password": "Пароль",
+  "error": {
+    "validation": {
+      "invalid_string": "Поле $t({{field}}) введено некорректно",
+      "too_small": "Поле $t({{field}}) слишком короткое. Минимальная длина: {{min}}",
+      "too_big": "Поле $t({{field}}) слишком длинное. Максимальная длина: {{max}}"
+    }
+  }
 }
