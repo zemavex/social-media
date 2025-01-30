@@ -11,7 +11,7 @@ import { authService } from "services/authService";
 import { sessionService } from "services/sessionService";
 import { setSessionCookie } from "rest/helpers";
 import { SESSION_ID_COOKIE_NAME } from "config/constants";
-import { AuthError } from "errors";
+import { UnauthorizedError } from "errors";
 
 const githubAuth: RequestHandler = async (req, res, next) => {
   try {
@@ -30,7 +30,7 @@ const githubAuth: RequestHandler = async (req, res, next) => {
 
 const githubConnect: RequestHandler = async (req, res, next) => {
   try {
-    if (!req.session) throw AuthError;
+    if (!req.session) throw new UnauthorizedError();
     const { code } = z.object({ code: z.string() }).parse(req.body);
 
     const user = await authService.githubConnect(req.session.userId, code);
@@ -73,10 +73,10 @@ const login: RequestHandler = async (req, res, next) => {
 
 const auth: RequestHandler = async (req, res, next) => {
   try {
-    if (!req.session) throw AuthError;
+    if (!req.session) throw new UnauthorizedError();
 
     const user = await User.findById(req.session.userId);
-    if (!user) throw AuthError;
+    if (!user) throw new UnauthorizedError();
 
     res.json(toUserDTO(user));
   } catch (err) {
@@ -86,7 +86,7 @@ const auth: RequestHandler = async (req, res, next) => {
 
 const logout: RequestHandler = async (req, res, next) => {
   try {
-    if (!req.session) throw AuthError;
+    if (!req.session) throw new UnauthorizedError();
 
     res.clearCookie(SESSION_ID_COOKIE_NAME);
     await Session.delete(req.session.id);
@@ -99,7 +99,7 @@ const logout: RequestHandler = async (req, res, next) => {
 
 const test: RequestHandler = (req, res, next) => {
   try {
-    if (!req.session) throw AuthError;
+    if (!req.session) throw new UnauthorizedError();
 
     res.json({ message: "Secret route" });
   } catch (err) {

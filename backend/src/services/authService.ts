@@ -1,7 +1,12 @@
 import axios from "axios";
 import bcrypt from "bcrypt";
 import { User, UserModel } from "entities/user";
-import { AuthError, ConflictError, UnauthorizedError } from "errors";
+import {
+  BadRequestError,
+  ConflictError,
+  UnauthorizedError,
+  ERROR_CODES,
+} from "errors";
 
 interface GithubUser {
   id: number;
@@ -55,7 +60,7 @@ const githubConnect = async (
   code: string
 ): Promise<UserModel> => {
   const foundUser = await User.findById(userId);
-  if (!foundUser) throw AuthError;
+  if (!foundUser) throw new UnauthorizedError();
 
   const githubUser = await getGithubUser(code);
 
@@ -66,8 +71,7 @@ const githubConnect = async (
 
 async function register(email: string, password: string): Promise<UserModel> {
   const foundUser = await User.findByEmail(email);
-  if (foundUser)
-    throw new ConflictError(`User with email "${email}" already exists`);
+  if (foundUser) throw new ConflictError(ERROR_CODES.EMAIL_ALREADY_USED);
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -77,7 +81,7 @@ async function register(email: string, password: string): Promise<UserModel> {
 }
 
 async function login(email: string, password: string): Promise<UserModel> {
-  const LoginError = new UnauthorizedError("Invalid email or password");
+  const LoginError = new BadRequestError(ERROR_CODES.INVALID_CREDENTIALS);
 
   const foundUser = await User.findByEmail(email);
   if (!foundUser) throw LoginError;

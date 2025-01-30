@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { User, UserRole } from "entities/user";
-import { AuthError, ForbiddenError } from "errors";
+import { ForbiddenError, UnauthorizedError } from "errors";
 
 const roleHierarchy: { [key in UserRole]: number } = {
   user: 0,
@@ -12,16 +12,13 @@ const roleHierarchy: { [key in UserRole]: number } = {
 export const checkRoleMiddleware = (minimumRole: UserRole): RequestHandler => {
   return async (req, res, next) => {
     try {
-      if (!req.session) throw AuthError;
+      if (!req.session) throw new UnauthorizedError();
 
       const userRole = await User.findRole(req.session.userId);
       if (!userRole) throw new Error("User role not found");
 
       const hasAccess = roleHierarchy[userRole] >= roleHierarchy[minimumRole];
-      if (!hasAccess)
-        throw new ForbiddenError(
-          "You don't have permission to access this resource"
-        );
+      if (!hasAccess) throw new ForbiddenError();
 
       next();
     } catch (err) {

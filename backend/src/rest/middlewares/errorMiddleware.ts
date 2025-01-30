@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
-import { CustomError } from "errors";
+import { CustomError, ERROR_CODES } from "errors";
 
 export const errorMiddleware: ErrorRequestHandler = (
   err: Error,
@@ -9,17 +9,31 @@ export const errorMiddleware: ErrorRequestHandler = (
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next
 ) => {
+  console.error(`\n[${req.method}] ${req.url}`);
   console.error(err.stack);
 
-  if (err instanceof ZodError) {
-    res.status(400).json({ message: "Validation failed", details: err.errors });
-    return;
-  }
+  if (res.headersSent) return;
 
-  if (err instanceof CustomError) {
-    res.status(err.statusCode).json({ message: err.message });
-    return;
-  }
+  try {
+    if (err instanceof ZodError) {
+      res
+        .status(400)
+        .json({ code: ERROR_CODES.VALIDATION_FAILED, issues: err.issues });
+      return;
+    }
 
-  res.status(500).json({ message: "Unknown error" });
+    if (err instanceof CustomError) {
+      res.status(err.status).json({ code: err.code });
+      return;
+    }
+
+    res.status(500).json({ code: ERROR_CODES.UNKNOWN_ERROR });
+  } catch (error) {
+    console.error("\nError during error handling");
+    console.error(error);
+
+    if (res.headersSent) return;
+
+    res.status(500).json({ code: ERROR_CODES.UNKNOWN_ERROR });
+  }
 };
