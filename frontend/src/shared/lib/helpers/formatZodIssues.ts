@@ -1,24 +1,5 @@
-import { ZodIssueCode, type StringValidation, type ZodIssue } from "zod";
-
-interface InvalidStringIssue {
-  code: (typeof ZodIssueCode)["invalid_string"];
-  validation: StringValidation;
-}
-
-interface TooSmallIssue {
-  code: (typeof ZodIssueCode)["too_small"];
-  minimum: number | bigint;
-}
-
-interface TooBigIssue {
-  code: (typeof ZodIssueCode)["too_big"];
-  maximum: number | bigint;
-}
-
-export type FormattedZodIssues<Keys extends string> = Record<
-  Keys,
-  InvalidStringIssue | TooSmallIssue | TooBigIssue
->;
+import { ZodIssueCode, type ZodIssue } from "zod";
+import type { FormattedZodIssues } from "shared/lib";
 
 export const formatZodIssues = <Keys extends string>(
   issues: ZodIssue[]

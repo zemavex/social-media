@@ -1,8 +1,7 @@
 export { useAppDispatch, useAppSelector } from "./store/redux";
 
-export {
-  formatZodIssues,
-  type FormattedZodIssues,
-} from "./helpers/formatZodIssues";
+export { formatZodIssues } from "./helpers/formatZodIssues";
 
 export { debounce } from "./utils/debounce";
+
+export * from "./types/zod";
