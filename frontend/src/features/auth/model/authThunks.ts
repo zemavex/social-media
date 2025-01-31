@@ -1,7 +1,7 @@
 import { authenticateUser, setAuthState } from "entities/user";
 import { apiAuthenticate } from "../api";
 
-export const authenticateThunk = () => async (dispatch: AppDispatchGlobal) => {
+export const authenticateThunk = () => async (dispatch: AppDispatch) => {
   dispatch(setAuthState("pending"));
 
   try {

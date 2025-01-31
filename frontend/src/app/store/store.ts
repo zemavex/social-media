@@ -10,5 +10,7 @@ export const store = configureStore({
 
 setupAuthApiInterceptors(store.dispatch);
 
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
+declare global {
+  type RootState = ReturnType<typeof store.getState>;
+  type AppDispatch = typeof store.dispatch;
+}

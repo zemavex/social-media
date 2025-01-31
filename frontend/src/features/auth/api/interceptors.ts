@@ -1,8 +1,9 @@
 import type { AxiosError } from "axios";
+
 import { unauthenticateUser } from "entities/user";
 import { apiInstance } from "shared/api";
 
-export const setupAuthApiInterceptors = (dispatch: AppDispatchGlobal) => {
+export const setupAuthApiInterceptors = (dispatch: AppDispatch) => {
   apiInstance.interceptors.response.use(
     (res) => res,
     (error: AxiosError) => {
