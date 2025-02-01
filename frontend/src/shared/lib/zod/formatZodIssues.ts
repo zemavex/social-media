@@ -1,5 +1,5 @@
 import { ZodIssueCode, type ZodIssue } from "zod";
-import type { FormattedZodIssues } from "shared/lib";
+import type { FormattedZodIssues } from "./types";
 
 export const formatZodIssues = <Keys extends string>(
   issues: ZodIssue[]

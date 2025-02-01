@@ -2,7 +2,7 @@ import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { apiLogin, loginSchema, startGithubOAuth } from "features/auth";
-import { useErrorTranslate } from "shared/lib";
+import { useZodIssueTranslation } from "shared/lib/zod";
 import { ROUTES } from "shared/config";
 import { useAuthForm } from "../model/useAuthForm";
 
@@ -19,7 +19,7 @@ export const LoginPage = () => {
     validationSchema: loginSchema,
     initialFormData: { email: "", password: "" },
   });
-  const { tZodIssue } = useErrorTranslate();
+  const { tZodIssue } = useZodIssueTranslation();
   const { t, i18n } = useTranslation();
 
   const handleChangeLang = () => {

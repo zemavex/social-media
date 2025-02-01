@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
-import type { SingleZodIssue } from "shared/lib";
 import { ZodIssueCode } from "zod";
+import type { SingleZodIssue } from "./types";
 
-export const useErrorTranslate = () => {
+export const useZodIssueTranslation = () => {
   const { t } = useTranslation();
 
   const tZodIssue = (issue: SingleZodIssue) => {

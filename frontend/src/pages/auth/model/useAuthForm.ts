@@ -2,12 +2,8 @@ import { useState, useRef, useCallback, useEffect } from "react";
 import { isAxiosError } from "axios";
 import type { ZodIssue, ZodType } from "zod";
 import { authenticateUser, type User } from "entities/user";
-import {
-  debounce,
-  useAppDispatch,
-  formatZodIssues,
-  type FormattedZodIssues,
-} from "shared/lib";
+import { formatZodIssues, type FormattedZodIssues } from "shared/lib/zod";
+import { debounce, useAppDispatch } from "shared/lib";
 
 interface UseAuthFormOptions<Payload> {
   apiCall: (payload: Payload) => Promise<User>;
