@@ -6,27 +6,27 @@ import {
   GITHUB_OAUTH_CSRF_TOKEN,
 } from "features/auth";
 import { setAuthState, authenticateUser, type User } from "entities/user";
+import { isAxiosError } from "shared/api";
 import { useAppDispatch } from "shared/lib/redux";
+import type { TranslateErrorOptions } from "shared/lib/hooks";
 
 export const useOAuthHandler = (action: "auth" | "connect") => {
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<TranslateErrorOptions | null>(null);
   const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const defaultError = "An unexpected error occurred.";
-
     const state = searchParams.get("state");
     const storedState = localStorage.getItem(GITHUB_OAUTH_CSRF_TOKEN);
     localStorage.removeItem(GITHUB_OAUTH_CSRF_TOKEN);
     if (!state || state !== storedState) {
-      setError(defaultError);
+      setError({ scope: "general", code: "unknown_error" });
       return;
     }
 
     const code = searchParams.get("code");
     if (!code) {
-      setError(defaultError);
+      setError({ scope: "general", code: "unknown_error" });
       return;
     }
 
@@ -36,9 +36,12 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
         const userData = await apiCall();
         dispatch(authenticateUser(userData));
       } catch (err) {
-        console.error(err);
+        if (!isAxiosError(err) || !err.response) {
+          setError({ scope: "general", code: "unknown_error" });
+        } else {
+          setError({ scope: "api", code: err.response.data.code });
+        }
         dispatch(setAuthState("idle"));
-        setError(defaultError);
       }
     };
 

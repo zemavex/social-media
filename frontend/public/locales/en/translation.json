@@ -4,8 +4,10 @@
   "email": "Email",
   "password": "Password",
   "error": {
-    "code": {
-      "unknown_error": "Unknown error",
+    "general": {
+      "unknown_error": "Something went wrong. Please try again."
+    },
+    "api": {
       "forbidden_error": "Access denied",
       "auth_error": "Authentication failed",
       "validation_failed": "Validation failed",
@@ -13,7 +15,6 @@
       "invalid_credentials": "Invalid credentials"
     },
     "validation": {
-      "unknown_error": "Unknown error",
       "invalid_string": "$t({{field}}) is invalid",
       "too_small": "$t({{field}}) is too short. Minimum length: {{min}}",
       "too_big": "$t({{field}}) is too long. Maximum length: {{max}}"

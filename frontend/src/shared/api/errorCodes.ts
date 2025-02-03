@@ -1,4 +1,4 @@
-export const ERROR_CODES = {
+export const API_ERROR_CODES = {
   UNKNOWN_ERROR: "unknown_error",
   FORBIDDEN_ERROR: "forbidden_error",
   AUTH_ERROR: "auth_error",
@@ -7,4 +7,5 @@ export const ERROR_CODES = {
   INVALID_CREDENTIALS: "invalid_credentials",
 } as const;
 
-export type ErrorCode = (typeof ERROR_CODES)[keyof typeof ERROR_CODES];
+export type ApiErrorCode =
+  (typeof API_ERROR_CODES)[keyof typeof API_ERROR_CODES];

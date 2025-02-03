@@ -1,8 +1,7 @@
 import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
 import { apiRegister, registerSchema } from "features/auth";
-import { useErrorCodeTranslation } from "shared/api";
-import { useZodIssueTranslation } from "shared/lib/zod";
+import { useErrorTranslation } from "shared/lib/hooks";
 import { useAuthForm } from "../model/useAuthForm";
 
 export const RegisterPage = () => {
@@ -18,8 +17,7 @@ export const RegisterPage = () => {
     validationSchema: registerSchema,
     initialFormData: { email: "", password: "" },
   });
-  const { tErrorCode } = useErrorCodeTranslation();
-  const { tZodIssue } = useZodIssueTranslation();
+  const { translateError } = useErrorTranslation();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -35,10 +33,19 @@ export const RegisterPage = () => {
   return (
     <div>
       <h1>Register</h1>
-      {errors?.general && <p>{tErrorCode(errors.general)}</p>}
+      {errors?.general && (
+        <p>{translateError({ scope: "api", code: errors.general })}</p>
+      )}
       <form onSubmit={handleSubmit}>
         <div>
-          {errors.fields?.email && <p>{tZodIssue(errors.fields.email)}</p>}
+          {errors.fields?.email && (
+            <p>
+              {translateError({
+                scope: "validation",
+                issue: errors.fields.email,
+              })}
+            </p>
+          )}
           <label htmlFor="login-form__input-email">email</label>
           <input
             style={{ outline: errors.fields?.email ? "1px solid red" : "" }}
@@ -51,7 +58,12 @@ export const RegisterPage = () => {
         </div>
         <div>
           {errors.fields?.password && (
-            <p>{tZodIssue(errors.fields.password)}</p>
+            <p>
+              {translateError({
+                scope: "validation",
+                issue: errors.fields.password,
+              })}
+            </p>
           )}
           <label htmlFor="login-form__input-password">password</label>
           <input

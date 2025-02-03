@@ -2,6 +2,7 @@ import type { FC } from "react";
 import { useNavigate } from "react-router";
 import { ROUTES } from "shared/config";
 import { useOAuthHandler } from "../model/useOAuthHandler";
+import { useErrorTranslation } from "shared/lib/hooks";
 
 interface OAuthPageProps {
   action: "auth" | "connect";
@@ -9,6 +10,7 @@ interface OAuthPageProps {
 
 export const OAuthPage: FC<OAuthPageProps> = ({ action }) => {
   const { error } = useOAuthHandler(action);
+  const { translateError } = useErrorTranslation();
   const navigate = useNavigate();
 
   if (error) {
@@ -17,7 +19,7 @@ export const OAuthPage: FC<OAuthPageProps> = ({ action }) => {
         <div>{`Error during Github ${
           action === "auth" ? "authentication" : "connection"
         }`}</div>
-        <div>{error}</div>
+        <div>{translateError(error)}</div>
         <button onClick={() => navigate(ROUTES.AUTH)}>Go back</button>
       </div>
     );

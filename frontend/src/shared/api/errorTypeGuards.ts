@@ -1,13 +1,13 @@
 import axios, { type AxiosError } from "axios";
 import type { ZodIssue } from "zod";
-import { ERROR_CODES, type ErrorCode } from "./errorCodes";
+import { API_ERROR_CODES, type ApiErrorCode } from "./errorCodes";
 
 interface BaseApiErrorData {
-  code: ErrorCode;
+  code: ApiErrorCode;
 }
 
 interface ValidationFailedError {
-  code: typeof ERROR_CODES.VALIDATION_FAILED;
+  code: typeof API_ERROR_CODES.VALIDATION_FAILED;
   issues: ZodIssue[];
 }
 
@@ -20,5 +20,5 @@ export const isAxiosError = (
 export const isValidationFailed = (
   error: AxiosError<BaseApiErrorData>
 ): error is AxiosError<ValidationFailedError> => {
-  return error.response?.data.code === ERROR_CODES.VALIDATION_FAILED;
+  return error.response?.data.code === API_ERROR_CODES.VALIDATION_FAILED;
 };

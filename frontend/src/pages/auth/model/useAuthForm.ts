@@ -4,8 +4,8 @@ import { authenticateUser, type User } from "entities/user";
 import {
   isAxiosError,
   isValidationFailed,
-  ERROR_CODES,
-  type ErrorCode,
+  API_ERROR_CODES,
+  type ApiErrorCode,
 } from "shared/api";
 import { formatZodIssues, type FormattedZodIssues } from "shared/lib/zod";
 import { useAppDispatch } from "shared/lib/redux";
@@ -18,7 +18,7 @@ interface UseAuthFormOptions<Payload> {
 }
 
 interface FormErrors<Keys extends string> {
-  general?: ErrorCode;
+  general?: ApiErrorCode;
   fields?: FormattedZodIssues<Keys>;
 }
 
@@ -77,7 +77,7 @@ export const useAuthForm = <Payload extends Record<string, unknown>>({
       dispatch(authenticateUser(userData));
     } catch (err) {
       if (!isAxiosError(err) || !err.response) {
-        setErrors({ general: ERROR_CODES.UNKNOWN_ERROR });
+        setErrors({ general: API_ERROR_CODES.UNKNOWN_ERROR });
         return;
       }
 
