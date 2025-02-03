@@ -1,7 +1,12 @@
 import { useState, useRef, useCallback, useEffect } from "react";
-import { isAxiosError } from "axios";
 import type { ZodIssue, ZodType } from "zod";
 import { authenticateUser, type User } from "entities/user";
+import {
+  isAxiosError,
+  isValidationFailed,
+  ERROR_CODES,
+  type ErrorCode,
+} from "shared/api";
 import { formatZodIssues, type FormattedZodIssues } from "shared/lib/zod";
 import { useAppDispatch } from "shared/lib/redux";
 import { debounce } from "shared/lib/utils";
@@ -13,13 +18,8 @@ interface UseAuthFormOptions<Payload> {
 }
 
 interface FormErrors<Keys extends string> {
-  general?: string;
+  general?: ErrorCode;
   fields?: FormattedZodIssues<Keys>;
-}
-
-interface AxiosErrorData {
-  message: string;
-  details?: ZodIssue[];
 }
 
 export const useAuthForm = <Payload extends Record<string, unknown>>({
@@ -76,21 +76,17 @@ export const useAuthForm = <Payload extends Record<string, unknown>>({
       const userData = await apiCall(formData);
       dispatch(authenticateUser(userData));
     } catch (err) {
-      console.error(err);
-
       if (!isAxiosError(err) || !err.response) {
-        setErrors({ general: "Unknown error occured" });
+        setErrors({ general: ERROR_CODES.UNKNOWN_ERROR });
         return;
       }
 
-      const error = err.response.data as AxiosErrorData;
-
-      if (!error.details) {
-        setErrors({ general: error.message });
+      if (!isValidationFailed(err)) {
+        setErrors({ general: err.response.data.code });
         return;
       }
 
-      setValidationErrors(error.details);
+      setValidationErrors(err.response.data.issues);
     } finally {
       setIsPending(false);
     }
