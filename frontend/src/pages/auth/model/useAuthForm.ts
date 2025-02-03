@@ -3,7 +3,8 @@ import { isAxiosError } from "axios";
 import type { ZodIssue, ZodType } from "zod";
 import { authenticateUser, type User } from "entities/user";
 import { formatZodIssues, type FormattedZodIssues } from "shared/lib/zod";
-import { debounce, useAppDispatch } from "shared/lib";
+import { useAppDispatch } from "shared/lib/redux";
+import { debounce } from "shared/lib/utils";
 
 interface UseAuthFormOptions<Payload> {
   apiCall: (payload: Payload) => Promise<User>;

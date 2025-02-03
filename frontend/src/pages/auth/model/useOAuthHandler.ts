@@ -6,7 +6,7 @@ import {
   GITHUB_OAUTH_CSRF_TOKEN,
 } from "features/auth";
 import { setAuthState, authenticateUser, type User } from "entities/user";
-import { useAppDispatch } from "shared/lib";
+import { useAppDispatch } from "shared/lib/redux";
 
 export const useOAuthHandler = (action: "auth" | "connect") => {
   const [error, setError] = useState<string | null>(null);

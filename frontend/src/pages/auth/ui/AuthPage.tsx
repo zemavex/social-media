@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { authenticateThunk } from "features/auth";
-import { useAppDispatch } from "shared/lib";
+import { useAppDispatch } from "shared/lib/redux";
 
 export const AuthPage = () => {
   const dispatch = useAppDispatch();

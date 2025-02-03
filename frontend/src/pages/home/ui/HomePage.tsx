@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { apiLogout, startGithubOAuth } from "features/auth";
 import { selectUser, unauthenticateUser } from "entities/user";
-import { useAppDispatch, useAppSelector } from "shared/lib";
+import { useAppDispatch, useAppSelector } from "shared/lib/redux";
 import { ROUTES } from "shared/config";
 
 export const HomePage = () => {
