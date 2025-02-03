@@ -4,7 +4,16 @@
   "email": "Почта",
   "password": "Пароль",
   "error": {
+    "code": {
+      "unknown_error": "Неизвестная ошибка",
+      "forbidden_error": "Нет доступа",
+      "auth_error": "Ошибка авторизации",
+      "validation_failed": "Ошибка валидации",
+      "email_already_used": "Этот email уже занят",
+      "invalid_credentials": "Недействительные данные"
+    },
     "validation": {
+      "unknown_error": "Неизвестная ошибка",
       "invalid_string": "Поле $t({{field}}) введено некорректно",
       "too_small": "Поле $t({{field}}) слишком короткое. Минимальная длина: {{min}}",
       "too_big": "Поле $t({{field}}) слишком длинное. Максимальная длина: {{max}}"

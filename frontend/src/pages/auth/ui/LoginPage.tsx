@@ -2,6 +2,7 @@ import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { apiLogin, loginSchema, startGithubOAuth } from "features/auth";
+import { useErrorCodeTranslation } from "shared/api";
 import { useZodIssueTranslation } from "shared/lib/zod";
 import { ROUTES } from "shared/config";
 import { useAuthForm } from "../model/useAuthForm";
@@ -19,6 +20,7 @@ export const LoginPage = () => {
     validationSchema: loginSchema,
     initialFormData: { email: "", password: "" },
   });
+  const { tErrorCode } = useErrorCodeTranslation();
   const { tZodIssue } = useZodIssueTranslation();
   const { t, i18n } = useTranslation();
 
@@ -45,7 +47,7 @@ export const LoginPage = () => {
     <div>
       <button onClick={handleChangeLang}>{t("current_language")}</button>
       <h1>{t("login")}</h1>
-      {errors?.general && <p>{errors.general}</p>}
+      {errors?.general && <p>{tErrorCode(errors.general)}</p>}
       <form onSubmit={handleSubmit}>
         <div>
           {errors.fields?.email && <p>{tZodIssue(errors.fields.email)}</p>}
