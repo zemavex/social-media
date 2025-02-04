@@ -64,6 +64,10 @@ const githubConnect = async (
 
   const githubUser = await getGithubUser(code);
 
+  const foundUserByGithub = await User.findByGithubId(githubUser.id);
+  if (foundUserByGithub)
+    throw new ConflictError(ERROR_CODES.GITHUB_ALREADY_CONNECTED);
+
   const user = await User.updateGithubId(githubUser.id, userId);
 
   return user;
