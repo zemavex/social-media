@@ -1,1 +1,1 @@
-export { storage } from "./localStorage";
+export { storage, STORAGE_KEYS } from "./storage";

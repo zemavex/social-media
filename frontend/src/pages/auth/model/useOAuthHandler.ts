@@ -1,14 +1,10 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import {
-  apiGithubAuth,
-  apiGithubConnect,
-  GITHUB_OAUTH_CSRF_TOKEN,
-} from "features/auth";
+import { apiGithubAuth, apiGithubConnect } from "features/auth";
 import { setAuthState, authenticateUser, type User } from "entities/user";
 import { isAxiosError } from "shared/api";
 import { useAppDispatch } from "shared/lib/redux";
-import { storage } from "shared/lib/storage";
+import { storage, STORAGE_KEYS } from "shared/lib/storage";
 import type { TranslateErrorOptions } from "shared/lib/hooks";
 
 export const useOAuthHandler = (action: "auth" | "connect") => {
@@ -18,8 +14,8 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
 
   useEffect(() => {
     const state = searchParams.get("state");
-    const storedState = storage.get(GITHUB_OAUTH_CSRF_TOKEN);
-    storage.remove(GITHUB_OAUTH_CSRF_TOKEN);
+    const storedState = storage.get(STORAGE_KEYS.GITHUB_CSRF_TOKEN);
+    storage.remove(STORAGE_KEYS.GITHUB_CSRF_TOKEN);
     if (!state || state !== storedState) {
       setError({ scope: "general", code: "unknown_error" });
       return;
