@@ -8,6 +8,7 @@ import {
 import { setAuthState, authenticateUser, type User } from "entities/user";
 import { isAxiosError } from "shared/api";
 import { useAppDispatch } from "shared/lib/redux";
+import { storage } from "shared/lib/storage";
 import type { TranslateErrorOptions } from "shared/lib/hooks";
 
 export const useOAuthHandler = (action: "auth" | "connect") => {
@@ -17,8 +18,8 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
 
   useEffect(() => {
     const state = searchParams.get("state");
-    const storedState = localStorage.getItem(GITHUB_OAUTH_CSRF_TOKEN);
-    localStorage.removeItem(GITHUB_OAUTH_CSRF_TOKEN);
+    const storedState = storage.get(GITHUB_OAUTH_CSRF_TOKEN);
+    storage.remove(GITHUB_OAUTH_CSRF_TOKEN);
     if (!state || state !== storedState) {
       setError({ scope: "general", code: "unknown_error" });
       return;
