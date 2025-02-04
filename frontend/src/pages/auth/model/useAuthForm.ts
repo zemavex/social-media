@@ -7,7 +7,7 @@ import {
   API_ERROR_CODES,
   type ApiErrorCode,
 } from "shared/api";
-import { formatZodIssues, type FormattedZodIssues } from "shared/lib/zod";
+import { formatZodIssues, type FormattedZodIssuesRecord } from "shared/lib/zod";
 import { useAppDispatch } from "shared/lib/redux";
 import { debounce } from "shared/lib/utils";
 
@@ -19,7 +19,7 @@ interface UseAuthFormOptions<Payload> {
 
 interface FormErrors<Keys extends string> {
   general?: ApiErrorCode;
-  fields?: FormattedZodIssues<Keys>;
+  fields?: FormattedZodIssuesRecord<Keys>;
 }
 
 export const useAuthForm = <Payload extends Record<string, unknown>>({

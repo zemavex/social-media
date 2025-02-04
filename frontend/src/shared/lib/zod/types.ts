@@ -18,9 +18,12 @@ interface TooBigIssue {
   max: number | bigint;
 }
 
-export type SingleZodIssue = InvalidStringIssue | TooSmallIssue | TooBigIssue;
+export type FormattedZodIssue =
+  | InvalidStringIssue
+  | TooSmallIssue
+  | TooBigIssue;
 
-export type FormattedZodIssues<Keys extends string> = Record<
+export type FormattedZodIssuesRecord<Keys extends string> = Record<
   Keys,
-  SingleZodIssue
+  FormattedZodIssue
 >;

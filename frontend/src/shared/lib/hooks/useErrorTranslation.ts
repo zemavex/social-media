@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 import { ZodIssueCode } from "zod";
 import type { ApiErrorCode } from "shared/api";
-import type { SingleZodIssue } from "shared/lib/zod";
+import type { FormattedZodIssue } from "shared/lib/zod";
 
 interface ZodIssueOptions {
   scope: "validation";
-  issue: SingleZodIssue;
+  issue: FormattedZodIssue;
 }
 
 interface ApiErrorOptions {
@@ -26,7 +26,7 @@ export type TranslateErrorOptions =
 export const useErrorTranslation = () => {
   const { t } = useTranslation();
 
-  const translateZodIssue = (issue: SingleZodIssue) => {
+  const translateZodIssue = (issue: FormattedZodIssue) => {
     const translationBase = "error.validation";
 
     switch (issue.code) {

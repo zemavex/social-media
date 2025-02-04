@@ -1,10 +1,10 @@
 import { ZodIssueCode, type ZodIssue } from "zod";
-import type { FormattedZodIssues } from "./types";
+import type { FormattedZodIssuesRecord } from "./types";
 
 export const formatZodIssues = <Keys extends string>(
   issues: ZodIssue[]
-): FormattedZodIssues<Keys> => {
-  const formattedIssues = {} as FormattedZodIssues<Keys>;
+): FormattedZodIssuesRecord<Keys> => {
+  const formattedIssues = {} as FormattedZodIssuesRecord<Keys>;
 
   issues.forEach((i) => {
     const path = i.path[0] as Keys;
