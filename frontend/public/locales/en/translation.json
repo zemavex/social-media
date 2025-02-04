@@ -12,7 +12,8 @@
       "auth_error": "Authentication failed",
       "validation_failed": "Validation failed",
       "email_already_used": "Email already used",
-      "invalid_credentials": "Invalid credentials"
+      "invalid_credentials": "Invalid credentials",
+      "github_already_connected": "This GitHub account is already connected to another user."
     },
     "validation": {
       "invalid_string": "$t({{field}}) is invalid",

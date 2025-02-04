@@ -12,7 +12,8 @@
       "auth_error": "Ошибка авторизации",
       "validation_failed": "Ошибка валидации",
       "email_already_used": "Этот email уже занят",
-      "invalid_credentials": "Недействительные данные"
+      "invalid_credentials": "Недействительные данные",
+      "github_already_connected": "Этот GitHub аккаунт уже связан с другим пользователем."
     },
     "validation": {
       "invalid_string": "Поле $t({{field}}) введено некорректно",
