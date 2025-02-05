@@ -1,5 +1,7 @@
 import { ZodIssueCode, type StringValidation } from "zod";
 
+export const UNKNOWN_ISSUE = "unknown_issue";
+
 interface InvalidStringIssue {
   code: typeof ZodIssueCode.invalid_string;
   path: string;
@@ -18,10 +20,22 @@ interface TooBigIssue {
   max: number | bigint;
 }
 
+interface InvalidTypeIssue {
+  code: typeof ZodIssueCode.invalid_type;
+  path: string;
+}
+
+interface UnknownIssue {
+  code: typeof UNKNOWN_ISSUE;
+  path: string;
+}
+
 export type FormattedZodIssue =
   | InvalidStringIssue
   | TooSmallIssue
-  | TooBigIssue;
+  | TooBigIssue
+  | InvalidTypeIssue
+  | UnknownIssue;
 
 export type FormattedZodIssuesRecord<Keys extends string> = Record<
   Keys,

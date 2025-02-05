@@ -3,6 +3,8 @@
   "login": "Login",
   "email": "Email",
   "password": "Password",
+  "firstName": "First name",
+  "lastName": "Last name",
   "error": {
     "general": {
       "unknown_error": "Something went wrong. Please try again."
@@ -16,9 +18,11 @@
       "github_already_connected": "This GitHub account is already connected to another user."
     },
     "validation": {
+      "unknown_issue": "Unknown validation issue",
       "invalid_string": "$t({{field}}) is invalid",
       "too_small": "$t({{field}}) is too short. Minimum length: {{min}}",
-      "too_big": "$t({{field}}) is too long. Maximum length: {{max}}"
+      "too_big": "$t({{field}}) is too long. Maximum length: {{max}}",
+      "invalid_type": "$t({{field}}) can't be empty"
     }
   }
 }

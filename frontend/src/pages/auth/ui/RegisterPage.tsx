@@ -1,5 +1,6 @@
 import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 import { apiRegister, registerSchema } from "features/auth";
 import { useErrorTranslation } from "shared/lib/hooks";
 import { useAuthForm } from "../model/useAuthForm";
@@ -15,9 +16,10 @@ export const RegisterPage = () => {
   } = useAuthForm({
     apiCall: apiRegister,
     validationSchema: registerSchema,
-    initialFormData: { email: "", password: "" },
+    initialFormData: { email: "", password: "", firstName: "", lastName: "" },
   });
   const { translateError } = useErrorTranslation();
+  const { t } = useTranslation();
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -38,6 +40,44 @@ export const RegisterPage = () => {
       )}
       <form onSubmit={handleSubmit}>
         <div>
+          {errors.fields?.firstName && (
+            <p>
+              {translateError({
+                scope: "validation",
+                issue: errors.fields.firstName,
+              })}
+            </p>
+          )}
+          <label htmlFor="login-form__input-firstName">{t("firstName")}</label>
+          <input
+            style={{ outline: errors.fields?.firstName ? "1px solid red" : "" }}
+            type="text"
+            name="firstName"
+            id="login-form__input-firstName"
+            value={formData.firstName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
+          {errors.fields?.lastName && (
+            <p>
+              {translateError({
+                scope: "validation",
+                issue: errors.fields.lastName,
+              })}
+            </p>
+          )}
+          <label htmlFor="login-form__input-lastName">{t("lastName")}</label>
+          <input
+            style={{ outline: errors.fields?.lastName ? "1px solid red" : "" }}
+            type="text"
+            name="lastName"
+            id="login-form__input-lastName"
+            value={formData.lastName}
+            onChange={handleInputChange}
+          />
+        </div>
+        <div>
           {errors.fields?.email && (
             <p>
               {translateError({
@@ -46,7 +86,7 @@ export const RegisterPage = () => {
               })}
             </p>
           )}
-          <label htmlFor="login-form__input-email">email</label>
+          <label htmlFor="login-form__input-email">{t("email")}</label>
           <input
             style={{ outline: errors.fields?.email ? "1px solid red" : "" }}
             type="text"
@@ -65,7 +105,7 @@ export const RegisterPage = () => {
               })}
             </p>
           )}
-          <label htmlFor="login-form__input-password">password</label>
+          <label htmlFor="login-form__input-password">{t("password")}</label>
           <input
             style={{ outline: errors.fields?.password ? "1px solid red" : "" }}
             type="password"

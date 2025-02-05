@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { ZodIssueCode } from "zod";
 import type { ApiErrorCode } from "shared/api";
-import type { FormattedZodIssue } from "shared/lib/zod";
+import { UNKNOWN_ISSUE, type FormattedZodIssue } from "shared/lib/zod";
 
 interface ZodIssueOptions {
   scope: "validation";
@@ -27,24 +27,35 @@ export const useErrorTranslation = () => {
   const { t } = useTranslation();
 
   const translateZodIssue = (issue: FormattedZodIssue) => {
-    const translationBase = "error.validation";
+    let tPath = "error.validation.";
+    let tParams: Record<string, unknown> = {};
 
     switch (issue.code) {
       case ZodIssueCode.invalid_string:
-        return t(`${translationBase}.invalid_string`, { field: issue.path });
+        tPath += issue.code;
+        tParams = { field: issue.path };
+        break;
       case ZodIssueCode.too_small:
-        return t(`${translationBase}.too_small`, {
-          field: issue.path,
-          min: issue.min,
-        });
+        tPath += issue.code;
+        tParams = { field: issue.path, min: issue.min };
+        break;
       case ZodIssueCode.too_big:
-        return t(`${translationBase}.too_big`, {
-          field: issue.path,
-          max: issue.max,
-        });
+        tPath += issue.code;
+        tParams = { field: issue.path, max: issue.max };
+        break;
+      case ZodIssueCode.invalid_type:
+        tPath += issue.code;
+        tParams = { field: issue.path };
+        break;
+      case UNKNOWN_ISSUE:
+        tPath += issue.code;
+        break;
       default:
-        return t("error.app.unknown_error");
+        tPath = "error.general.unknown_error";
+        break;
     }
+
+    return t(tPath, tParams);
   };
 
   const translateError = (options: TranslateErrorOptions): string => {

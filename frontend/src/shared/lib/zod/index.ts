@@ -1,2 +1,6 @@
 export { formatZodIssues } from "./formatZodIssues";
-export type { FormattedZodIssue, FormattedZodIssuesRecord } from "./types";
+export {
+  UNKNOWN_ISSUE,
+  type FormattedZodIssue,
+  type FormattedZodIssuesRecord,
+} from "./types";

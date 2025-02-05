@@ -1,5 +1,5 @@
 import { ZodIssueCode, type ZodIssue } from "zod";
-import type { FormattedZodIssuesRecord } from "./types";
+import { UNKNOWN_ISSUE, type FormattedZodIssuesRecord } from "./types";
 
 export const formatZodIssues = <Keys extends string>(
   issues: ZodIssue[]
@@ -22,6 +22,12 @@ export const formatZodIssues = <Keys extends string>(
         break;
       case ZodIssueCode.too_big:
         formattedIssues[path] = { code: i.code, path, max: i.maximum };
+        break;
+      case ZodIssueCode.invalid_type:
+        formattedIssues[path] = { code: i.code, path };
+        break;
+      default:
+        formattedIssues[path] = { code: UNKNOWN_ISSUE, path };
         break;
     }
   });

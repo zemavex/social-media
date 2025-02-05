@@ -58,7 +58,7 @@ export const LoginPage = () => {
               })}
             </p>
           )}
-          <label htmlFor="login-form__input-email">email</label>
+          <label htmlFor="login-form__input-email">{t("email")}</label>
           <input
             style={{ outline: errors.fields?.email ? "1px solid red" : "" }}
             type="text"
@@ -77,7 +77,7 @@ export const LoginPage = () => {
               })}
             </p>
           )}
-          <label htmlFor="login-form__input-password">password</label>
+          <label htmlFor="login-form__input-password">{t("password")}</label>
           <input
             style={{ outline: errors.fields?.password ? "1px solid red" : "" }}
             type="password"
