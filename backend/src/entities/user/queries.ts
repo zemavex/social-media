@@ -1,15 +1,13 @@
 import { pool } from "database";
+import type { RegisterSchema } from "./validation";
 import { UserModel, UserRole } from "./types";
 
-async function create(userData: {
-  email: string;
-  password: string;
-}): Promise<UserModel> {
-  const { email, password } = userData;
+async function create(userData: RegisterSchema): Promise<UserModel> {
+  const { email, password, firstName, lastName } = userData;
 
   const query =
-    "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *";
-  const values = [email, password];
+    "INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING *";
+  const values = [email, password, firstName, lastName];
 
   const res = await pool.query<UserModel>(query, values);
   return res.rows[0];

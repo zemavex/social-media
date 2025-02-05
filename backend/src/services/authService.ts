@@ -1,6 +1,11 @@
 import axios from "axios";
 import bcrypt from "bcrypt";
-import { User, UserModel } from "entities/user";
+import {
+  User,
+  UserModel,
+  type LoginSchema,
+  type RegisterSchema,
+} from "entities/user";
 import {
   BadRequestError,
   ConflictError,
@@ -73,26 +78,30 @@ const githubConnect = async (
   return user;
 };
 
-async function register(email: string, password: string): Promise<UserModel> {
-  const foundUser = await User.findByEmail(email);
+async function register(userData: RegisterSchema): Promise<UserModel> {
+  const foundUser = await User.findByEmail(userData.email);
   if (foundUser) throw new ConflictError(ERROR_CODES.EMAIL_ALREADY_USED);
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(userData.password, 10);
 
-  const newUser = await User.create({ email, password: hashedPassword });
+  const newUser = await User.create({
+    ...userData,
+    password: hashedPassword,
+  });
 
   return newUser;
 }
 
-async function login(email: string, password: string): Promise<UserModel> {
-  const LoginError = new BadRequestError(ERROR_CODES.INVALID_CREDENTIALS);
-
+async function login({ email, password }: LoginSchema): Promise<UserModel> {
   const foundUser = await User.findByEmail(email);
-  if (!foundUser) throw LoginError;
-  if (!foundUser.password) throw LoginError;
+  if (!foundUser?.password) {
+    throw new BadRequestError(ERROR_CODES.INVALID_CREDENTIALS);
+  }
 
   const isPasswordValid = await bcrypt.compare(password, foundUser.password);
-  if (!isPasswordValid) throw LoginError;
+  if (!isPasswordValid) {
+    throw new BadRequestError(ERROR_CODES.INVALID_CREDENTIALS);
+  }
 
   return foundUser;
 }

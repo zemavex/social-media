@@ -1,12 +1,7 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
 import { Session } from "entities/session";
-import {
-  User,
-  loginSchema,
-  registrationSchema,
-  toUserDTO,
-} from "entities/user";
+import { User, loginSchema, registerSchema, toUserDTO } from "entities/user";
 import { authService } from "services/authService";
 import { sessionService } from "services/sessionService";
 import { setSessionCookie } from "rest/helpers";
@@ -43,9 +38,9 @@ const githubConnect: RequestHandler = async (req, res, next) => {
 
 const register: RequestHandler = async (req, res, next) => {
   try {
-    const { email, password } = registrationSchema.parse(req.body);
+    const userData = registerSchema.parse(req.body);
 
-    const user = await authService.register(email, password);
+    const user = await authService.register(userData);
 
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
@@ -58,9 +53,9 @@ const register: RequestHandler = async (req, res, next) => {
 
 const login: RequestHandler = async (req, res, next) => {
   try {
-    const { email, password } = loginSchema.parse(req.body);
+    const userData = loginSchema.parse(req.body);
 
-    const user = await authService.login(email, password);
+    const user = await authService.login(userData);
 
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
