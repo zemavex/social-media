@@ -10,7 +10,13 @@ export class CustomError extends Error {
     this.code = code;
     this.status = status;
 
+    Object.setPrototypeOf(this, new.target.prototype);
+
     this.name = this.constructor.name;
+
+    if (Error.captureStackTrace) {
+      Error.captureStackTrace(this, this.constructor);
+    }
   }
 }
 
