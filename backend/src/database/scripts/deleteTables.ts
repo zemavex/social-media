@@ -1,5 +1,5 @@
 import "dotenv/config";
-import { pool } from "..";
+import { pool } from "database";
 import { askConfirmation } from "./askConfirmation";
 
 const deleteTables = async () => {

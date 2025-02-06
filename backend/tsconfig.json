@@ -1,19 +1,20 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "esModuleInterop": true,
     "strict": true,
+    "outDir": "./dist/",
+    "target": "es5",
+    "module": "CommonJS",
+    "esModuleInterop": true,
     "noImplicitAny": true,
     "skipLibCheck": true,
     "noEmitOnError": true,
-    "typeRoots": ["./src/types", "./node_modules/@types"],
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
       "*": ["./src/*"]
     }
   },
-  "exclude": ["dist", "eslint.config.mjs"]
+  "include": ["./src"]
 }
