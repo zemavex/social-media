@@ -1,20 +1,23 @@
 {
   "compilerOptions": {
+    // strictness rules
     "strict": true,
-    "outDir": "./dist/",
-    "target": "es5",
-    "module": "CommonJS",
-    "esModuleInterop": true,
-    "noImplicitAny": true,
     "skipLibCheck": true,
     "noEmitOnError": true,
-    "allowSyntheticDefaultImports": true,
-    "allowJs": true,
+
+    // output & compilation
+    "rootDir": "src",
+    "outDir": "dist",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "sourceMap": true,
+    "incremental": true,
+
+    // module resolution
+    "baseUrl": "src",
     "moduleResolution": "node",
-    "baseUrl": "./",
-    "paths": {
-      "*": ["./src/*"]
-    }
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["./src"]
+  "include": ["src", "env.d.ts"]
 }

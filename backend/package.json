@@ -4,7 +4,7 @@
   "scripts": {
     "lint:ts": "eslint & tsc --noEmit",
     "build": "tsc && tsc-alias && npm run copySqlFiles",
-    "dev": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\" \"nodemon ./dist/index.js\")",
+    "dev": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\" \"nodemon --enable-source-maps ./dist/index.js\")",
     "copySqlFiles": "ncp src/database/migrations dist/database/migrations",
     "migrate": "nconcurrentlyode dist/database/scripts/runMigrations.js",
     "deleteTables": "tsc && tsc-alias && node dist/database/scripts/deleteTables.js"
