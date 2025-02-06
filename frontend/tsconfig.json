@@ -1,20 +1,21 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
     "strict": true,
-    "noImplicitAny": true,
-    "module": "es6",
+    "outDir": "./dist/",
     "target": "es5",
-    "jsx": "react-jsx",
+    "module": "es6",
+    "esModuleInterop": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "noEmitOnError": true,
+    "allowSyntheticDefaultImports": true,
     "allowJs": true,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
       "*": ["./src/*"]
-    }
+    },
+    "jsx": "react-jsx"
   },
   "ts-node": {
     "compilerOptions": {
