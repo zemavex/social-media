@@ -7,7 +7,7 @@ import pluginReact from "eslint-plugin-react";
 export default [
   { files: ["**/*.{js,mjs,cjs,ts,jsx,tsx}"] },
   { languageOptions: { globals: globals.browser } },
-  { ignores: ["dist/"] },
+  { ignores: ["dist"] },
   { settings: { react: { version: "detect" } } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommendedTypeChecked,
