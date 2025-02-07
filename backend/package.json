@@ -6,8 +6,8 @@
     "build": "tsc && tsc-alias && npm run copySqlFiles",
     "dev": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\" \"nodemon --enable-source-maps ./dist/index.js\")",
     "copySqlFiles": "ncp src/database/migrations dist/database/migrations",
-    "migrate": "nconcurrentlyode dist/database/scripts/runMigrations.js",
-    "deleteTables": "tsc && tsc-alias && node dist/database/scripts/deleteTables.js"
+    "migrate": "node --enable-source-maps dist/database/scripts/runMigrations.js",
+    "deleteTables": "tsc && tsc-alias && node --enable-source-maps dist/database/scripts/deleteTables.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

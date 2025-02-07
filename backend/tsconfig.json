@@ -18,6 +18,5 @@
     "moduleResolution": "node",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
-  },
-  "include": ["src", "env.d.ts"]
+  }
 }
