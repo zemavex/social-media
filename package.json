@@ -5,7 +5,9 @@
     "packages/*"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npm run lint --workspaces",
+    "lint:front": "npm run lint --workspace frontend",
+    "lint:back": "npm run lint --workspace backend"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.0",

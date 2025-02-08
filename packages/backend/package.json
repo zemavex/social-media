@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "0.0.0",
   "scripts": {
-    "lint:ts": "eslint & tsc --noEmit",
+    "lint": "eslint & tsc --noEmit",
     "build": "tsc && tsc-alias && npm run copySqlFiles",
     "dev": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\" \"nodemon --enable-source-maps ./dist/index.js\")",
     "copySqlFiles": "ncp src/database/migrations dist/database/migrations",
