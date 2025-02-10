@@ -1,6 +1,6 @@
+import type { LoginSchema, RegisterSchema } from "@shared/validation";
 import type { User } from "entities/user";
 import { apiInstance } from "shared/api";
-import type { LoginSchema, RegisterSchema } from "../model/schemas";
 
 export const apiGithubAuth = async (code: string): Promise<User> => {
   const res = await apiInstance.post<User>("/users/oauth/github/auth", {
