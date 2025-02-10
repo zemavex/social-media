@@ -1,22 +1,12 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    // strictness rules
-    "strict": true,
-    "skipLibCheck": true,
-    "noEmitOnError": true,
-
-    // output & compilation
-    "rootDir": "src",
-    "outDir": "dist",
+    "rootDir": "./src",
+    "outDir": "./dist",
     "target": "ESNext",
     "module": "CommonJS",
     "sourceMap": true,
     "incremental": true,
-
-    // module resolution
-    "baseUrl": "src",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "baseUrl": "./src"
   }
 }

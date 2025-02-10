@@ -1,21 +1,10 @@
 {
+  "extends": "../../tsconfig.json",
   "compilerOptions": {
-    // strictness rules
-    "strict": true,
-    "skipLibCheck": true,
-    "noEmitOnError": true,
-
-    // output & compilation
-    "outDir": "dist",
-    "target": "es5",
-    "module": "es6",
+    "outDir": "./dist",
+    "module": "ESNext",
     "jsx": "react-jsx",
-
-    // module resolution
-    "baseUrl": "src",
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
+    "baseUrl": "./src"
   },
   "ts-node": {
     "compilerOptions": {
