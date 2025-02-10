@@ -2,7 +2,9 @@
   "name": "vkvex",
   "version": "0.0.0",
   "workspaces": [
-    "packages/*"
+    "packages/backend",
+    "packages/frontend",
+    "packages/shared/validation"
   ],
   "scripts": {
     "lint": "npm run lint --workspaces",
@@ -22,6 +24,7 @@
     "typescript-eslint": "^8.23.0"
   },
   "dependencies": {
+    "@shared/validation": "file:packages/shared/validation",
     "axios": "^1.7.9",
     "zod": "^3.24.1"
   }
