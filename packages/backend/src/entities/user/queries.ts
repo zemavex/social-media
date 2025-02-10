@@ -1,5 +1,5 @@
 import { pool } from "database";
-import type { RegisterSchema } from "./validation";
+import type { RegisterSchema } from "@shared/validation";
 import { UserModel, UserRole } from "./types";
 
 async function create(userData: RegisterSchema): Promise<UserModel> {

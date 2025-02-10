@@ -1,11 +1,7 @@
 import axios from "axios";
 import bcrypt from "bcrypt";
-import {
-  User,
-  UserModel,
-  type LoginSchema,
-  type RegisterSchema,
-} from "entities/user";
+import type { LoginSchema, RegisterSchema } from "@shared/validation";
+import { User, UserModel } from "entities/user";
 import {
   BadRequestError,
   ConflictError,

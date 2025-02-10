@@ -1,7 +1,8 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
+import { loginSchema, registerSchema } from "@shared/validation";
 import { Session } from "entities/session";
-import { User, loginSchema, registerSchema, toUserDTO } from "entities/user";
+import { User, toUserDTO } from "entities/user";
 import { authService } from "services/authService";
 import { sessionService } from "services/sessionService";
 import { setSessionCookie } from "rest/helpers";
