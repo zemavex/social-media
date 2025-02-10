@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import { User, UserRole } from "entities/user";
-import { ForbiddenError, UnauthorizedError } from "errors";
+import { User, UserRole } from "@/entities/user";
+import { ForbiddenError, UnauthorizedError } from "@/errors";
 
 const roleHierarchy: { [key in UserRole]: number } = {
   user: 0,

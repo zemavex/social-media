@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { storage, STORAGE_KEYS } from "shared/lib/storage";
+import { storage, STORAGE_KEYS } from "@/shared/lib/storage";
 import type { User } from "./types";
 
 type UserState = {

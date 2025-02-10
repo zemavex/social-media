@@ -1,13 +1,9 @@
 import axios from "axios";
 import bcrypt from "bcrypt";
-import type { LoginSchema, RegisterSchema } from "@shared/validation";
-import { User, UserModel } from "entities/user";
-import {
-  BadRequestError,
-  ConflictError,
-  UnauthorizedError,
-  ERROR_CODES,
-} from "errors";
+import type { LoginSchema, RegisterSchema } from "~shared/validation";
+import { API_ERROR_CODES } from "~shared/constants";
+import { User, UserModel } from "@/entities/user";
+import { BadRequestError, ConflictError, UnauthorizedError } from "@/errors";
 
 interface GithubUser {
   id: number;
@@ -67,7 +63,7 @@ const githubConnect = async (
 
   const foundUserByGithub = await User.findByGithubId(githubUser.id);
   if (foundUserByGithub)
-    throw new ConflictError(ERROR_CODES.GITHUB_ALREADY_CONNECTED);
+    throw new ConflictError(API_ERROR_CODES.GITHUB_ALREADY_CONNECTED);
 
   const user = await User.updateGithubId(githubUser.id, userId);
 
@@ -76,7 +72,7 @@ const githubConnect = async (
 
 async function register(userData: RegisterSchema): Promise<UserModel> {
   const foundUser = await User.findByEmail(userData.email);
-  if (foundUser) throw new ConflictError(ERROR_CODES.EMAIL_ALREADY_USED);
+  if (foundUser) throw new ConflictError(API_ERROR_CODES.EMAIL_ALREADY_USED);
 
   const hashedPassword = await bcrypt.hash(userData.password, 10);
 
@@ -91,12 +87,12 @@ async function register(userData: RegisterSchema): Promise<UserModel> {
 async function login({ email, password }: LoginSchema): Promise<UserModel> {
   const foundUser = await User.findByEmail(email);
   if (!foundUser?.password) {
-    throw new BadRequestError(ERROR_CODES.INVALID_CREDENTIALS);
+    throw new BadRequestError(API_ERROR_CODES.INVALID_CREDENTIALS);
   }
 
   const isPasswordValid = await bcrypt.compare(password, foundUser.password);
   if (!isPasswordValid) {
-    throw new BadRequestError(ERROR_CODES.INVALID_CREDENTIALS);
+    throw new BadRequestError(API_ERROR_CODES.INVALID_CREDENTIALS);
   }
 
   return foundUser;

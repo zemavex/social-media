@@ -3,8 +3,8 @@ import {
   authenticateUser,
   setAuthState,
   unauthenticateUser,
-} from "entities/user";
-import { storage, STORAGE_KEYS } from "shared/lib/storage";
+} from "@/entities/user";
+import { storage, STORAGE_KEYS } from "@/shared/lib/storage";
 import { apiAuthenticate } from "../api";
 
 export const authenticateThunk = () => async (dispatch: AppDispatch) => {

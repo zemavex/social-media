@@ -1,8 +1,8 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
-import { Session } from "entities/session";
-import { SESSION_ID_COOKIE_NAME } from "config/constants";
-import { UnauthorizedError } from "errors";
+import { Session } from "@/entities/session";
+import { SESSION_ID_COOKIE_NAME } from "@/config/constants";
+import { UnauthorizedError } from "@/errors";
 
 const cookieSchema = z.object({
   [SESSION_ID_COOKIE_NAME]: z.string(),

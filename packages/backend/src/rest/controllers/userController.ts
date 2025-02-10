@@ -1,13 +1,13 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
-import { loginSchema, registerSchema } from "@shared/validation";
-import { Session } from "entities/session";
-import { User, toUserDTO } from "entities/user";
-import { authService } from "services/authService";
-import { sessionService } from "services/sessionService";
-import { setSessionCookie } from "rest/helpers";
-import { SESSION_ID_COOKIE_NAME } from "config/constants";
-import { UnauthorizedError } from "errors";
+import { loginSchema, registerSchema } from "~shared/validation";
+import { Session } from "@/entities/session";
+import { User, toUserDTO } from "@/entities/user";
+import { authService } from "@/services/authService";
+import { sessionService } from "@/services/sessionService";
+import { setSessionCookie } from "@/rest/helpers";
+import { SESSION_ID_COOKIE_NAME } from "@/config/constants";
+import { UnauthorizedError } from "@/errors";
 
 const githubAuth: RequestHandler = async (req, res, next) => {
   try {

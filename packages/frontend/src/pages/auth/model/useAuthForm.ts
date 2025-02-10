@@ -1,15 +1,14 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import type { ZodIssue, ZodType } from "zod";
-import { authenticateUser, type User } from "entities/user";
+import { API_ERROR_CODES, type ApiErrorCode } from "~shared/constants";
+import { authenticateUser, type User } from "@/entities/user";
+import { isAxiosError, isValidationFailed } from "@/shared/api";
 import {
-  isAxiosError,
-  isValidationFailed,
-  API_ERROR_CODES,
-  type ApiErrorCode,
-} from "shared/api";
-import { formatZodIssues, type FormattedZodIssuesRecord } from "shared/lib/zod";
-import { useAppDispatch } from "shared/lib/redux";
-import { debounce } from "shared/lib/utils";
+  formatZodIssues,
+  type FormattedZodIssuesRecord,
+} from "@/shared/lib/zod";
+import { useAppDispatch } from "@/shared/lib/redux";
+import { debounce } from "@/shared/lib/utils";
 
 interface UseAuthFormOptions<Payload> {
   apiCall: (payload: Payload) => Promise<User>;

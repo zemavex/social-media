@@ -1,5 +1,5 @@
 import { CronJob } from "cron";
-import { Session } from "entities/session";
+import { Session } from "@/entities/session";
 
 const cleanExpiredSessions = async () => {
   try {

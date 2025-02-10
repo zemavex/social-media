@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { ZodIssueCode } from "zod";
-import type { ApiErrorCode } from "shared/api";
-import { UNKNOWN_ISSUE, type FormattedZodIssue } from "shared/lib/zod";
+import type { ApiErrorCode } from "~shared/constants";
+import { UNKNOWN_ISSUE, type FormattedZodIssue } from "@/shared/lib/zod";
 
 interface ZodIssueOptions {
   scope: "validation";

@@ -1,11 +1,23 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "rootDir": "../",
     "outDir": "./dist",
-    "module": "ESNext",
+    "target": "ES5",
+    "module": "ES6",
     "jsx": "react-jsx",
-    "baseUrl": "./src"
+    "paths": {
+      "@/*": ["./src/*"],
+      "~shared/*": ["../shared/src/*"]
+    }
   },
+  "include": [
+    "./src",
+    "../shared/src",
+    "./config",
+    "./webpack.config.ts",
+    "./env.d.ts"
+  ],
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"

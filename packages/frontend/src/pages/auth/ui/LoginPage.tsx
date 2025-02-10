@@ -1,10 +1,10 @@
 import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-import { loginSchema } from "@shared/validation";
-import { apiLogin, startGithubOAuth } from "features/auth";
-import { useErrorTranslation } from "shared/lib/hooks";
-import { ROUTES } from "shared/config";
+import { loginSchema } from "~shared/validation";
+import { apiLogin, startGithubOAuth } from "@/features/auth";
+import { useErrorTranslation } from "@/shared/lib/hooks";
+import { ROUTES } from "@/shared/config";
 import { useAuthForm } from "../model/useAuthForm";
 
 export const LoginPage = () => {

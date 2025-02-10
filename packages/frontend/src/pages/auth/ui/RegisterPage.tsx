@@ -1,9 +1,9 @@
 import { type FormEvent, type ChangeEvent } from "react";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-import { registerSchema } from "@shared/validation";
-import { apiRegister } from "features/auth";
-import { useErrorTranslation } from "shared/lib/hooks";
+import { registerSchema } from "~shared/validation";
+import { apiRegister } from "@/features/auth";
+import { useErrorTranslation } from "@/shared/lib/hooks";
 import { useAuthForm } from "../model/useAuthForm";
 
 export const RegisterPage = () => {

@@ -1,12 +1,17 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDir": "../",
     "outDir": "./dist",
     "target": "ESNext",
     "module": "CommonJS",
     "sourceMap": true,
     "incremental": true,
-    "baseUrl": "./src"
-  }
+    "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
+    "paths": {
+      "@/*": ["./src/*"],
+      "~shared/*": ["../shared/src/*"]
+    }
+  },
+  "include": ["./src", "../shared/src", "env.d.ts"]
 }

@@ -1,6 +1,7 @@
 import { ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
-import { CustomError, ERROR_CODES } from "errors";
+import { API_ERROR_CODES } from "~shared/constants";
+import { CustomError } from "@/errors";
 
 export const errorMiddleware: ErrorRequestHandler = (
   err: Error,
@@ -18,7 +19,7 @@ export const errorMiddleware: ErrorRequestHandler = (
     if (err instanceof ZodError) {
       res
         .status(400)
-        .json({ code: ERROR_CODES.VALIDATION_FAILED, issues: err.issues });
+        .json({ code: API_ERROR_CODES.VALIDATION_FAILED, issues: err.issues });
       return;
     }
 
@@ -27,13 +28,13 @@ export const errorMiddleware: ErrorRequestHandler = (
       return;
     }
 
-    res.status(500).json({ code: ERROR_CODES.UNKNOWN_ERROR });
+    res.status(500).json({ code: API_ERROR_CODES.UNKNOWN_ERROR });
   } catch (error) {
     console.error("\nError during error handling");
     console.error(error);
 
     if (res.headersSent) return;
 
-    res.status(500).json({ code: ERROR_CODES.UNKNOWN_ERROR });
+    res.status(500).json({ code: API_ERROR_CODES.UNKNOWN_ERROR });
   }
 };

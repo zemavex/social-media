@@ -2,21 +2,16 @@
   "name": "vkvex",
   "version": "0.0.0",
   "workspaces": [
-    "packages/backend",
-    "packages/frontend",
-    "packages/shared/validation"
+    "packages/*"
   ],
   "scripts": {
     "lint": "npm run lint --workspaces",
-    "lint:front": "npm run lint --workspace packages/frontend",
-    "lint:back": "npm run lint --workspace packages/backend",
-    "build": "npm run build:front && npm run build:back && npm run build:shared",
-    "build:front": "npm run build --workspace packages/frontend",
-    "build:back": "npm run build --workspace packages/backend",
-    "build:shared": "npm run build:shared:validation",
-    "build:shared:validation": "npm run build --workspace packages/shared/validation",
-    "dev:front": "npm run dev --workspace packages/frontend",
-    "dev:back": "npm run dev --workspace packages/backend"
+    "lint:front": "npm run lint --workspace frontend",
+    "lint:back": "npm run lint --workspace backend",
+    "build:front": "npm run build --workspace frontend",
+    "build:back": "npm run build --workspace backend",
+    "dev:front": "npm run dev --workspace frontend",
+    "dev:back": "npm run dev --workspace backend"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.0",
@@ -27,7 +22,6 @@
     "typescript-eslint": "^8.23.0"
   },
   "dependencies": {
-    "@shared/validation": "file:packages/shared/validation",
     "axios": "^1.7.9",
     "zod": "^3.24.1"
   }

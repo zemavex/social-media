@@ -1,9 +1,9 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
-import { AuthPage, OAuthPage, LoginPage, RegisterPage } from "pages/auth";
-import { HomePage } from "pages/home";
-import { selectAuthState } from "entities/user";
-import { useAppSelector } from "shared/lib/redux";
-import { ROUTES } from "shared/config";
+import { AuthPage, OAuthPage, LoginPage, RegisterPage } from "@/pages/auth";
+import { HomePage } from "@/pages/home";
+import { selectAuthState } from "@/entities/user";
+import { useAppSelector } from "@/shared/lib/redux";
+import { ROUTES } from "@/shared/config";
 
 export const AppRouter = () => {
   const authState = useAppSelector(selectAuthState);

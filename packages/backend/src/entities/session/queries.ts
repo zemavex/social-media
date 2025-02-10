@@ -1,5 +1,5 @@
-import { pool } from "database";
-import { SESSION_MAX_AGE_MS } from "config/constants";
+import { pool } from "@/database";
+import { SESSION_MAX_AGE_MS } from "@/config/constants";
 import { SessionModel } from "./types";
 
 async function create(

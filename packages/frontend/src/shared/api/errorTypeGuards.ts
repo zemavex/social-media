@@ -1,6 +1,6 @@
 import axios, { type AxiosError } from "axios";
 import type { ZodIssue } from "zod";
-import { API_ERROR_CODES, type ApiErrorCode } from "./errorCodes";
+import { API_ERROR_CODES, type ApiErrorCode } from "~shared/constants";
 
 interface BaseApiErrorData {
   code: ApiErrorCode;

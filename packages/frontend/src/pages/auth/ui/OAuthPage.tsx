@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { useNavigate } from "react-router";
-import { ROUTES } from "shared/config";
+import { useErrorTranslation } from "@/shared/lib/hooks";
+import { ROUTES } from "@/shared/config";
 import { useOAuthHandler } from "../model/useOAuthHandler";
-import { useErrorTranslation } from "shared/lib/hooks";
 
 interface OAuthPageProps {
   action: "auth" | "connect";

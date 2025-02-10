@@ -1,10 +1,10 @@
-import { ERROR_CODES, type ErrorCode } from "./errorCodes";
+import { API_ERROR_CODES, type ApiErrorCode } from "~shared/constants";
 
 export class CustomError extends Error {
-  code: ErrorCode;
+  code: ApiErrorCode;
   status: number;
 
-  constructor(code: ErrorCode, status: number) {
+  constructor(code: ApiErrorCode, status: number) {
     super();
 
     this.code = code;
@@ -21,25 +21,25 @@ export class CustomError extends Error {
 }
 
 export class BadRequestError extends CustomError {
-  constructor(code: ErrorCode) {
+  constructor(code: ApiErrorCode) {
     super(code, 400);
   }
 }
 
 export class UnauthorizedError extends CustomError {
-  constructor(code: ErrorCode = ERROR_CODES.AUTH_ERROR) {
+  constructor(code: ApiErrorCode = API_ERROR_CODES.AUTH_ERROR) {
     super(code, 401);
   }
 }
 
 export class ForbiddenError extends CustomError {
-  constructor(code: ErrorCode = ERROR_CODES.FORBIDDEN_ERROR) {
+  constructor(code: ApiErrorCode = API_ERROR_CODES.FORBIDDEN_ERROR) {
     super(code, 403);
   }
 }
 
 export class ConflictError extends CustomError {
-  constructor(code: ErrorCode) {
+  constructor(code: ApiErrorCode) {
     super(code, 409);
   }
 }

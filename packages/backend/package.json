@@ -3,22 +3,22 @@
   "version": "0.0.0",
   "scripts": {
     "lint": "eslint & tsc --noEmit",
-    "build": "tsc && tsc-alias && npm run copySqlFiles",
-    "dev": "tsc && (concurrently \"tsc -w\" \"tsc-alias -w\" \"nodemon --enable-source-maps ./dist/index.js\")",
-    "copySqlFiles": "ncp src/database/migrations dist/database/migrations",
-    "migrate": "node --enable-source-maps dist/database/scripts/runMigrations.js",
-    "deleteTables": "tsc && tsc-alias && node --enable-source-maps dist/database/scripts/deleteTables.js"
+    "build": "tsc && npm run copySqlFiles",
+    "dev": "tsc && (concurrently \"tsc -w\" \"nodemon --enable-source-maps ./dist/backend/src/index.js\")",
+    "copySqlFiles": "ncp src/database/migrations dist/backend/src/database/migrations",
+    "migrate": "node --enable-source-maps dist/backend/src/database/scripts/runMigrations.js",
+    "deleteTables": "tsc && && node --enable-source-maps dist/database/scripts/deleteTables.js"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/cookie-parser": "^1.4.8",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/module-alias": "^2.0.4",
     "@types/pg": "^8.11.10",
     "concurrently": "^9.1.0",
     "ncp": "^2.0.0",
-    "nodemon": "^3.1.7",
-    "tsc-alias": "^1.8.10"
+    "nodemon": "^3.1.7"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -27,6 +27,7 @@
     "cron": "^3.3.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "module-alias": "^2.2.3",
     "pg": "^8.13.1",
     "socket.io": "^4.8.1",
     "uuid": "^11.0.3"

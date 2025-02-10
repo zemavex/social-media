@@ -1,4 +1,5 @@
-import "dotenv/config";
+import "./config/moduleAlias";
+import "./config/env";
 import express from "express";
 import { createServer } from "http";
 import { initRestApi } from "./rest";

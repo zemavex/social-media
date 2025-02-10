@@ -1,4 +1,4 @@
-import { storage, STORAGE_KEYS } from "shared/lib/storage";
+import { storage, STORAGE_KEYS } from "@/shared/lib/storage";
 
 const GITHUB_OAUTH_CLIENT_ID = "Ov23lim20KhWf5gp2ULe";
 

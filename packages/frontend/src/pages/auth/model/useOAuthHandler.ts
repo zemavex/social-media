@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
-import { apiGithubAuth, apiGithubConnect } from "features/auth";
-import { setAuthState, authenticateUser, type User } from "entities/user";
-import { isAxiosError } from "shared/api";
-import { useAppDispatch } from "shared/lib/redux";
-import { storage, STORAGE_KEYS } from "shared/lib/storage";
-import type { TranslateErrorOptions } from "shared/lib/hooks";
+import { apiGithubAuth, apiGithubConnect } from "@/features/auth";
+import { setAuthState, authenticateUser, type User } from "@/entities/user";
+import { isAxiosError } from "@/shared/api";
+import { useAppDispatch } from "@/shared/lib/redux";
+import { storage, STORAGE_KEYS } from "@/shared/lib/storage";
+import type { TranslateErrorOptions } from "@/shared/lib/hooks";
 
 export const useOAuthHandler = (action: "auth" | "connect") => {
   const [error, setError] = useState<TranslateErrorOptions | null>(null);
