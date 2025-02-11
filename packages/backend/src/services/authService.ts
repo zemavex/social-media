@@ -2,7 +2,7 @@ import axios from "axios";
 import bcrypt from "bcrypt";
 import type { RegisterSchema, LoginSchema } from "~shared/user";
 import { API_ERROR_CODES } from "~shared/core";
-import { User, UserModel } from "@/entities/user";
+import { User, UserRow } from "@/entities/user";
 import { BadRequestError, ConflictError, UnauthorizedError } from "@/errors";
 
 interface GithubUser {
@@ -41,7 +41,7 @@ const getGithubUser = async (code: string): Promise<GithubUser> => {
   return githubUser;
 };
 
-const githubAuth = async (code: string): Promise<UserModel> => {
+const githubAuth = async (code: string): Promise<UserRow> => {
   const githubUser = await getGithubUser(code);
 
   let user = await User.findByGithubId(githubUser.id);
@@ -55,7 +55,7 @@ const githubAuth = async (code: string): Promise<UserModel> => {
 const githubConnect = async (
   userId: number,
   code: string
-): Promise<UserModel> => {
+): Promise<UserRow> => {
   const foundUser = await User.findById(userId);
   if (!foundUser) throw new UnauthorizedError();
 
@@ -70,7 +70,7 @@ const githubConnect = async (
   return user;
 };
 
-async function register(userData: RegisterSchema): Promise<UserModel> {
+async function register(userData: RegisterSchema): Promise<UserRow> {
   const foundUser = await User.findByEmail(userData.email);
   if (foundUser) throw new ConflictError(API_ERROR_CODES.EMAIL_ALREADY_USED);
 
@@ -84,7 +84,7 @@ async function register(userData: RegisterSchema): Promise<UserModel> {
   return newUser;
 }
 
-async function login({ email, password }: LoginSchema): Promise<UserModel> {
+async function login({ email, password }: LoginSchema): Promise<UserRow> {
   const foundUser = await User.findByEmail(email);
   if (!foundUser?.password) {
     throw new BadRequestError(API_ERROR_CODES.INVALID_CREDENTIALS);

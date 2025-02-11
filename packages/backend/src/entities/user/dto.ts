@@ -1,11 +1,7 @@
-import type { UserModel } from "./types";
+import type { UserAuthDTO } from "~shared/user";
+import type { UserRow } from "./types";
 
-type PartialUser = Pick<
-  UserModel,
-  "id" | "username" | "first_name" | "last_name" | "role"
->;
-
-export const toUserDTO = (user: PartialUser): PartialUser => ({
+export const toUserAuthDTO = (user: UserRow): UserAuthDTO => ({
   id: user.id,
   username: user.username,
   first_name: user.first_name,

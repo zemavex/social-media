@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import { z } from "zod";
 import { registerSchema, loginSchema } from "~shared/user";
 import { Session } from "@/entities/session";
-import { User, toUserDTO } from "@/entities/user";
+import { User, toUserAuthDTO } from "@/entities/user";
 import { authService } from "@/services/authService";
 import { sessionService } from "@/services/sessionService";
 import { setSessionCookie } from "@/rest/helpers";
@@ -18,7 +18,7 @@ const githubAuth: RequestHandler = async (req, res, next) => {
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
 
-    res.json(toUserDTO(user));
+    res.json(toUserAuthDTO(user));
   } catch (err) {
     next(err);
   }
@@ -31,7 +31,7 @@ const githubConnect: RequestHandler = async (req, res, next) => {
 
     const user = await authService.githubConnect(req.session.userId, code);
 
-    res.json(toUserDTO(user));
+    res.json(toUserAuthDTO(user));
   } catch (err) {
     next(err);
   }
@@ -46,7 +46,7 @@ const register: RequestHandler = async (req, res, next) => {
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
 
-    res.json(toUserDTO(user));
+    res.json(toUserAuthDTO(user));
   } catch (err) {
     next(err);
   }
@@ -61,7 +61,7 @@ const login: RequestHandler = async (req, res, next) => {
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
 
-    res.json(toUserDTO(user));
+    res.json(toUserAuthDTO(user));
   } catch (err) {
     next(err);
   }
@@ -74,7 +74,7 @@ const auth: RequestHandler = async (req, res, next) => {
     const user = await User.findById(req.session.userId);
     if (!user) throw new UnauthorizedError();
 
-    res.json(toUserDTO(user));
+    res.json(toUserAuthDTO(user));
   } catch (err) {
     next(err);
   }
