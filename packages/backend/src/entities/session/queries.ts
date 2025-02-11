@@ -1,18 +1,15 @@
 import { pool } from "@/database";
 import { SESSION_MAX_AGE_MS } from "@/config/constants";
-import { SessionModel } from "./types";
+import { SessionRow } from "./types";
 
-async function create(
-  sessionId: string,
-  userId: number
-): Promise<SessionModel> {
+async function create(sessionId: string, userId: number): Promise<SessionRow> {
   const sessionExpiresAt = new Date(Date.now() + SESSION_MAX_AGE_MS);
 
   const query =
     "INSERT INTO sessions (id, user_id, expires_at) VALUES ($1, $2, $3) RETURNING *";
   const values = [sessionId, userId, sessionExpiresAt];
 
-  const res = await pool.query<SessionModel>(query, values);
+  const res = await pool.query<SessionRow>(query, values);
   return res.rows[0];
 }
 
@@ -40,11 +37,11 @@ async function deleteExpired(): Promise<number | null> {
   return res.rowCount || null;
 }
 
-async function findById(sessionId: string): Promise<SessionModel | null> {
+async function findById(sessionId: string): Promise<SessionRow | null> {
   const query = "SELECT * FROM sessions WHERE id = $1";
   const values = [sessionId];
 
-  const res = await pool.query<SessionModel>(query, values);
+  const res = await pool.query<SessionRow>(query, values);
   return res.rows[0] || null;
 }
 

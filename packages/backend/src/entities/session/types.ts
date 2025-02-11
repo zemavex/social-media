@@ -1,4 +1,4 @@
-export interface SessionModel {
+export interface SessionRow {
   id: string;
   user_id: number;
   expires_at: string;
