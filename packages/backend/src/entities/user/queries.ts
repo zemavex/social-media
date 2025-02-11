@@ -1,4 +1,4 @@
-import type { RegisterSchema } from "~shared/validation";
+import type { RegisterSchema } from "~shared/user";
 import { pool } from "@/database";
 import { UserModel, UserRole } from "./types";
 

@@ -1,3 +1,5 @@
+export type { UserRole, UserAuthDTO } from "./dto";
+
 export {
   registerSchema,
   loginSchema,

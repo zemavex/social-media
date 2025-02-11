@@ -1,7 +1,7 @@
 import axios from "axios";
 import bcrypt from "bcrypt";
-import type { LoginSchema, RegisterSchema } from "~shared/validation";
-import { API_ERROR_CODES } from "~shared/constants";
+import type { RegisterSchema, LoginSchema } from "~shared/user";
+import { API_ERROR_CODES } from "~shared/core";
 import { User, UserModel } from "@/entities/user";
 import { BadRequestError, ConflictError, UnauthorizedError } from "@/errors";
 

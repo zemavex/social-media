@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
-import { loginSchema, registerSchema } from "~shared/validation";
+import { registerSchema, loginSchema } from "~shared/user";
 import { Session } from "@/entities/session";
 import { User, toUserDTO } from "@/entities/user";
 import { authService } from "@/services/authService";

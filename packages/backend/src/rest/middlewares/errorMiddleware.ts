@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from "express";
 import { ZodError } from "zod";
-import { API_ERROR_CODES } from "~shared/constants";
+import { API_ERROR_CODES } from "~shared/core";
 import { CustomError } from "@/errors";
 
 export const errorMiddleware: ErrorRequestHandler = (

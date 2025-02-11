@@ -1,4 +1,4 @@
-import { API_ERROR_CODES, type ApiErrorCode } from "~shared/constants";
+import { API_ERROR_CODES, type ApiErrorCode } from "~shared/core";
 
 export class CustomError extends Error {
   code: ApiErrorCode;

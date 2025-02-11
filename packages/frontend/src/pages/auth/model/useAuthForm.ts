@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import type { ZodIssue, ZodType } from "zod";
-import { API_ERROR_CODES, type ApiErrorCode } from "~shared/constants";
+import { API_ERROR_CODES, type ApiErrorCode } from "~shared/core";
 import { authenticateUser, type User } from "@/entities/user";
 import { isAxiosError, isValidationFailed } from "@/shared/api";
 import {

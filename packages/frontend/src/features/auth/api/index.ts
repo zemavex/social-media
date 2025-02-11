@@ -1,4 +1,4 @@
-import type { LoginSchema, RegisterSchema } from "~shared/validation";
+import type { LoginSchema, RegisterSchema } from "~shared/user";
 import type { User } from "@/entities/user";
 import { apiInstance } from "@/shared/api";
 
