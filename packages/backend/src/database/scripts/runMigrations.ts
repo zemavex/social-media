@@ -1,7 +1,8 @@
-import "dotenv/config";
+import "../../config/moduleAlias";
+import "@/config/env";
 import path from "path";
-import { pool } from "@/database";
 import { readdirSync, readFileSync } from "fs";
+import { pool } from "@/database";
 
 const MIGRATIONS_DIR = path.join(__dirname, "../migrations");
 

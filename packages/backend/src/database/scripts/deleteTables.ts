@@ -1,4 +1,5 @@
-import "dotenv/config";
+import "../../config/moduleAlias";
+import "@/config/env";
 import { pool } from "@/database";
 import { askConfirmation } from "./askConfirmation";
 

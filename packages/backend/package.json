@@ -7,7 +7,7 @@
     "dev": "tsc && (concurrently \"tsc -w\" \"nodemon --enable-source-maps ./dist/backend/src/index.js\")",
     "copySqlFiles": "ncp src/database/migrations dist/backend/src/database/migrations",
     "migrate": "node --enable-source-maps dist/backend/src/database/scripts/runMigrations.js",
-    "deleteTables": "tsc && && node --enable-source-maps dist/database/scripts/deleteTables.js"
+    "deleteTables": "tsc && node --enable-source-maps dist/backend/src/database/scripts/deleteTables.js"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
