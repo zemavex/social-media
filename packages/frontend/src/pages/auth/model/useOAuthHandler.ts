@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
+import type { UserAuthDTO } from "~shared/user";
 import { apiGithubAuth, apiGithubConnect } from "@/features/auth";
-import { setAuthState, authenticateUser, type User } from "@/entities/user";
+import { setAuthState, authenticateUser } from "@/entities/user";
 import { isAxiosError } from "@/shared/api";
 import { useAppDispatch } from "@/shared/lib/redux";
 import { storage, STORAGE_KEYS } from "@/shared/lib/storage";
@@ -27,7 +28,7 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
       return;
     }
 
-    const handleOAuth = async (apiCall: () => Promise<User>) => {
+    const handleOAuth = async (apiCall: () => Promise<UserAuthDTO>) => {
       dispatch(setAuthState("pending"));
       try {
         const userData = await apiCall();
