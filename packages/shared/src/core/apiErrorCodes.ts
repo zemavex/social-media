@@ -5,7 +5,8 @@ export const API_ERROR_CODES = {
   VALIDATION_FAILED: "validation_failed",
   EMAIL_ALREADY_USED: "email_already_used",
   INVALID_CREDENTIALS: "invalid_credentials",
-  GITHUB_ALREADY_CONNECTED: "github_already_connected",
+  GITHUB_CONNECTED_TO_CURRENT_USER: "github_connected_to_current_user",
+  GITHUB_CONNECTED_TO_ANOTHER_USER: "github_connected_to_another_user",
 } as const;
 
 export type ApiErrorCode =

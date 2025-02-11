@@ -15,7 +15,8 @@
       "validation_failed": "Ошибка валидации",
       "email_already_used": "Этот email уже занят",
       "invalid_credentials": "Недействительные данные",
-      "github_already_connected": "Этот GitHub аккаунт уже связан с другим пользователем."
+      "github_connected_to_current_user": "Этот GitHub-аккаунт уже привязан к вашему аккаунту.",
+      "github_connected_to_another_user": "Этот GitHub-аккаунт уже привязан к другому пользователю."
     },
     "validation": {
       "unknown_issue": "Неизвестная ошибка валидации",
