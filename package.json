@@ -8,6 +8,7 @@
     "lint": "npm run lint --workspaces",
     "lint:front": "npm run lint --workspace frontend",
     "lint:back": "npm run lint --workspace backend",
+    "lint:shared": "npm run lint --workspace shared",
     "build:front": "npm run build --workspace frontend",
     "build:back": "npm run build --workspace backend",
     "dev:front": "npm run dev --workspace frontend",

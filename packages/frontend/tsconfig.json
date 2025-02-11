@@ -5,6 +5,7 @@
     "outDir": "./dist",
     "target": "ES5",
     "module": "ES6",
+    "lib": ["ES5", "DOM"],
     "jsx": "react-jsx",
     "paths": {
       "@/*": ["./src/*"],
@@ -13,10 +14,10 @@
   },
   "include": [
     "./src",
-    "../shared/src",
     "./config",
     "./webpack.config.ts",
-    "./env.d.ts"
+    "./env.d.ts",
+    "../shared/src"
   ],
   "ts-node": {
     "compilerOptions": {

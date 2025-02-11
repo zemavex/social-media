@@ -5,6 +5,7 @@
     "outDir": "./dist",
     "target": "ESNext",
     "module": "CommonJS",
+    "lib": ["ESNext"],
     "sourceMap": true,
     "incremental": true,
     "tsBuildInfoFile": "./dist/tsconfig.tsbuildinfo",
@@ -13,5 +14,5 @@
       "~shared/*": ["../shared/src/*"]
     }
   },
-  "include": ["./src", "../shared/src", "env.d.ts"]
+  "include": ["./src", "env.d.ts", "../shared/src"]
 }
