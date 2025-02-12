@@ -11,9 +11,10 @@ const initialState: UserState = {
   user: {
     id: -1,
     username: undefined,
-    first_name: "",
+    first_name: undefined,
     last_name: undefined,
     role: "user",
+    is_finished_registration: false,
   },
   authState: "idle",
 };

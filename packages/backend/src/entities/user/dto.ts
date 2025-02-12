@@ -7,4 +7,5 @@ export const toUserAuthDTO = (user: UserRow): UserAuthDTO => ({
   first_name: user.first_name,
   last_name: user.last_name,
   role: user.role,
+  is_finished_registration: user.is_finished_registration,
 });

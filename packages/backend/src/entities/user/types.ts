@@ -6,9 +6,10 @@ export interface UserRow {
   username?: string;
   email?: string;
   password?: string;
-  first_name: string;
+  first_name?: string;
   last_name?: string;
   role: UserRole;
   last_online: string;
   created_at: string;
+  is_finished_registration: boolean;
 }
