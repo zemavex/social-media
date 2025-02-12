@@ -1,5 +1,32 @@
 @use './normalize.scss';
+@use "./variables/global.scss";
+@use './themes/dark.scss';
+@use './themes/light.scss';
 
-body {
-  background-color: #f1f1f1;
+:root {
+  font: var(--font-m);
+  background-color: var(--base-color);
+  color: var(--text-color);
+}
+
+h1 {
+  font: var(--font-xl);
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: 
+    url("./fonts/Roboto-Regular.woff2") format("woff2"), 
+    url("./fonts/Roboto-Regular.woff") format("woff"), 
+    url("./fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: 
+    url("./fonts/Roboto-Bold.woff2") format("woff2"), 
+    url("./fonts/Roboto-Bold.woff") format("woff"), 
+    url("./fonts/Roboto-Bold.ttf") format("truetype");
+  font-weight: 700;
 }

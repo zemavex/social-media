@@ -18,5 +18,10 @@ export function buildLoaders(options: BuildOptions): RuleSetRule[] {
     ],
   };
 
-  return [typescriptLoader, sassLoader];
+  const fontLoader = {
+    test: /\.(woff|woff2|eot|ttf|otf)$/i,
+    type: "asset/resource",
+  };
+
+  return [typescriptLoader, sassLoader, fontLoader];
 }
