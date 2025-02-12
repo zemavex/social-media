@@ -1,10 +1,10 @@
 import { Response } from "express";
-import { SESSION_ID_COOKIE_NAME, SESSION_MAX_AGE_MS } from "@/config/constants";
+import { SESSION } from "@/entities/session";
 
 export function setSessionCookie(res: Response, sessionId: string) {
-  res.cookie(SESSION_ID_COOKIE_NAME, sessionId, {
+  res.cookie(SESSION.ID_COOKIE_NAME, sessionId, {
     httpOnly: true,
-    maxAge: SESSION_MAX_AGE_MS,
+    maxAge: SESSION.MAX_AGE,
     sameSite: "strict",
   });
 }

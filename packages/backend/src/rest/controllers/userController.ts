@@ -6,7 +6,7 @@ import { User, toUserAuthDTO } from "@/entities/user";
 import { authService } from "@/services/authService";
 import { sessionService } from "@/services/sessionService";
 import { setSessionCookie } from "@/rest/helpers";
-import { SESSION_ID_COOKIE_NAME } from "@/config/constants";
+import { SESSION } from "@/entities/session";
 import { InternalServerError, UnauthorizedError } from "@/errors";
 import { API_ERROR_CODES } from "~shared/core";
 
@@ -88,7 +88,7 @@ const logout: RequestHandler = async (req, res, next) => {
     if (!req.session)
       throw new InternalServerError(API_ERROR_CODES.SESSION_MISSING);
 
-    res.clearCookie(SESSION_ID_COOKIE_NAME);
+    res.clearCookie(SESSION.ID_COOKIE_NAME);
     await Session.delete(req.session.id);
 
     res.json({ message: "Successfully logged out" });

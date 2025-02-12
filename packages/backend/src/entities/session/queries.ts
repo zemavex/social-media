@@ -1,9 +1,9 @@
 import { pool } from "@/database";
-import { SESSION_MAX_AGE_MS } from "@/config/constants";
+import { SESSION } from "@/entities/session";
 import { SessionRow } from "./types";
 
 async function create(sessionId: string, userId: number): Promise<SessionRow> {
-  const sessionExpiresAt = new Date(Date.now() + SESSION_MAX_AGE_MS);
+  const sessionExpiresAt = new Date(Date.now() + SESSION.MAX_AGE);
 
   const query =
     "INSERT INTO sessions (id, user_id, expires_at) VALUES ($1, $2, $3) RETURNING *";
@@ -14,7 +14,7 @@ async function create(sessionId: string, userId: number): Promise<SessionRow> {
 }
 
 async function extend(sessionId: string): Promise<void> {
-  const sessionExpiresAt = new Date(Date.now() + SESSION_MAX_AGE_MS);
+  const sessionExpiresAt = new Date(Date.now() + SESSION.MAX_AGE);
 
   const query =
     "UPDATE sessions SET expires_at = $1, last_online = NOW() WHERE id = $2";
