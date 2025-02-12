@@ -11,7 +11,7 @@ async function register(userData: RegisterSchema): Promise<UserRow> {
       password, 
       first_name, 
       last_name, 
-      is_registration_finished
+      is_finished_registration
     ) 
     VALUES ($1, $2, $3, $4, $5) 
     RETURNING *
