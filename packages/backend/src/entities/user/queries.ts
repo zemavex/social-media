@@ -2,18 +2,27 @@ import type { RegisterSchema, UserRole } from "~shared/user";
 import { pool } from "@/database";
 import type { UserRow } from "./types";
 
-async function create(userData: RegisterSchema): Promise<UserRow> {
+async function register(userData: RegisterSchema): Promise<UserRow> {
   const { email, password, firstName, lastName } = userData;
 
-  const query =
-    "INSERT INTO users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4) RETURNING *";
-  const values = [email, password, firstName, lastName];
+  const query = `
+    INSERT INTO users (
+      email, 
+      password, 
+      first_name, 
+      last_name, 
+      is_registration_finished
+    ) 
+    VALUES ($1, $2, $3, $4, $5) 
+    RETURNING *
+  `;
+  const values = [email, password, firstName, lastName, true];
 
   const res = await pool.query<UserRow>(query, values);
   return res.rows[0];
 }
 
-async function createWithGithub(githubId: number): Promise<UserRow> {
+async function registerUsingGithub(githubId: number): Promise<UserRow> {
   const query = "INSERT INTO users (github_id) VALUES ($1) RETURNING *";
   const values = [githubId];
 
@@ -65,8 +74,8 @@ async function findRole(userId: number): Promise<UserRole | null> {
 }
 
 export const User = {
-  create,
-  createWithGithub,
+  register,
+  registerUsingGithub,
   updateGithubId,
   findById,
   findByEmail,

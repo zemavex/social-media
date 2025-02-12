@@ -51,7 +51,7 @@ const githubAuth = async (code: string): Promise<UserRow> => {
 
   let user = await User.findByGithubId(githubUser.id);
   if (!user) {
-    user = await User.createWithGithub(githubUser.id);
+    user = await User.registerUsingGithub(githubUser.id);
   }
 
   return user;
@@ -86,7 +86,7 @@ async function register(userData: RegisterSchema): Promise<UserRow> {
 
   const hashedPassword = await bcrypt.hash(userData.password, 10);
 
-  const newUser = await User.create({
+  const newUser = await User.register({
     ...userData,
     password: hashedPassword,
   });
