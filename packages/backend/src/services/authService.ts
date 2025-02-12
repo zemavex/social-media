@@ -3,7 +3,12 @@ import bcrypt from "bcrypt";
 import type { RegisterSchema, LoginSchema } from "~shared/user";
 import { API_ERROR_CODES } from "~shared/core";
 import { User, UserRow } from "@/entities/user";
-import { BadRequestError, ConflictError, UnauthorizedError } from "@/errors";
+import {
+  BadRequestError,
+  ConflictError,
+  InternalServerError,
+  UnauthorizedError,
+} from "@/errors";
 
 interface GithubUser {
   id: number;
@@ -70,6 +75,7 @@ const githubConnect = async (
   }
 
   const user = await User.updateGithubId(githubUser.id, userId);
+  if (!user) throw new InternalServerError();
 
   return user;
 };

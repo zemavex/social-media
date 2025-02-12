@@ -24,12 +24,12 @@ async function createWithGithub(githubId: number): Promise<UserRow> {
 async function updateGithubId(
   githubId: number,
   userId: number
-): Promise<UserRow> {
+): Promise<UserRow | null> {
   const query = "UPDATE users SET github_id = $1 WHERE id = $2 RETURNING *";
   const values = [githubId, userId];
 
   const res = await pool.query<UserRow>(query, values);
-  return res.rows[0];
+  return res.rows[0] || null;
 }
 
 async function findById(userId: number): Promise<UserRow | null> {

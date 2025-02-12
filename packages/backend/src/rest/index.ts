@@ -12,7 +12,7 @@ export function initRestApi(app: Application): void {
   app.use(json());
   app.use(cookieParser());
 
-  app.use(middleware.fakeDelay);
+  // app.use(middleware.fakeDelay);
 
   app.use("/api", router);
 
