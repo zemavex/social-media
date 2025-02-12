@@ -1,5 +1,7 @@
 export const API_ERROR_CODES = {
   UNKNOWN_ERROR: "unknown_error",
+  INTERNAL_SERVER_ERROR: "internal_server_error",
+  SESSION_MISSING: "session_missing",
   FORBIDDEN_ERROR: "forbidden_error",
   AUTH_ERROR: "auth_error",
   VALIDATION_FAILED: "validation_failed",

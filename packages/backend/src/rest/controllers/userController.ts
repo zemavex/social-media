@@ -7,7 +7,8 @@ import { authService } from "@/services/authService";
 import { sessionService } from "@/services/sessionService";
 import { setSessionCookie } from "@/rest/helpers";
 import { SESSION_ID_COOKIE_NAME } from "@/config/constants";
-import { UnauthorizedError } from "@/errors";
+import { InternalServerError, UnauthorizedError } from "@/errors";
+import { API_ERROR_CODES } from "~shared/core";
 
 const githubAuth: RequestHandler = async (req, res, next) => {
   try {
@@ -26,7 +27,8 @@ const githubAuth: RequestHandler = async (req, res, next) => {
 
 const githubConnect: RequestHandler = async (req, res, next) => {
   try {
-    if (!req.session) throw new UnauthorizedError();
+    if (!req.session)
+      throw new InternalServerError(API_ERROR_CODES.SESSION_MISSING);
     const { code } = z.object({ code: z.string() }).parse(req.body);
 
     const user = await authService.githubConnect(req.session.userId, code);
@@ -69,7 +71,8 @@ const login: RequestHandler = async (req, res, next) => {
 
 const auth: RequestHandler = async (req, res, next) => {
   try {
-    if (!req.session) throw new UnauthorizedError();
+    if (!req.session)
+      throw new InternalServerError(API_ERROR_CODES.SESSION_MISSING);
 
     const user = await User.findById(req.session.userId);
     if (!user) throw new UnauthorizedError();
@@ -82,7 +85,8 @@ const auth: RequestHandler = async (req, res, next) => {
 
 const logout: RequestHandler = async (req, res, next) => {
   try {
-    if (!req.session) throw new UnauthorizedError();
+    if (!req.session)
+      throw new InternalServerError(API_ERROR_CODES.SESSION_MISSING);
 
     res.clearCookie(SESSION_ID_COOKIE_NAME);
     await Session.delete(req.session.id);
@@ -95,7 +99,8 @@ const logout: RequestHandler = async (req, res, next) => {
 
 const test: RequestHandler = (req, res, next) => {
   try {
-    if (!req.session) throw new UnauthorizedError();
+    if (!req.session)
+      throw new InternalServerError(API_ERROR_CODES.SESSION_MISSING);
 
     res.json({ message: "Secret route" });
   } catch (err) {

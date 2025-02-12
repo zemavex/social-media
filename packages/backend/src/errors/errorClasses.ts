@@ -43,3 +43,9 @@ export class ConflictError extends CustomError {
     super(code, 409);
   }
 }
+
+export class InternalServerError extends CustomError {
+  constructor(code: ApiErrorCode = API_ERROR_CODES.INTERNAL_SERVER_ERROR) {
+    super(code, 500);
+  }
+}
