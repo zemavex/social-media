@@ -18,6 +18,7 @@ userRouter.post("/logout", middleware.auth, userController.logout);
 userRouter.get(
   "/test",
   middleware.auth,
+  middleware.checkFinishedRegistration,
   middleware.checkRole("admin"),
   userController.test
 );

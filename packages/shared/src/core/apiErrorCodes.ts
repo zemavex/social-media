@@ -9,6 +9,8 @@ export const API_ERROR_CODES = {
   INVALID_CREDENTIALS: "invalid_credentials",
   GITHUB_CONNECTED_TO_CURRENT_USER: "github_connected_to_current_user",
   GITHUB_CONNECTED_TO_ANOTHER_USER: "github_connected_to_another_user",
+  REGISTRATION_INCOMPLETE: "registration_incomplete",
+  INSUFFICIENT_ROLE: "insufficient_role",
 } as const;
 
 export type ApiErrorCode =

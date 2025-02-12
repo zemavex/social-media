@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import type { UserRole } from "~shared/user";
 import { User } from "@/entities/user";
 import { ForbiddenError, UnauthorizedError } from "@/errors";
+import { API_ERROR_CODES } from "~shared/core";
 
 const roleHierarchy: { [key in UserRole]: number } = {
   user: 0,
@@ -15,11 +16,12 @@ export const checkRoleMiddleware = (minimumRole: UserRole): RequestHandler => {
     try {
       if (!req.session) throw new UnauthorizedError();
 
-      const userRole = await User.findRole(req.session.userId);
+      const userRole = await User.getRole(req.session.userId);
       if (!userRole) throw new Error("User role not found");
 
       const hasAccess = roleHierarchy[userRole] >= roleHierarchy[minimumRole];
-      if (!hasAccess) throw new ForbiddenError();
+      if (!hasAccess)
+        throw new ForbiddenError(API_ERROR_CODES.INSUFFICIENT_ROLE);
 
       next();
     } catch (err) {

@@ -65,12 +65,22 @@ async function findByGithubId(githubId: number): Promise<UserRow | null> {
   return res.rows[0] || null;
 }
 
-async function findRole(userId: number): Promise<UserRole | null> {
+async function getRole(userId: number): Promise<UserRole | null> {
   const query = "SELECT role FROM users WHERE id = $1";
   const values = [userId];
 
   const res = await pool.query<UserRow>(query, values);
   return res.rows[0]?.role || null;
+}
+
+async function getIsFinishedRegistration(
+  userId: number
+): Promise<boolean | null> {
+  const query = "SELECT is_finished_registration FROM users WHERE id = $1";
+  const values = [userId];
+
+  const res = await pool.query<UserRow>(query, values);
+  return res.rows[0]?.is_finished_registration ?? null;
 }
 
 export const User = {
@@ -80,5 +90,6 @@ export const User = {
   findById,
   findByEmail,
   findByGithubId,
-  findRole,
+  getRole,
+  getIsFinishedRegistration,
 };
