@@ -13,7 +13,19 @@ export function buildLoaders(options: BuildOptions): RuleSetRule[] {
     test: /\.s[ac]ss$/i,
     use: [
       options.isDev ? "style-loader" : MiniCssExtractPlugin.loader,
-      "css-loader",
+      {
+        loader: "css-loader",
+        options: {
+          modules: {
+            localIdentName: options.isDev
+              ? "[path][name]__[local]--[hash:base64:5]"
+              : "[hash:base64:8]",
+            auto: /\.module\.s[ac]ss$/i,
+            namedExport: false,
+            exportLocalsConvention: "as-is",
+          },
+        },
+      },
       "sass-loader",
     ],
   };
@@ -23,5 +35,11 @@ export function buildLoaders(options: BuildOptions): RuleSetRule[] {
     type: "asset/resource",
   };
 
-  return [typescriptLoader, sassLoader, fontLoader];
+  const svgLoader = {
+    test: /\.svg$/i,
+    issuer: /\.[jt]sx?$/,
+    use: ["@svgr/webpack"],
+  };
+
+  return [typescriptLoader, sassLoader, fontLoader, svgLoader];
 }
