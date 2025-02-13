@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import { loginSchema } from "~shared/user";
 import { apiLogin, startGithubOAuth } from "@/features/auth";
+import { ThemeSwitcher } from "@/shared/theme";
 import { useErrorTranslation } from "@/shared/lib/hooks";
 import { ROUTES } from "@/shared/config";
 import { useAuthForm } from "../model/useAuthForm";
@@ -44,6 +45,7 @@ export const LoginPage = () => {
 
   return (
     <div>
+      <ThemeSwitcher />
       <button onClick={handleChangeLang}>{t("current_language")}</button>
       <h1>{t("login")}</h1>
       {errors?.general && (

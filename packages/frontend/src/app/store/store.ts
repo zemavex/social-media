@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { setupAuthApiInterceptors } from "@/features/auth";
 import { userReducer } from "@/entities/user";
+import { themeReducer } from "@/shared/theme";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    theme: themeReducer,
   },
 });
 

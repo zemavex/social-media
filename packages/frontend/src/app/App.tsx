@@ -1,14 +1,11 @@
-import { Provider } from "react-redux";
+import { useThemeEffect } from "@/shared/theme";
 import { AppRouter } from "./router";
-import { store } from "./store";
 import "./styles/index.scss";
 
 const App = () => {
-  return (
-    <Provider store={store}>
-      <AppRouter />
-    </Provider>
-  );
+  useThemeEffect();
+
+  return <AppRouter />;
 };
 
 export default App;
