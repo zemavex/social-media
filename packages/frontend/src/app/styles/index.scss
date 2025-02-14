@@ -3,14 +3,14 @@
 @use './themes/dark.scss';
 @use './themes/light.scss';
 
-:root {
-  font: var(--font-m);
-  background-color: var(--base-color);
-  color: var(--text-color);
+body {
+  font: var(--font-md);
+  background-color: var(--color-base);
+  color: var(--color-text);
 }
 
 h1 {
-  font: var(--font-xl);
+  font: var(--font-3xl);
 }
 
 @font-face {

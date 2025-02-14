@@ -17,6 +17,9 @@ export const classNames = (...args: unknown[]): string => {
           .map(([cls]) => cls)
           .join(" ");
       }
+
+      return null;
     })
+    .filter(Boolean)
     .join(" ");
 };
