@@ -11,6 +11,9 @@
   --btn-hover-color: var(--btn-color);
   --btn-hover-bg-color: var(--color-surface-1-10);
   --btn-hover-border-color: var(--btn-hover-bg-color);
+  --btn-active-color: var(--btn-hover-color);
+  --btn-active-bg-color: var(--btn-hover-bg-color);
+  --btn-active-border-color: var(--btn-active-bg-color);
   --btn-svg-size: 1em;
 
   padding: var(--btn-padding-y) var(--btn-padding-x);
@@ -39,6 +42,12 @@
     color: var(--btn-hover-color);
     background-color: var(--btn-hover-bg-color);
     border-color: var(--btn-hover-border-color);
+  }
+
+  &:active {
+    color: var(--btn-active-color);
+    background-color: var(--btn-active-bg-color);
+    border-color: var(--btn-active-border-color);
   }
 
   &--size-small {
@@ -74,45 +83,53 @@
   &--variant-text {
     --btn-bg-color: transparent;
     --btn-hover-border-color: transparent;
+    --btn-active-border-color: var(--btn-hover-border-color);
 
     &.btn--color-primary {
       --btn-color: var(--color-blue-500);
-      --btn-hover-bg-color: var(--color-blue-500-20);
+      --btn-hover-bg-color: var(--color-blue-500-10);
+      --btn-active-bg-color: var(--color-blue-500-20)
     }
 
     &.btn--color-secondary {
       --btn-color: var(--color-text);
       --btn-hover-bg-color: var(--color-surface-0);
+      --btn-active-bg-color: var(--color-surface-1);
     }
 
     &.btn--color-danger {
       --btn-color: var(--color-red-500);
-      --btn-hover-bg-color: var(--color-red-500-20);
+      --btn-hover-bg-color: var(--color-red-500-10);
+      --btn-active-bg-color: var(--color-red-500-20);
     }
   }
 
   &--variant-outlined {
     --btn-bg-color: transparent;
-
+    --btn-active-border-color: var(--btn-hover-border-color);
+    
     &.btn--color-primary {
       --btn-color: var(--color-blue-500);
       --btn-border-color: var(--color-blue-500-50);
+      --btn-hover-bg-color: var(--color-blue-500-10);
       --btn-hover-border-color: var(--color-blue-500);
-      --btn-hover-bg-color: var(--color-blue-500-20);
+      --btn-active-bg-color: var(--color-blue-500-20);
     }
 
     &.btn--color-secondary {
       --btn-color: var(--color-text);
       --btn-border-color: var(--color-text-50);
-      --btn-hover-border-color: var(--color-text);
       --btn-hover-bg-color: var(--color-surface-0);
+      --btn-hover-border-color: var(--color-text);
+      --btn-active-bg-color: var(--color-surface-1);
     }
 
     &.btn--color-danger {
       --btn-color: var(--color-red-500);
       --btn-border-color: var(--color-red-500-50);
+      --btn-hover-bg-color: var(--color-red-500-10);
       --btn-hover-border-color: var(--color-red-500);
-      --btn-hover-bg-color: var(--color-red-500-20);
+      --btn-active-bg-color: var(--color-red-500-20);
     }
   }
 
@@ -121,18 +138,21 @@
       --btn-color: var(--color-mantle);
       --btn-bg-color: var(--color-blue-500);
       --btn-hover-bg-color: var(--color-blue-600);
+      --btn-active-bg-color: var(--color-blue-700);
     }
 
     &.btn--color-secondary {
       --btn-color: var(--color-text);
       --btn-bg-color: var(--color-surface-0);
       --btn-hover-bg-color: var(--color-surface-1);
+      --btn-active-bg-color: var(--color-surface-2);
     }
 
     &.btn--color-danger {
       --btn-color: var(--color-mantle);
       --btn-bg-color: var(--color-red-500);
       --btn-hover-bg-color: var(--color-red-600);
+      --btn-active-bg-color: var(--color-red-700);
     }
   }
 }
