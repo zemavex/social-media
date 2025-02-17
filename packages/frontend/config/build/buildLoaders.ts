@@ -38,7 +38,7 @@ export function buildLoaders(options: BuildOptions): RuleSetRule[] {
   const svgLoader = {
     test: /\.svg$/i,
     issuer: /\.[jt]sx?$/,
-    use: ["@svgr/webpack"],
+    use: [{ loader: "@svgr/webpack", options: { icon: true } }],
   };
 
   return [typescriptLoader, sassLoader, fontLoader, svgLoader];

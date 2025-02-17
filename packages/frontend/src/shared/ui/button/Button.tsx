@@ -3,37 +3,37 @@ import { classNames } from "@/shared/lib/utils";
 import cls from "./Button.module.scss";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  size?: "small" | "medium" | "large";
   variant?: "text" | "outlined" | "contained";
   color?: "primary" | "secondary" | "danger";
-  size?: "small" | "medium" | "large";
-  hasPressedEffect?: boolean;
+  iconOnly?: boolean;
 }
 
 export const Button: FC<ButtonProps> = ({
   children,
   className,
+  size = "medium",
   variant = "text",
   color = "secondary",
-  size = "medium",
-  hasPressedEffect = true,
+  iconOnly,
   ...props
 }) => {
+  console.log(cls.btn_icon_only);
   return (
     <button
-      className={classNames(className, cls.btn, {
-        [cls[`btn_variant_${variant}`]]: variant,
-        [cls[`btn_color_${color}`]]: color,
-        [cls[`btn_size_${size}`]]: size,
-      })}
+      className={classNames(
+        className,
+        cls.btn,
+        cls[`btn--variant-${variant}`],
+        cls[`btn--color-${color}`],
+        cls[`btn--size-${size}`],
+        {
+          [cls["btn--icon-only"]]: iconOnly,
+        }
+      )}
       {...props}
     >
-      <span
-        className={classNames(cls.btn__container, {
-          [cls["btn__container_pressed"]]: hasPressedEffect,
-        })}
-      >
-        {children}
-      </span>
+      {children}
     </button>
   );
 };
