@@ -20,13 +20,13 @@
   font-size: var(--btn-font-size);
   line-height: var(--btn-line-height);
   border: var(--btn-border-width) solid var(--btn-border-color);
-  border-radius: var(--btn-border-radius);
-  color: var(--btn-color);
+  border-radius: var(--btn-border-radius-override, var(--btn-border-radius));
+  color: var(--btn-color-override, var(--btn-color));
   background-color: var(--btn-bg-color);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
+  justify-content: var(--btn-justify-content-override, center);
   gap: .5em;
   white-space: nowrap;
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
@@ -39,13 +39,13 @@
   }
 
   &:hover {
-    color: var(--btn-hover-color);
+    color: var(--btn-color-override, var(--btn-hover-color));
     background-color: var(--btn-hover-bg-color);
     border-color: var(--btn-hover-border-color);
   }
 
   &:active {
-    color: var(--btn-active-color);
+    color: var(--btn-color-override, var(--btn-active-color));
     background-color: var(--btn-active-bg-color);
     border-color: var(--btn-active-border-color);
   }

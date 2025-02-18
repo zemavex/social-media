@@ -1,12 +1,13 @@
-import type { ButtonHTMLAttributes, FC } from "react";
+import type { ButtonHTMLAttributes, FC, RefObject } from "react";
 import { classNames } from "@/shared/lib/utils";
 import cls from "./Button.module.scss";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "small" | "medium" | "large";
   variant?: "text" | "outlined" | "contained";
   color?: "primary" | "secondary" | "danger";
   iconOnly?: boolean;
+  ref?: RefObject<HTMLButtonElement | null>;
 }
 
 export const Button: FC<ButtonProps> = ({
@@ -16,11 +17,12 @@ export const Button: FC<ButtonProps> = ({
   variant = "text",
   color = "secondary",
   iconOnly,
+  ref,
   ...props
 }) => {
-  console.log(cls.btn_icon_only);
   return (
     <button
+      ref={ref}
       className={classNames(
         className,
         cls.btn,

@@ -1,0 +1,10 @@
+.popper {
+  position: absolute;
+  width: max-content;
+  
+  &--measuring {
+    top: 0;
+    left: -9999px;
+    visibility: hidden;
+  }
+}

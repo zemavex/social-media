@@ -1,16 +1,29 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { Menu, MenuItem } from "@/shared/ui/menu";
 import { Button } from "@/shared/ui/button";
 import { useTheme } from "../model/useTheme";
+import type { Theme } from "../model/themeTypes";
 import { THEMES } from "../config/themeConstants";
 import Moon from "../assets/moon.svg";
 import Sun from "../assets/sun.svg";
+import Monitor from "../assets/monitor.svg";
 
 export const ThemeSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const btnRef = useRef<HTMLButtonElement>(null);
   const { theme, isFollowingSystem, setTheme, setThemeToFollowSystem } =
     useTheme();
 
-  const ThemeIcon = () => {
+  const handleThemeSelect = (theme: Theme | "system") => {
+    if (theme === "system") {
+      setThemeToFollowSystem();
+    } else {
+      setTheme(theme);
+    }
+    setIsOpen(false);
+  };
+
+  const CurrentThemeIcon = () => {
     switch (theme) {
       case THEMES.DARK:
         return <Moon />;
@@ -20,23 +33,30 @@ export const ThemeSwitcher = () => {
   };
 
   return (
-    <div>
-      <Button onClick={() => setIsOpen((prev) => !prev)}>
-        <ThemeIcon />
+    <>
+      <Button onClick={() => setIsOpen((prev) => !prev)} iconOnly ref={btnRef}>
+        <CurrentThemeIcon />
       </Button>
-      {isOpen && (
-        <>
-          <div>theme: {theme}</div>
-          <div>following system: {isFollowingSystem ? "yes" : "no"}</div>
-          <button onClick={() => setTheme(THEMES.DARK)}>set dark theme</button>
-          <button onClick={() => setTheme(THEMES.LIGHT)}>
-            set light theme
-          </button>
-          <button onClick={() => setThemeToFollowSystem()}>
-            set to follow system
-          </button>
-        </>
-      )}
-    </div>
+      <Menu isOpen={isOpen} onClose={() => setIsOpen(false)} target={btnRef}>
+        <MenuItem
+          isActive={theme === THEMES.LIGHT && !isFollowingSystem}
+          onClick={() => handleThemeSelect(THEMES.LIGHT)}
+        >
+          <Sun /> Light
+        </MenuItem>
+        <MenuItem
+          isActive={theme === THEMES.DARK && !isFollowingSystem}
+          onClick={() => handleThemeSelect(THEMES.DARK)}
+        >
+          <Moon /> Dark
+        </MenuItem>
+        <MenuItem
+          isActive={isFollowingSystem}
+          onClick={() => handleThemeSelect("system")}
+        >
+          <Monitor /> System
+        </MenuItem>
+      </Menu>
+    </>
   );
 };

@@ -1,0 +1,10 @@
+.menu {
+  --menu-padding-y: 0.25rem;
+  --menu-padding-x: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--menu-padding-y) var(--menu-padding-x);
+  border-radius: var(--border-radius-md);
+  background-color: var(--color-base);
+  box-shadow: var(--shadow-floating-md);
+}

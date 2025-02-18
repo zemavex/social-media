@@ -1,0 +1,8 @@
+.item {
+  --btn-border-radius-override: none;
+  --btn-justify-content-override: flex-start;
+}
+
+.item--active {
+  --btn-color-override: var(--color-blue-500);
+}
