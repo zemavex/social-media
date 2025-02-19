@@ -1,0 +1,36 @@
+.app-link {
+  text-decoration: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+
+  &--underline {
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &--small {
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-sm);
+  }
+
+  &--medium {
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-md);
+  }
+
+  &--large {
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-lg);
+  }
+
+  &--primary {
+    color: var(--color-blue-500);
+  }
+
+  &--secondary {
+    color: var(--color-text);
+  }
+}

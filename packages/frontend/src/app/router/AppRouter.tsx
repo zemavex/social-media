@@ -6,6 +6,7 @@ import { HomePage } from "@/pages/home";
 import { selectAuthState, selectUser } from "@/entities/user";
 import { useAppSelector } from "@/shared/lib/redux";
 import { ROUTES } from "@/shared/config";
+import { Layout } from "./ui/Layout/Layout";
 
 export const AppRouter = () => {
   const authState = useAppSelector(selectAuthState);
@@ -54,7 +55,9 @@ export const AppRouter = () => {
 
   return (
     <BrowserRouter>
-      <Routes>{routes}</Routes>
+      <Routes>
+        <Route element={<Layout />}>{routes}</Route>
+      </Routes>
     </BrowserRouter>
   );
 };

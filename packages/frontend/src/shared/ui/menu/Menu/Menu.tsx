@@ -2,20 +2,9 @@ import type { FC } from "react";
 import { Popper, type PopperProps } from "@/shared/ui/popper";
 import cls from "./Menu.module.scss";
 
-export const Menu: FC<PopperProps> = ({
-  children,
-  target,
-  isOpen,
-  onClose,
-  placement,
-}) => {
+export const Menu: FC<PopperProps> = ({ children, ...props }) => {
   return (
-    <Popper
-      target={target}
-      isOpen={isOpen}
-      onClose={onClose}
-      placement={placement}
-    >
+    <Popper {...props}>
       <div className={cls.menu}>{children}</div>
     </Popper>
   );

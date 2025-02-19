@@ -17,6 +17,7 @@ export interface PopperProps {
   isOpen: boolean;
   onClose: () => void;
   placement?: "bottom-start" | "bottom-end" | "top-start" | "top-end";
+  offset?: { x?: number; y?: number };
 }
 
 export const Popper: FC<PopperProps> = ({
@@ -25,6 +26,7 @@ export const Popper: FC<PopperProps> = ({
   isOpen,
   onClose,
   placement = "bottom-start",
+  offset,
 }) => {
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const [isMeasuring, setIsMeasuring] = useState(true);
@@ -51,23 +53,33 @@ export const Popper: FC<PopperProps> = ({
           : "bottom";
     }
 
-    const top =
+    let top =
       verticalPosition === "bottom"
-        ? targetRect.bottom + window.scrollY
-        : targetRect.top + window.scrollY - popperRect.height;
+        ? targetRect.bottom + window.scrollY + (offset?.y || 0)
+        : targetRect.top +
+          window.scrollY -
+          popperRect.height -
+          (offset?.y || 0);
 
     let left =
       placement.split("-")[1] === "start"
-        ? targetRect.left + window.scrollX
-        : targetRect.right + window.scrollX - popperRect.width;
+        ? targetRect.left + window.scrollX + (offset?.x || 0)
+        : targetRect.right +
+          window.scrollX -
+          popperRect.width -
+          (offset?.x || 0);
 
     if (left + popperRect.width > document.documentElement.clientWidth) {
       left = document.documentElement.clientWidth - popperRect.width;
     }
 
-    setPosition({ top, left: left < 0 ? 0 : left });
+    if (top + popperRect.height > document.documentElement.clientHeight) {
+      top = document.documentElement.clientHeight - popperRect.height;
+    }
+
+    setPosition({ top: top < 0 ? 0 : top, left: left < 0 ? 0 : left });
     setIsMeasuring(false);
-  }, [placement]);
+  }, [placement, offset]);
 
   useEffect(() => {
     if (!isOpen) return;
