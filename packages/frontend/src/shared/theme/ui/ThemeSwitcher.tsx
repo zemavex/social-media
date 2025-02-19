@@ -41,20 +41,23 @@ export const ThemeSwitcher = () => {
         <MenuItem
           isToggled={theme === THEMES.LIGHT && !isFollowingSystem}
           onClick={() => handleThemeSelect(THEMES.LIGHT)}
+          startIcon={<Sun />}
         >
-          <Sun /> Light
+          Light
         </MenuItem>
         <MenuItem
           isToggled={theme === THEMES.DARK && !isFollowingSystem}
           onClick={() => handleThemeSelect(THEMES.DARK)}
+          startIcon={<Moon />}
         >
-          <Moon /> Dark
+          Dark
         </MenuItem>
         <MenuItem
           isToggled={isFollowingSystem}
           onClick={() => handleThemeSelect("system")}
+          startIcon={<Monitor />}
         >
-          <Monitor /> System
+          System
         </MenuItem>
       </Menu>
     </>
