@@ -4,19 +4,19 @@ import { classNames } from "@/shared/lib/utils";
 import cls from "./MenuItem.module.scss";
 
 interface MenuItemProps extends ButtonProps {
-  isActive?: boolean;
+  isToggled?: boolean;
 }
 
 export const MenuItem: FC<MenuItemProps> = ({
   className,
   children,
-  isActive,
+  isToggled,
   ...props
 }) => {
   return (
     <Button
       className={classNames(className, cls.item, {
-        [cls["item--active"]]: isActive,
+        [cls["item--toggled"]]: isToggled,
       })}
       {...props}
     >

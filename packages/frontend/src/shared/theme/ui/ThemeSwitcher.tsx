@@ -39,19 +39,19 @@ export const ThemeSwitcher = () => {
       </Button>
       <Menu isOpen={isOpen} onClose={() => setIsOpen(false)} target={btnRef}>
         <MenuItem
-          isActive={theme === THEMES.LIGHT && !isFollowingSystem}
+          isToggled={theme === THEMES.LIGHT && !isFollowingSystem}
           onClick={() => handleThemeSelect(THEMES.LIGHT)}
         >
           <Sun /> Light
         </MenuItem>
         <MenuItem
-          isActive={theme === THEMES.DARK && !isFollowingSystem}
+          isToggled={theme === THEMES.DARK && !isFollowingSystem}
           onClick={() => handleThemeSelect(THEMES.DARK)}
         >
           <Moon /> Dark
         </MenuItem>
         <MenuItem
-          isActive={isFollowingSystem}
+          isToggled={isFollowingSystem}
           onClick={() => handleThemeSelect("system")}
         >
           <Monitor /> System

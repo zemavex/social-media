@@ -14,6 +14,9 @@
   --btn-active-color: var(--btn-hover-color);
   --btn-active-bg-color: var(--btn-hover-bg-color);
   --btn-active-border-color: var(--btn-active-bg-color);
+  --btn-disabled-color: var(--color-text);
+  --btn-disabled-bg-color: transparent;
+  --btn-disabled-border-color: var(--btn-disabled-bg-color);
   --btn-svg-size: 1em;
 
   padding: var(--btn-padding-y) var(--btn-padding-x);
@@ -48,6 +51,14 @@
     color: var(--btn-color-override, var(--btn-active-color));
     background-color: var(--btn-active-bg-color);
     border-color: var(--btn-active-border-color);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: .6;
+    color: var(--btn-color-override, var(--btn-disabled-color));
+    background-color: var(--btn-disabled-bg-color);
+    border-color: var(--btn-disabled-border-color);
   }
 
   &--size-small {
@@ -107,6 +118,7 @@
   &--variant-outlined {
     --btn-bg-color: transparent;
     --btn-active-border-color: var(--btn-hover-border-color);
+    --btn-disabled-border-color: var(--color-surface-0);
     
     &.btn--color-primary {
       --btn-color: var(--color-blue-500);
@@ -134,6 +146,8 @@
   }
 
   &--variant-contained {
+    --btn-disabled-bg-color: var(--color-surface-0);
+
     &.btn--color-primary {
       --btn-color: var(--color-mantle);
       --btn-bg-color: var(--color-blue-500);
