@@ -26,7 +26,14 @@ export function buildLoaders(options: BuildOptions): RuleSetRule[] {
           },
         },
       },
-      "sass-loader",
+      {
+        loader: "sass-loader",
+        options: {
+          sassOptions: {
+            loadPaths: [options.paths.scss],
+          },
+        },
+      },
     ],
   };
 
@@ -38,8 +45,22 @@ export function buildLoaders(options: BuildOptions): RuleSetRule[] {
   const svgLoader = {
     test: /\.svg$/i,
     issuer: /\.[jt]sx?$/,
-    use: [{ loader: "@svgr/webpack", options: { icon: true } }],
+    use: [
+      {
+        loader: "@svgr/webpack",
+        options: {
+          svgoConfig: {
+            plugins: ["removeDimensions"],
+          },
+        },
+      },
+    ],
   };
 
-  return [typescriptLoader, sassLoader, fontLoader, svgLoader];
+  const imageLoader = {
+    test: /\.(png|jpg|jpeg|gif)$/i,
+    type: "asset/resource",
+  };
+
+  return [typescriptLoader, sassLoader, fontLoader, svgLoader, imageLoader];
 }
