@@ -13,7 +13,11 @@ export const Header = () => {
           <li
             className={`${cls["header__menu-item"]} ${cls["header__menu-item-logo"]}`}
           >
-            <AppLink to={ROUTES.HOME} className={cls["header__logo"]}>
+            <AppLink
+              to={ROUTES.HOME}
+              className={cls["header__logo"]}
+              color="text"
+            >
               <House />
             </AppLink>
           </li>

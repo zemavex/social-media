@@ -6,6 +6,13 @@
   "password": "Password",
   "firstName": "First name",
   "lastName": "Last name",
+  "continue_with_github": "Continue with GitHub",
+  "or": "or",
+  "sign_in_heading": "Sign in",
+  "sign_in_action_text": "Sign in",
+  "sign_up_heading": "Sign up",
+  "sign_up_action_text": "Sign up",
+  "no_account_question": "Don’t have an account?",
   "error": {
     "general": {
       "unknown_error": "Something went wrong. Please try again."

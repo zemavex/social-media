@@ -1,3 +1,5 @@
+@use "variables/breakpoints.scss" as breakpoints;
+
 .header__wrap {
   background-color: var(--color-crust);
   box-shadow: inset 0px -1px 0px var(--color-surface-0);
@@ -5,6 +7,11 @@
 
 .header {
   height: var(--header-height);
+  padding: 0 1rem;
+
+  @media (max-width: breakpoints.$small) {
+    padding: 0 0.5rem;
+  }
 }
 
 .header__menu {

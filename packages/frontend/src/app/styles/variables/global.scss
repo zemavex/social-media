@@ -1,6 +1,10 @@
 :root {
   --font-family-main: 'Roboto', 'sans-serif';
 
+  --font-size-xs: 0.75rem;
+  --line-height-xs: calc(1 / 0.75);
+  --font-xs: var(--font-size-xs) / var(--line-height-xs) var(--font-family-main);
+
   --font-size-sm: 0.875rem;
   --line-height-sm: calc(1.25 / 0.875);
   --font-sm: var(--font-size-sm) / var(--line-height-sm) var(--font-family-main);
@@ -24,12 +28,6 @@
   --border-radius-lg: 0.5rem;
 
   --layout-width: 1076px;
-
-  --breakpoint-xs: 320px;
-  --breakpoint-sm: 576px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 992px;
-  --breakpoint-xl: var(--layout-width);
 
   --header-height: 48px;
 }

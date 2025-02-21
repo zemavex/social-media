@@ -22,10 +22,10 @@
   padding: var(--btn-padding-y) var(--btn-padding-x);
   font-size: var(--btn-font-size);
   line-height: var(--btn-line-height);
-  border: var(--btn-border-width) solid var(--btn-border-color);
+  border: var(--btn-border-width) solid var(--btn-bg-color-override, var(--btn-border-color));
   border-radius: var(--btn-border-radius-override, var(--btn-border-radius));
   color: var(--btn-color-override, var(--btn-color));
-  background-color: var(--btn-bg-color);
+  background-color: var(--btn-bg-color-override, var(--btn-bg-color));
   position: relative;
   cursor: pointer;
   display: inline-flex;
@@ -33,6 +33,7 @@
   justify-content: var(--btn-justify-content-override, center);
   gap: .5em;
   white-space: nowrap;
+  user-select: none;
   transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 
   & svg {
@@ -44,22 +45,23 @@
 
   &:hover {
     color: var(--btn-color-override, var(--btn-hover-color));
-    background-color: var(--btn-hover-bg-color);
-    border-color: var(--btn-hover-border-color);
+    background-color: var(--btn-hover-bg-color-override, var(--btn-bg-color-override, var(--btn-hover-bg-color)));
+    border-color: var(--btn-hover-bg-color-override, var(--btn-bg-color-override, var(--btn-hover-border-color)));
   }
 
   &:active {
     color: var(--btn-color-override, var(--btn-active-color));
-    background-color: var(--btn-active-bg-color);
-    border-color: var(--btn-active-border-color);
+    background-color: var(--btn-active-bg-color-override, var(--btn-bg-color-override, var(--btn-active-bg-color)));
+    border-color: var(--btn-active-bg-color-override, var(--btn-bg-color-override, var(--btn-active-border-color)));
   }
 
   &:disabled {
     cursor: default;
     opacity: .6;
-    color: var(--btn-color-override, var(--btn-disabled-color));
+    color: var(--btn-disabled-color);
     background-color: var(--btn-disabled-bg-color);
     border-color: var(--btn-disabled-border-color);
+    pointer-events: none;
   }
 
   &--text-transparent:disabled {

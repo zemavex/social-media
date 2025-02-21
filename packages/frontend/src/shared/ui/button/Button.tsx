@@ -6,7 +6,7 @@ import cls from "./Button.module.scss";
 interface ButtonPropsBase extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: "small" | "medium" | "large";
   variant?: "text" | "outlined" | "contained";
-  color?: "primary" | "secondary" | "danger";
+  color?: "primary" | "secondary" | "danger" | "text";
   ref?: RefObject<HTMLButtonElement | null>;
   isLoading?: boolean;
 }
@@ -40,10 +40,12 @@ export const Button: FC<ButtonProps> = ({
   loadingPosition = "center",
   disabled,
   ref,
+  type = "button",
   ...props
 }) => {
   return (
     <button
+      type={type}
       disabled={disabled || isLoading}
       ref={ref}
       className={classNames(

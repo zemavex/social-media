@@ -6,6 +6,13 @@
   "password": "Пароль",
   "firstName": "Имя",
   "lastName": "Фамилия",
+  "continue_with_github": "Продолжить с GitHub",
+  "or": "или",
+  "sign_in_heading": "Вход",
+  "sign_in_action_text": "Войти",
+  "sign_up_heading": "Создание аккаунта",
+  "sign_up_action_text": "Создать",
+  "no_account_question": "Нет аккаунта?",
   "error": {
     "general": {
       "unknown_error": "Что-то пошло не так. Пожалуйста, попробуйте еще раз."

@@ -1,0 +1,33 @@
+@use 'variables/breakpoints.scss' as b;
+
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  padding: .5rem 0;
+  flex-direction: column;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--color-mantle);
+  max-width: 350px;
+  width: 100%;
+  padding: 1.5rem;
+  border-radius: var(--border-radius-lg);
+
+  @media (max-width: b.$small) {
+    padding: 1rem;
+  }
+
+  @media (max-width: b.$extra-small) {
+    padding: 0.75rem;
+  }
+}
+
+.login-form__error {
+  color: var(--color-red-500);
+}

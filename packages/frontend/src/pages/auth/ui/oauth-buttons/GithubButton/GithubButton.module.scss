@@ -1,0 +1,10 @@
+.github-btn {
+  --btn-color-override: var(--color-crust);
+  --btn-bg-color-override: var(--color-text);
+  --btn-hover-bg-color-override: var(--color-subtext-1);
+  --btn-active-bg-color-override: var(--color-subtext-0);
+  
+  & svg path {
+    fill: currentColor;
+  }
+}

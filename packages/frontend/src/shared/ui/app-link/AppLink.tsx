@@ -1,11 +1,11 @@
 import type { FC } from "react";
 import { Link, type LinkProps } from "react-router";
-import cls from "./AppLink.module.scss";
 import { classNames } from "@/shared/lib/utils";
+import cls from "./AppLink.module.scss";
 
 interface AppLinkProps extends LinkProps {
   size?: "small" | "medium" | "large";
-  color?: "primary" | "secondary";
+  color?: "primary" | "text";
   withUnderline?: boolean;
 }
 
@@ -13,7 +13,7 @@ export const AppLink: FC<AppLinkProps> = ({
   children,
   className,
   size = "medium",
-  color = "secondary",
+  color = "primary",
   withUnderline = true,
   ...props
 }) => {

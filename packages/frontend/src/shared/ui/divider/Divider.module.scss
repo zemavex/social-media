@@ -1,0 +1,19 @@
+.divider {
+  height: 1px;
+  background-color: var(--color-surface-0);
+  width: 100%;
+
+  &__wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+
+  &__middle {
+    color: var(--color-overlay-0);
+    user-select: none;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-sm);
+    margin-top: .15em;
+  }
+}
