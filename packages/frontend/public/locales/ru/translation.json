@@ -14,6 +14,11 @@
   "sign_up_action_text": "Создать",
   "no_account_question": "Нет аккаунта?",
   "already_have_account_question": "Уже есть аккаунт?",
+  "github_authorization": "Вход через GitHub",
+  "github_auth_error": "Не удалось войти в GitHub аккаунт.",
+  "github_connecting": "Подключение GitHub",
+  "github_connect_error": "Не удалось подключить GitHub аккаунт.",
+  "go_back": "Назад",
   "error": {
     "general": {
       "unknown_error": "Что-то пошло не так. Пожалуйста, попробуйте еще раз."

@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { startGithubOAuth } from "@/features/auth";
 import { Button } from "@/shared/ui/button";
 import { ROUTES } from "@/shared/config";
-import GithubMark from "./assets/github-mark.svg";
+import GithubMark from "../../assets/github-mark.svg";
 import cls from "./GithubButton.module.scss";
 
 export const GithubButton = () => {
