@@ -13,6 +13,7 @@
   "sign_up_heading": "Sign up",
   "sign_up_action_text": "Sign up",
   "no_account_question": "Don’t have an account?",
+  "already_have_account_question": "Already have an account?",
   "error": {
     "general": {
       "unknown_error": "Something went wrong. Please try again."

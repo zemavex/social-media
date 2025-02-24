@@ -13,6 +13,7 @@
   "sign_up_heading": "Создание аккаунта",
   "sign_up_action_text": "Создать",
   "no_account_question": "Нет аккаунта?",
+  "already_have_account_question": "Уже есть аккаунт?",
   "error": {
     "general": {
       "unknown_error": "Что-то пошло не так. Пожалуйста, попробуйте еще раз."

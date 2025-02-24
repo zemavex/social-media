@@ -21,6 +21,12 @@
   --line-height-lg: calc(1.75 / 1.125);
   --font-lg: var(--font-size-lg) / var(--line-height-lg) var(--font-family-main);
 
+  // font 2 extra large
+  --font-size-2xl: 1.5rem;
+  --line-height-2xl: calc(2 / 1.5);
+  --font-2xl: var(--font-size-2xl) / var(--line-height-2xl)
+    var(--font-family-main);
+
   // font 3 extra large
   --font-size-3xl: 1.875rem;
   --line-height-3xl: calc(2.25 / 1.875);
