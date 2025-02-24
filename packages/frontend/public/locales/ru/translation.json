@@ -19,6 +19,8 @@
   "github_connecting": "Подключение GitHub",
   "github_connect_error": "Не удалось подключить GitHub аккаунт.",
   "go_back": "Назад",
+  "finish_registration": "Завершите регистрацию",
+  "finish": "Завершить",
   "error": {
     "general": {
       "unknown_error": "Что-то пошло не так. Пожалуйста, попробуйте еще раз."

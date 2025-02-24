@@ -1,4 +1,9 @@
-import type { LoginSchema, RegisterSchema, UserAuthDTO } from "~shared/user";
+import type {
+  FinishRegistrationSchema,
+  LoginSchema,
+  RegisterSchema,
+  UserAuthDTO,
+} from "~shared/user";
 import { apiInstance } from "@/shared/api";
 
 export const apiGithubAuth = async (code: string): Promise<UserAuthDTO> => {
@@ -22,6 +27,16 @@ export const apiRegister = async (
   payload: RegisterSchema
 ): Promise<UserAuthDTO> => {
   const res = await apiInstance.post<UserAuthDTO>("/users/register", payload);
+  return res.data;
+};
+
+export const apiFinishRegistration = async (
+  payload: FinishRegistrationSchema
+): Promise<UserAuthDTO> => {
+  const res = await apiInstance.post<UserAuthDTO>(
+    "/users/finish-registration",
+    payload
+  );
   return res.data;
 };
 

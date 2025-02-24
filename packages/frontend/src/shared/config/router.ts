@@ -11,3 +11,5 @@ export const ROUTES = {
   // authState = authenticated
   HOME: "/",
 } as const;
+
+export type Route = (typeof ROUTES)[keyof typeof ROUTES];

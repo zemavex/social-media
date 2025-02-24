@@ -19,6 +19,8 @@
   "github_connecting": "Connecting GitHub",
   "github_connect_error": "Failed to connect GitHub account.",
   "go_back": "Go back",
+  "finish_registration": "Complete your registration",
+  "finish": "Finish",
   "error": {
     "general": {
       "unknown_error": "Something went wrong. Please try again."

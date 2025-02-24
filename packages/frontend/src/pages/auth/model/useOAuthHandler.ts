@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+import { useNavigate, useSearchParams } from "react-router";
 import type { UserAuthDTO } from "~shared/user";
 import { apiGithubAuth, apiGithubConnect } from "@/features/auth";
 import { setAuthState, authenticateUser } from "@/entities/user";
@@ -7,11 +7,13 @@ import { isAxiosError } from "@/shared/api";
 import { useAppDispatch } from "@/shared/lib/redux";
 import { storage, STORAGE_KEYS } from "@/shared/lib/storage";
 import type { TranslateErrorOptions } from "@/shared/lib/hooks";
+import { ROUTES, type Route } from "@/shared/config";
 
 export const useOAuthHandler = (action: "auth" | "connect") => {
   const [error, setError] = useState<TranslateErrorOptions | null>(null);
   const [searchParams] = useSearchParams();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const state = searchParams.get("state");
@@ -28,11 +30,17 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
       return;
     }
 
-    const handleOAuth = async (apiCall: () => Promise<UserAuthDTO>) => {
+    const handleOAuth = async (
+      apiCall: () => Promise<UserAuthDTO>,
+      redirectTo?: Route
+    ) => {
       dispatch(setAuthState("pending"));
       try {
         const userData = await apiCall();
         dispatch(authenticateUser(userData));
+        if (redirectTo) {
+          navigate(redirectTo);
+        }
       } catch (err) {
         if (!isAxiosError(err) || !err.response) {
           setError({ scope: "general", code: "unknown_error" });
@@ -44,9 +52,9 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
     };
 
     if (action === "auth") {
-      handleOAuth(() => apiGithubAuth(code));
+      handleOAuth(() => apiGithubAuth(code), ROUTES.HOME);
     } else if (action === "connect") {
-      handleOAuth(() => apiGithubConnect(code));
+      handleOAuth(() => apiGithubConnect(code), ROUTES.HOME);
     }
   }, []);
 

@@ -5,20 +5,27 @@ const normalizeString = (value: string): string | undefined => {
   return trimmed.length === 0 ? undefined : trimmed;
 };
 
+const anyName = z.string().min(1).max(30);
+
 const email = z.string().email().max(100);
 const password = z.string().min(8).max(30);
-
-const anyName = z.string().min(1).max(30);
+const firstName = z.string().transform(normalizeString).pipe(anyName);
+const lastName = z
+  .string()
+  .transform(normalizeString)
+  .pipe(anyName.optional())
+  .optional();
 
 export const registerSchema = z.object({
   email,
   password,
-  firstName: z.string().transform(normalizeString).pipe(anyName),
-  lastName: z
-    .string()
-    .transform(normalizeString)
-    .pipe(anyName.optional())
-    .optional(),
+  firstName,
+  lastName,
+});
+
+export const finishRegistrationSchema = z.object({
+  firstName,
+  lastName,
 });
 
 export const loginSchema = z.object({
@@ -27,4 +34,5 @@ export const loginSchema = z.object({
 });
 
 export type RegisterSchema = z.infer<typeof registerSchema>;
+export type FinishRegistrationSchema = z.infer<typeof finishRegistrationSchema>;
 export type LoginSchema = z.infer<typeof loginSchema>;
