@@ -11,6 +11,11 @@ userRouter.post(
   userController.githubConnect
 );
 userRouter.post("/register", userController.register);
+userRouter.post(
+  "/finish-registration",
+  middleware.auth,
+  userController.finishRegistration
+);
 userRouter.post("/login", userController.login);
 userRouter.post("/auth", middleware.auth, userController.auth);
 userRouter.post("/logout", middleware.auth, userController.logout);

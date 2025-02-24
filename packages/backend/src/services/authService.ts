@@ -1,6 +1,10 @@
 import axios from "axios";
 import bcrypt from "bcrypt";
-import type { RegisterSchema, LoginSchema } from "~shared/user";
+import type {
+  RegisterSchema,
+  LoginSchema,
+  FinishRegistrationSchema,
+} from "~shared/user";
 import { API_ERROR_CODES } from "~shared/core";
 import { User, UserRow } from "@/entities/user";
 import {
@@ -94,6 +98,25 @@ async function register(userData: RegisterSchema): Promise<UserRow> {
   return newUser;
 }
 
+async function finishRegistration(
+  userId: UserRow["id"],
+  userData: FinishRegistrationSchema
+): Promise<UserRow> {
+  const foundUser = await User.findById(userId);
+  if (!foundUser) throw new InternalServerError();
+
+  await User.updateFirstName(userId, userData.firstName);
+  if (userData.lastName) {
+    await User.updateLastName(userId, userData.lastName);
+  }
+
+  const user = await User.updateIsFinishedRegistration(userId, true);
+
+  if (!user) throw new InternalServerError();
+
+  return user;
+}
+
 async function login({ email, password }: LoginSchema): Promise<UserRow> {
   const foundUser = await User.findByEmail(email);
   if (!foundUser?.password) {
@@ -112,5 +135,6 @@ export const authService = {
   githubAuth,
   githubConnect,
   register,
+  finishRegistration,
   login,
 };

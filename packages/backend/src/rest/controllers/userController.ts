@@ -1,6 +1,10 @@
 import { RequestHandler } from "express";
 import { z } from "zod";
-import { registerSchema, loginSchema } from "~shared/user";
+import {
+  registerSchema,
+  loginSchema,
+  finishRegistrationSchema,
+} from "~shared/user";
 import { Session } from "@/entities/session";
 import { User, toUserAuthDTO } from "@/entities/user";
 import { authService } from "@/services/authService";
@@ -47,6 +51,24 @@ const register: RequestHandler = async (req, res, next) => {
 
     const session = await sessionService.create(user.id);
     setSessionCookie(res, session.id);
+
+    res.json(toUserAuthDTO(user));
+  } catch (err) {
+    next(err);
+  }
+};
+
+const finishRegistration: RequestHandler = async (req, res, next) => {
+  try {
+    if (!req.session)
+      throw new InternalServerError(API_ERROR_CODES.SESSION_MISSING);
+
+    const userData = finishRegistrationSchema.parse(req.body);
+
+    const user = await authService.finishRegistration(
+      req.session.userId,
+      userData
+    );
 
     res.json(toUserAuthDTO(user));
   } catch (err) {
@@ -112,6 +134,7 @@ export const userController = {
   githubAuth,
   githubConnect,
   register,
+  finishRegistration,
   login,
   auth,
   logout,

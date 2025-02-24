@@ -41,6 +41,40 @@ async function updateGithubId(
   return res.rows[0] || null;
 }
 
+async function updateFirstName(
+  userId: number,
+  firstName: UserRow["first_name"]
+): Promise<UserRow | null> {
+  const query = "UPDATE users SET first_name = $1 WHERE id = $2 RETURNING *";
+  const values = [firstName, userId];
+
+  const res = await pool.query<UserRow>(query, values);
+  return res.rows[0] || null;
+}
+
+async function updateLastName(
+  userId: number,
+  lastName: UserRow["last_name"]
+): Promise<UserRow | null> {
+  const query = "UPDATE users SET last_name = $1 WHERE id = $2 RETURNING *";
+  const values = [lastName, userId];
+
+  const res = await pool.query<UserRow>(query, values);
+  return res.rows[0] || null;
+}
+
+async function updateIsFinishedRegistration(
+  userId: number,
+  isFinishedRegistration: UserRow["is_finished_registration"]
+): Promise<UserRow | null> {
+  const query =
+    "UPDATE users SET is_finished_registration = $1 WHERE id = $2 RETURNING *";
+  const values = [isFinishedRegistration, userId];
+
+  const res = await pool.query<UserRow>(query, values);
+  return res.rows[0] || null;
+}
+
 async function findById(userId: number): Promise<UserRow | null> {
   const query = "SELECT * FROM users WHERE id = $1";
   const values = [userId];
@@ -87,6 +121,9 @@ export const User = {
   register,
   registerUsingGithub,
   updateGithubId,
+  updateFirstName,
+  updateLastName,
+  updateIsFinishedRegistration,
   findById,
   findByEmail,
   findByGithubId,
