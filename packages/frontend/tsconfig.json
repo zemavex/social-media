@@ -5,6 +5,7 @@
     "outDir": "./dist",
     "target": "ES5",
     "module": "ES6",
+    "allowJs": true,
     "lib": ["ES5", "DOM"],
     "jsx": "react-jsx",
     "paths": {
@@ -16,6 +17,7 @@
     "./src",
     "./config",
     "./webpack.config.ts",
+    "stylelint.config.mjs",
     "./env.d.ts",
     "../shared/src"
   ],

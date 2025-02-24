@@ -1,9 +1,9 @@
 .app-link {
-  text-decoration: none;
   display: inline-flex;
-  justify-content: center;
-  align-items: center;
   gap: 0.5em;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
 
   &--underline {
     &:hover {

@@ -1,10 +1,20 @@
 .github-btn {
+  // default color
   --btn-color-override: var(--color-crust);
   --btn-bg-color-override: var(--color-text);
+  --btn-border-color-override: var(--btn-bg-color-override);
+
+  // hover color
+  --btn-hover-color-override: var(--btn-color-override);
   --btn-hover-bg-color-override: var(--color-subtext-1);
+  --btn-hover-border-color-override: var(--btn-hover-bg-color-override);
+
+  // active color
+  --btn-active-color-override: var(--btn-color-override);
   --btn-active-bg-color-override: var(--color-subtext-0);
-  
-  & svg path {
-    fill: currentColor;
+  --btn-active-border-color-override: var(--btn-active-bg-color-override);
+
+  svg path {
+    fill: currentcolor;
   }
 }
