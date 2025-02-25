@@ -1,4 +1,5 @@
 import { useRef, useState, type FC } from "react";
+import { useTranslation } from "react-i18next";
 import { Menu, MenuItem } from "@/shared/ui/menu";
 import type { PopperProps } from "@/shared/ui/popper";
 import { Button } from "@/shared/ui/button";
@@ -22,6 +23,7 @@ export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({
   const btnRef = useRef<HTMLButtonElement>(null);
   const { theme, isFollowingSystem, setTheme, setThemeToFollowSystem } =
     useTheme();
+  const { t } = useTranslation();
 
   const handleThemeSelect = (theme: Theme | "system") => {
     if (theme === "system") {
@@ -58,21 +60,21 @@ export const ThemeSwitcher: FC<ThemeSwitcherProps> = ({
           onClick={() => handleThemeSelect(THEMES.LIGHT)}
           startIcon={<Sun />}
         >
-          Light
+          {t("light_theme")}
         </MenuItem>
         <MenuItem
           isToggled={theme === THEMES.DARK && !isFollowingSystem}
           onClick={() => handleThemeSelect(THEMES.DARK)}
           startIcon={<Moon />}
         >
-          Dark
+          {t("dark_theme")}
         </MenuItem>
         <MenuItem
           isToggled={isFollowingSystem}
           onClick={() => handleThemeSelect("system")}
           startIcon={<Monitor />}
         >
-          System
+          {t("system_theme")}
         </MenuItem>
       </Menu>
     </>

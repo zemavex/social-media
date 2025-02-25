@@ -22,6 +22,9 @@
   "finish_registration": "Завершите регистрацию",
   "finish": "Завершить",
   "logout": "Выйти",
+  "light_theme": "Светлая",
+  "dark_theme": "Темная",
+  "system_theme": "Системная",
   "error": {
     "general": {
       "unknown_error": "Что-то пошло не так. Пожалуйста, попробуйте еще раз."

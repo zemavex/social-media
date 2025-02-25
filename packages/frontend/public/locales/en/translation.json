@@ -22,6 +22,9 @@
   "finish_registration": "Complete your registration",
   "finish": "Finish",
   "logout": "Logout",
+  "light_theme": "Light",
+  "dark_theme": "Dark",
+  "system_theme": "System",
   "error": {
     "general": {
       "unknown_error": "Something went wrong. Please try again."
