@@ -1,14 +1,14 @@
 import { useRef, useState, type FC } from "react";
 import { useTranslation } from "react-i18next";
+import { Button } from "@/shared/ui/button";
 import { Menu, MenuItem } from "@/shared/ui/menu";
 import type { PopperProps } from "@/shared/ui/popper";
-import { Button } from "@/shared/ui/button";
-import { useTheme } from "../model/useTheme";
-import type { Theme } from "../model/themeTypes";
 import { THEMES } from "../config/themeConstants";
+import type { Theme } from "../model/themeTypes";
+import { useTheme } from "../model/useTheme";
+import Monitor from "../assets/monitor.svg";
 import Moon from "../assets/moon.svg";
 import Sun from "../assets/sun.svg";
-import Monitor from "../assets/monitor.svg";
 
 interface ThemeSwitcherProps {
   dropdownPlacement?: PopperProps["placement"];

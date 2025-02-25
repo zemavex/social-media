@@ -12,13 +12,13 @@ interface ValidationFailedError {
 }
 
 export const isAxiosError = (
-  error: unknown
+  error: unknown,
 ): error is AxiosError<BaseApiErrorData> => {
   return axios.isAxiosError(error);
 };
 
 export const isValidationFailed = (
-  error: AxiosError<BaseApiErrorData>
+  error: AxiosError<BaseApiErrorData>,
 ): error is AxiosError<ValidationFailedError> => {
   return error.response?.data.code === API_ERROR_CODES.VALIDATION_FAILED;
 };

@@ -58,7 +58,7 @@ export const Button: FC<ButtonProps> = ({
           [cls["btn--icon-only"]]: iconOnly,
           [cls["btn--text-transparent"]]:
             isLoading && loadingPosition === "center",
-        }
+        },
       )}
       {...props}
     >

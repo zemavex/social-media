@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Menu, MenuItem } from "@/shared/ui/menu";
 import { Button } from "@/shared/ui/button";
+import { Menu, MenuItem } from "@/shared/ui/menu";
 import { useLogout } from "../model/useLogout";
 import DefaultProfilePic from "../assets/default_profile_pic.jpg";
 import LogoutIcon from "../assets/log-out.svg";

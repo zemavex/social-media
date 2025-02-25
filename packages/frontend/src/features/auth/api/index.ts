@@ -18,24 +18,24 @@ export const apiGithubConnect = async (code: string): Promise<UserAuthDTO> => {
     "/users/oauth/github/connect",
     {
       code,
-    }
+    },
   );
   return res.data;
 };
 
 export const apiRegister = async (
-  payload: RegisterSchema
+  payload: RegisterSchema,
 ): Promise<UserAuthDTO> => {
   const res = await apiInstance.post<UserAuthDTO>("/users/register", payload);
   return res.data;
 };
 
 export const apiFinishRegistration = async (
-  payload: FinishRegistrationSchema
+  payload: FinishRegistrationSchema,
 ): Promise<UserAuthDTO> => {
   const res = await apiInstance.post<UserAuthDTO>(
     "/users/finish-registration",
-    payload
+    payload,
   );
   return res.data;
 };

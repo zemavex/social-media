@@ -1,7 +1,7 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import { storage, STORAGE_KEYS } from "@/shared/lib/storage";
-import { getSystemTheme } from "../lib/getSystemTheme";
 import { THEMES } from "../config/themeConstants";
+import { getSystemTheme } from "../lib/getSystemTheme";
 import type { Theme } from "./themeTypes";
 
 interface ThemeState {

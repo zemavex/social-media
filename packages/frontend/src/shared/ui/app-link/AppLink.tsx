@@ -25,7 +25,7 @@ export const AppLink: FC<AppLinkProps> = ({
         cls["app-link"],
         cls[`app-link--${size}`],
         cls[`app-link--${color}`],
-        { [cls["app-link--underline"]]: withUnderline }
+        { [cls["app-link--underline"]]: withUnderline },
       )}
     >
       {children}

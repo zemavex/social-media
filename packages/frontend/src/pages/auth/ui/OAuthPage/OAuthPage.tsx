@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "@/shared/ui/button";
 import { AppLink } from "@/shared/ui/app-link";
+import { Button } from "@/shared/ui/button";
 import { Loader } from "@/shared/ui/loader";
 import { useErrorTranslation } from "@/shared/lib/hooks";
 import { ROUTES } from "@/shared/config";

@@ -1,5 +1,4 @@
 import type { AxiosError } from "axios";
-
 import { unauthenticateUser } from "@/entities/user";
 import { apiInstance } from "@/shared/api";
 
@@ -12,6 +11,6 @@ export const setupAuthApiInterceptors = (dispatch: AppDispatch) => {
       dispatch(unauthenticateUser());
 
       return Promise.reject(error);
-    }
+    },
   );
 };

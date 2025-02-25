@@ -34,7 +34,7 @@ export const Input: FC<InputProps> = ({
           className,
           cls.input,
           cls[`input--${inputSize}`],
-          { [cls["input--error"]]: error }
+          { [cls["input--error"]]: error },
         )}
         autoComplete="off"
         {...props}
@@ -43,7 +43,7 @@ export const Input: FC<InputProps> = ({
         <span
           className={classNames(
             cls.input__error,
-            cls[`input__error--${inputSize}`]
+            cls[`input__error--${inputSize}`],
           )}
         >
           {error}

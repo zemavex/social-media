@@ -13,6 +13,6 @@ export const startGithubOAuth = (redirectUri: string) => {
       `prompt=select_account&` +
       `client_id=${GITHUB_OAUTH_CLIENT_ID}&` +
       `redirect_uri=${window.location.origin}/${redirectUri}&` +
-      `state=${csrfToken}`
+      `state=${csrfToken}`,
   );
 };

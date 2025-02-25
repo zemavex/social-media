@@ -1,12 +1,12 @@
+import type { ChangeEvent, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { finishRegistrationSchema } from "~shared/user";
+import { apiFinishRegistration } from "@/features/auth";
+import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { useErrorTranslation } from "@/shared/lib/hooks";
-import cls from "./FinishRegistrationPage.module.scss";
 import { useAuthForm } from "../../model/useAuthForm";
-import { apiFinishRegistration } from "@/features/auth";
-import { finishRegistrationSchema } from "~shared/user";
-import type { ChangeEvent, FormEvent } from "react";
-import { Button } from "@/shared/ui/button";
+import cls from "./FinishRegistrationPage.module.scss";
 
 export const FinishRegistrationPage = () => {
   const {

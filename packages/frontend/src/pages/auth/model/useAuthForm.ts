@@ -1,15 +1,15 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import type { ZodIssue, ZodType } from "zod";
-import type { UserAuthDTO } from "~shared/user";
 import { API_ERROR_CODES, type ApiErrorCode } from "~shared/core";
+import type { UserAuthDTO } from "~shared/user";
 import { authenticateUser } from "@/entities/user";
 import { isAxiosError, isValidationFailed } from "@/shared/api";
+import { useAppDispatch } from "@/shared/lib/redux";
+import { debounce } from "@/shared/lib/utils";
 import {
   formatZodIssues,
   type FormattedZodIssuesRecord,
 } from "@/shared/lib/zod";
-import { useAppDispatch } from "@/shared/lib/redux";
-import { debounce } from "@/shared/lib/utils";
 
 interface UseAuthFormOptions<Payload> {
   apiCall: (payload: Payload) => Promise<UserAuthDTO>;
@@ -57,7 +57,7 @@ export const useAuthForm = <Payload extends Record<string, unknown>>({
       if (!hasSubmitted.current) return;
       validate(formDataRef.current);
     }, 300),
-    []
+    [],
   );
 
   const submitForm = async () => {

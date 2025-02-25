@@ -1,8 +1,8 @@
 import { UserMenu } from "@/features/user-menu";
 import { selectAuthState } from "@/entities/user";
 import { ThemeSwitcher } from "@/shared/theme";
-import { LangSwitcher } from "@/shared/ui/lang-switcher";
 import { AppLink } from "@/shared/ui/app-link";
+import { LangSwitcher } from "@/shared/ui/lang-switcher";
 import { useAppSelector } from "@/shared/lib/redux";
 import { ROUTES } from "@/shared/config";
 import House from "../assets/house.svg";

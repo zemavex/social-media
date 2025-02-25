@@ -1,7 +1,7 @@
 import path from "path";
 import { Configuration } from "webpack";
-import { BuildEnv, BuildPaths } from "./config/build/types/config";
 import { buildConfig } from "./config/build/buildConfig";
+import { BuildEnv, BuildPaths } from "./config/build/types/config";
 
 const paths: BuildPaths = {
   entry: path.resolve(__dirname, "src", "index.tsx"),

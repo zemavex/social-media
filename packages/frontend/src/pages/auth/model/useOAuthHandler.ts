@@ -4,9 +4,9 @@ import type { UserAuthDTO } from "~shared/user";
 import { apiGithubAuth, apiGithubConnect } from "@/features/auth";
 import { setAuthState, authenticateUser } from "@/entities/user";
 import { isAxiosError } from "@/shared/api";
+import type { TranslateErrorOptions } from "@/shared/lib/hooks";
 import { useAppDispatch } from "@/shared/lib/redux";
 import { storage, STORAGE_KEYS } from "@/shared/lib/storage";
-import type { TranslateErrorOptions } from "@/shared/lib/hooks";
 import { ROUTES, type Route } from "@/shared/config";
 
 export const useOAuthHandler = (action: "auth" | "connect") => {
@@ -32,7 +32,7 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
 
     const handleOAuth = async (
       apiCall: () => Promise<UserAuthDTO>,
-      redirectTo?: Route
+      redirectTo?: Route,
     ) => {
       dispatch(setAuthState("pending"));
       try {

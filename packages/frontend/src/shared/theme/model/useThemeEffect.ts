@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useAppDispatch } from "@/shared/lib/redux";
 import { THEMES } from "../config/themeConstants";
-import { useTheme } from "./useTheme";
 import { setCurrentTheme } from "./themeSlice";
+import { useTheme } from "./useTheme";
 
 export const useThemeEffect = () => {
   const { theme, isFollowingSystem } = useTheme();

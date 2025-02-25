@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "@/shared/lib/redux";
 import { storage, STORAGE_KEYS } from "@/shared/lib/storage";
 import { getSystemTheme } from "../lib/getSystemTheme";
-import { setCurrentTheme, setIsFollowingSystem } from "./themeSlice";
 import { selectThemeState } from "./themeSelectors";
+import { setCurrentTheme, setIsFollowingSystem } from "./themeSlice";
 import type { Theme } from "./themeTypes";
 
 export const useTheme = () => {

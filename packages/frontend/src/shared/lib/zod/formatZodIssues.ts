@@ -2,7 +2,7 @@ import { ZodIssueCode, type ZodIssue } from "zod";
 import { UNKNOWN_ISSUE, type FormattedZodIssuesRecord } from "./types";
 
 export const formatZodIssues = <Keys extends string>(
-  issues: ZodIssue[]
+  issues: ZodIssue[],
 ): FormattedZodIssuesRecord<Keys> => {
   const formattedIssues = {} as FormattedZodIssuesRecord<Keys>;
 

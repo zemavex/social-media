@@ -18,6 +18,7 @@
     "./config",
     "./webpack.config.ts",
     "stylelint.config.mjs",
+    "prettier.config.mjs",
     "./env.d.ts",
     "../shared/src"
   ],
