@@ -83,7 +83,8 @@
     opacity: 0.6;
   }
 
-  svg {
+  svg,
+  img {
     width: var(--btn-icon-size);
     min-width: var(--btn-icon-size);
     height: var(--btn-icon-size);

@@ -21,6 +21,7 @@
   "go_back": "Go back",
   "finish_registration": "Complete your registration",
   "finish": "Finish",
+  "logout": "Logout",
   "error": {
     "general": {
       "unknown_error": "Something went wrong. Please try again."
@@ -30,7 +31,7 @@
       "auth_error": "Authentication failed",
       "validation_failed": "Validation failed",
       "email_already_used": "Email already used",
-      "invalid_credentials": "Invalid credentials",
+      "invalid_credentials": "Incorrect email or password",
       "github_connected_to_current_user": "This GitHub-account is already connected to your account.",
       "github_connected_to_another_user": "This GitHub-account is already connected to another user."
     },
