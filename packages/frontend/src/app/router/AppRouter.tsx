@@ -8,9 +8,11 @@ import {
   FinishRegistrationPage,
 } from "@/pages/auth";
 import { HomePage } from "@/pages/home";
+import { NotFoundPage } from "@/pages/not-found";
 import { selectAuthState, selectUser } from "@/entities/user";
 import { useAppSelector } from "@/shared/lib/redux";
 import { ROUTES } from "@/shared/config";
+import { AuthenticatedLayout } from "./ui/AuthenticatedLayout/AuthenticatedLayout";
 import { Layout } from "./ui/Layout/Layout";
 
 export const AppRouter = () => {
@@ -49,10 +51,10 @@ export const AppRouter = () => {
         );
       } else {
         return (
-          <>
+          <Route element={<AuthenticatedLayout />}>
             <Route path={ROUTES.HOME} element={<HomePage />} />
-            <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
-          </>
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
         );
       }
     }
@@ -61,7 +63,10 @@ export const AppRouter = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<Layout />}>{routes}</Route>
+        <Route element={<Layout />}>
+          {routes}
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );

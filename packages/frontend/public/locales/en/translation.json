@@ -25,6 +25,12 @@
   "light_theme": "Light",
   "dark_theme": "Dark",
   "system_theme": "System",
+  "profile": "Profile",
+  "news": "News",
+  "messenger": "Messenger",
+  "friends": "Friends",
+  "communities": "Communities",
+  "page_not_found": "Page not found",
   "error": {
     "general": {
       "unknown_error": "Something went wrong. Please try again."

@@ -1,6 +1,5 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { AppLink } from "@/shared/ui/app-link";
 import { Button } from "@/shared/ui/button";
 import { Loader } from "@/shared/ui/loader";
 import { useErrorTranslation } from "@/shared/lib/hooks";
@@ -24,13 +23,13 @@ export const OAuthPage: FC<OAuthPageProps> = ({ action }) => {
         <GithubMark className={cls["oauth-page__github-icon"]} />
         <p>{t(`github_${action}_error`)}</p>
         <p>{translateError(error)}</p>
-        <AppLink
+        <Button
+          variant="contained"
           to={ROUTES.AUTH}
-          withUnderline={false}
           className={cls["oauth-page__link"]}
         >
-          <Button variant="contained">{t("go_back")}</Button>
-        </AppLink>
+          {t("go_back")}
+        </Button>
       </div>
     );
   }

@@ -39,6 +39,7 @@
   line-height: var(--btn-line-height);
   color: var(--btn-color-override, var(--btn-color));
   white-space: nowrap;
+  text-decoration: none;
   cursor: pointer;
   user-select: none;
   background-color: var(--btn-bg-color-override, var(--btn-bg-color));

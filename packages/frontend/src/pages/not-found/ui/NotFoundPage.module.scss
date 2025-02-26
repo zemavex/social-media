@@ -1,0 +1,21 @@
+.not-found-page {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found-page__icon {
+  width: 8rem;
+
+  g {
+    fill: currentcolor;
+  }
+}
+
+.not-found-page__text {
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-2xl);
+}

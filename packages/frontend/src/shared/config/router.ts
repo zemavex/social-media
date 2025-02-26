@@ -10,6 +10,11 @@ export const ROUTES = {
 
   // authState = authenticated
   HOME: "/",
+  PROFILE: "/profile",
+  NEWS: "/news",
+  MESSENGER: "/messenger",
+  FRIENDS: "/friends",
+  COMMUNITIES: "/communities",
 } as const;
 
 export type Route = (typeof ROUTES)[keyof typeof ROUTES];

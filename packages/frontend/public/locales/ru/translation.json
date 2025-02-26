@@ -25,6 +25,12 @@
   "light_theme": "Светлая",
   "dark_theme": "Темная",
   "system_theme": "Системная",
+  "profile": "Профиль",
+  "news": "Лента",
+  "messenger": "Мессенджер",
+  "friends": "Друзья",
+  "communities": "Сообщества",
+  "page_not_found": "Страница не найдена",
   "error": {
     "general": {
       "unknown_error": "Что-то пошло не так. Пожалуйста, попробуйте еще раз."
