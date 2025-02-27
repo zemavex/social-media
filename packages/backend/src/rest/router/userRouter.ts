@@ -20,6 +20,8 @@ userRouter.post("/login", userController.login);
 userRouter.post("/auth", middleware.auth, userController.auth);
 userRouter.post("/logout", middleware.auth, userController.logout);
 
+userRouter.get("/id/:id", middleware.auth, userController.getProfileById);
+
 userRouter.get(
   "/test",
   middleware.auth,

@@ -11,6 +11,8 @@ export const API_ERROR_CODES = {
   GITHUB_CONNECTED_TO_ANOTHER_USER: "github_connected_to_another_user",
   REGISTRATION_INCOMPLETE: "registration_incomplete",
   INSUFFICIENT_ROLE: "insufficient_role",
+  INVALID_USER_ID: "invalid_user_id",
+  USER_NOT_FOUND: "user_not_found",
 } as const;
 
 export type ApiErrorCode =

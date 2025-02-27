@@ -1,3 +1,3 @@
 export { User } from "./queries";
-export { toUserAuthDTO } from "./dto";
-export type { UserRow } from "./types";
+export { toUserAuthDTO, toUserProfileDTO } from "./dto";
+export type { UserRow, UserProfile } from "./types";

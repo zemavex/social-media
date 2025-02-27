@@ -5,14 +5,20 @@ import {
   loginSchema,
   finishRegistrationSchema,
 } from "~shared/user";
+import { API_ERROR_CODES } from "~shared/core";
 import { Session } from "@/entities/session";
-import { User, toUserAuthDTO } from "@/entities/user";
+import { User, toUserAuthDTO, toUserProfileDTO } from "@/entities/user";
 import { authService } from "@/services/authService";
 import { sessionService } from "@/services/sessionService";
 import { setSessionCookie } from "@/rest/helpers";
 import { SESSION } from "@/entities/session";
-import { InternalServerError, UnauthorizedError } from "@/errors";
-import { API_ERROR_CODES } from "~shared/core";
+import {
+  BadRequestError,
+  InternalServerError,
+  NotFoundError,
+  UnauthorizedError,
+} from "@/errors";
+import { userService } from "@/services/userService";
 
 const githubAuth: RequestHandler = async (req, res, next) => {
   try {
@@ -119,6 +125,27 @@ const logout: RequestHandler = async (req, res, next) => {
   }
 };
 
+const getProfileById: RequestHandler = async (req, res, next) => {
+  try {
+    if (!req.session)
+      throw new InternalServerError(API_ERROR_CODES.SESSION_MISSING);
+
+    const { id } = req.params;
+
+    const parsedId = Number(id);
+    if (isNaN(parsedId))
+      throw new BadRequestError(API_ERROR_CODES.INVALID_USER_ID);
+
+    const userProfile = await userService.getProfileById(parsedId);
+
+    if (!userProfile) throw new NotFoundError(API_ERROR_CODES.USER_NOT_FOUND);
+
+    res.json(toUserProfileDTO(userProfile));
+  } catch (err) {
+    next(err);
+  }
+};
+
 const test: RequestHandler = (req, res, next) => {
   try {
     if (!req.session)
@@ -138,5 +165,6 @@ export const userController = {
   login,
   auth,
   logout,
+  getProfileById,
   test,
 };

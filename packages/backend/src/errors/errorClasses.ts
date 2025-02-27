@@ -38,6 +38,12 @@ export class ForbiddenError extends CustomError {
   }
 }
 
+export class NotFoundError extends CustomError {
+  constructor(code: ApiErrorCode) {
+    super(code, 404);
+  }
+}
+
 export class ConflictError extends CustomError {
   constructor(code: ApiErrorCode) {
     super(code, 409);

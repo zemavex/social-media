@@ -13,3 +13,8 @@ export interface UserRow {
   created_at: string;
   is_finished_registration: boolean;
 }
+
+export type UserProfile = Pick<
+  UserRow,
+  "id" | "username" | "first_name" | "last_name" | "last_online" | "created_at"
+>;

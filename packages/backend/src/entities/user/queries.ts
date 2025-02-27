@@ -1,6 +1,6 @@
 import type { RegisterSchema, UserRole } from "~shared/user";
 import { pool } from "@/database";
-import type { UserRow } from "./types";
+import type { UserProfile, UserRow } from "./types";
 
 async function register(userData: RegisterSchema): Promise<UserRow> {
   const { email, password, firstName, lastName } = userData;
@@ -117,6 +117,33 @@ async function getIsFinishedRegistration(
   return res.rows[0]?.is_finished_registration ?? null;
 }
 
+async function getProfile(
+  params:
+    | { id: number; username?: undefined }
+    | { username: string; id?: undefined }
+): Promise<UserProfile | null> {
+  const [field, value] =
+    typeof params.id === "number"
+      ? ["id", params.id]
+      : ["username", params.username];
+
+  const query = `
+    SELECT 
+      id, 
+      username, 
+      first_name, 
+      last_name,
+      last_online,
+      created_at
+    FROM users 
+    WHERE ${field} = $1
+  `;
+  const values = [value];
+
+  const res = await pool.query<UserProfile>(query, values);
+  return res.rows[0] || null;
+}
+
 export const User = {
   register,
   registerUsingGithub,
@@ -129,4 +156,5 @@ export const User = {
   findByGithubId,
   getRole,
   getIsFinishedRegistration,
+  getProfile,
 };
