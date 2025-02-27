@@ -1,4 +1,4 @@
-export const ROUTES = {
+export const UI_ROUTES = {
   // authState = idle || pending
   AUTH: "/",
   GITHUB_AUTH: "/oauth/github/auth",
@@ -9,12 +9,8 @@ export const ROUTES = {
   REGISTER: "/register",
 
   // authState = authenticated
-  HOME: "/",
-  PROFILE: "/profile",
-  NEWS: "/news",
+  FEED: "/feed",
   MESSENGER: "/messenger",
   FRIENDS: "/friends",
   COMMUNITIES: "/communities",
 } as const;
-
-export type Route = (typeof ROUTES)[keyof typeof ROUTES];

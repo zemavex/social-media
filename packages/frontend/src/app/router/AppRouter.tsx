@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
+import { UI_ROUTES } from "~shared/core";
 import {
   AuthPage,
   OAuthPage,
@@ -11,7 +12,6 @@ import { HomePage } from "@/pages/home";
 import { NotFoundPage } from "@/pages/not-found";
 import { selectAuthState, selectUser } from "@/entities/user";
 import { useAppSelector } from "@/shared/lib/redux";
-import { ROUTES } from "@/shared/config";
 import { AuthenticatedLayout } from "./ui/AuthenticatedLayout/AuthenticatedLayout";
 import { Layout } from "./ui/Layout/Layout";
 
@@ -24,11 +24,11 @@ export const AppRouter = () => {
       return (
         <>
           <Route
-            path={ROUTES.GITHUB_AUTH}
+            path={UI_ROUTES.GITHUB_AUTH}
             element={<OAuthPage action="auth" />}
           />
           <Route
-            path={ROUTES.GITHUB_CONNECT}
+            path={UI_ROUTES.GITHUB_CONNECT}
             element={<OAuthPage action="connect" />}
           />
           <Route path="*" element={<AuthPage />} />
@@ -37,9 +37,9 @@ export const AppRouter = () => {
     } else if (authState === "unauthenticated") {
       return (
         <>
-          <Route path={ROUTES.LOGIN} element={<LoginPage />} />
-          <Route path={ROUTES.REGISTER} element={<RegisterPage />} />
-          <Route path="*" element={<Navigate to={ROUTES.LOGIN} replace />} />
+          <Route path={UI_ROUTES.LOGIN} element={<LoginPage />} />
+          <Route path={UI_ROUTES.REGISTER} element={<RegisterPage />} />
+          <Route path="*" element={<Navigate to={UI_ROUTES.LOGIN} replace />} />
         </>
       );
     } else if (authState === "authenticated") {
@@ -52,7 +52,7 @@ export const AppRouter = () => {
       } else {
         return (
           <Route element={<AuthenticatedLayout />}>
-            <Route path={ROUTES.HOME} element={<HomePage />} />
+            <Route path={UI_ROUTES.FEED} element={<HomePage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         );

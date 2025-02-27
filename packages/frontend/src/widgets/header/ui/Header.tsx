@@ -1,10 +1,10 @@
+import { UI_ROUTES } from "~shared/core";
 import { UserMenu } from "@/features/user-menu";
 import { selectAuthState } from "@/entities/user";
 import { ThemeSwitcher } from "@/shared/theme";
 import { AppLink } from "@/shared/ui/app-link";
 import { LangSwitcher } from "@/shared/ui/lang-switcher";
 import { useAppSelector } from "@/shared/lib/redux";
-import { ROUTES } from "@/shared/config";
 import House from "../assets/house.svg";
 import cls from "./Header.module.scss";
 
@@ -19,7 +19,7 @@ export const Header = () => {
             className={`${cls["header__menu-item"]} ${cls["header__menu-item-logo"]}`}
           >
             <AppLink
-              to={ROUTES.HOME}
+              to={UI_ROUTES.FEED}
               className={cls["header__logo"]}
               color="text"
             >

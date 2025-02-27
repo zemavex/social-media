@@ -1,9 +1,9 @@
 import type { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { UI_ROUTES } from "~shared/core";
 import { Button } from "@/shared/ui/button";
 import { Loader } from "@/shared/ui/loader";
 import { useErrorTranslation } from "@/shared/lib/hooks";
-import { ROUTES } from "@/shared/config";
 import { useOAuthHandler } from "../../model/useOAuthHandler";
 import GithubMark from "../assets/github-mark.svg";
 import cls from "./OAuthPage.module.scss";
@@ -25,7 +25,7 @@ export const OAuthPage: FC<OAuthPageProps> = ({ action }) => {
         <p>{translateError(error)}</p>
         <Button
           variant="contained"
-          to={ROUTES.AUTH}
+          to={UI_ROUTES.AUTH}
           className={cls["oauth-page__link"]}
         >
           {t("go_back")}

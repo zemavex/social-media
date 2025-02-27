@@ -1,5 +1,6 @@
 import { type FormEvent, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
+import { UI_ROUTES } from "~shared/core";
 import { loginSchema } from "~shared/user";
 import { apiLogin } from "@/features/auth";
 import { AppLink } from "@/shared/ui/app-link";
@@ -7,7 +8,6 @@ import { Button } from "@/shared/ui/button";
 import { Divider } from "@/shared/ui/divider";
 import { Input } from "@/shared/ui/input";
 import { useErrorTranslation } from "@/shared/lib/hooks";
-import { ROUTES } from "@/shared/config";
 import { useAuthForm } from "../../model/useAuthForm";
 import { GithubButton } from "../oauth-buttons/GithubButton/GithubButton";
 import cls from "./LoginPage.module.scss";
@@ -91,7 +91,7 @@ export const LoginPage = () => {
         </Button>
         <p className={cls["login-form__signup-prompt"]}>
           {t("no_account_question")}{" "}
-          <AppLink to={ROUTES.REGISTER}>{t("sign_up_action_text")}</AppLink>
+          <AppLink to={UI_ROUTES.REGISTER}>{t("sign_up_action_text")}</AppLink>
         </p>
       </form>
     </div>

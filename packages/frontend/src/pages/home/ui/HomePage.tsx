@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { UI_ROUTES } from "~shared/core";
 import { apiLogout, startGithubOAuth } from "@/features/auth";
 import { selectUser, unauthenticateUser } from "@/entities/user";
 import { useAppDispatch, useAppSelector } from "@/shared/lib/redux";
-import { ROUTES } from "@/shared/config";
 
 export const HomePage = () => {
   const [loggingOut, setLoggingOut] = useState(false);
@@ -10,7 +10,7 @@ export const HomePage = () => {
   const dispatch = useAppDispatch();
 
   const handleConnectGithub = () => {
-    startGithubOAuth(ROUTES.GITHUB_CONNECT);
+    startGithubOAuth(UI_ROUTES.GITHUB_CONNECT);
   };
 
   const handleLogoutClick = async () => {

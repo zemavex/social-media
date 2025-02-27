@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router";
+import { UI_ROUTES } from "~shared/core";
 import type { UserAuthDTO } from "~shared/user";
 import { apiGithubAuth, apiGithubConnect } from "@/features/auth";
 import { setAuthState, authenticateUser } from "@/entities/user";
@@ -7,7 +8,6 @@ import { isAxiosError } from "@/shared/api";
 import type { TranslateErrorOptions } from "@/shared/lib/hooks";
 import { useAppDispatch } from "@/shared/lib/redux";
 import { storage, STORAGE_KEYS } from "@/shared/lib/storage";
-import { ROUTES, type Route } from "@/shared/config";
 
 export const useOAuthHandler = (action: "auth" | "connect") => {
   const [error, setError] = useState<TranslateErrorOptions | null>(null);
@@ -32,7 +32,7 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
 
     const handleOAuth = async (
       apiCall: () => Promise<UserAuthDTO>,
-      redirectTo?: Route,
+      redirectTo?: string,
     ) => {
       dispatch(setAuthState("pending"));
       try {
@@ -52,9 +52,9 @@ export const useOAuthHandler = (action: "auth" | "connect") => {
     };
 
     if (action === "auth") {
-      handleOAuth(() => apiGithubAuth(code), ROUTES.HOME);
+      handleOAuth(() => apiGithubAuth(code), UI_ROUTES.FEED);
     } else if (action === "connect") {
-      handleOAuth(() => apiGithubConnect(code), ROUTES.HOME);
+      handleOAuth(() => apiGithubConnect(code), UI_ROUTES.FEED);
     }
   }, []);
 

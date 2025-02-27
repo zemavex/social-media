@@ -2,7 +2,6 @@ import type { ComponentPropsWithRef, FC, JSX, Ref } from "react";
 import { Link, type LinkProps } from "react-router";
 import { Loader } from "@/shared/ui/loader";
 import { classNames } from "@/shared/lib/utils";
-import type { Route } from "@/shared/config";
 import cls from "./Button.module.scss";
 
 interface WithIconsProps {
@@ -42,7 +41,7 @@ type NativeButtonProps = ComponentPropsWithRef<"button"> &
 
 type LinkButtonProps = LinkProps &
   ButtonPropsBase & {
-    to: Route;
+    to: string;
     ref?: Ref<HTMLAnchorElement>;
   };
 
@@ -70,7 +69,7 @@ export const Button: FC<ButtonProps> = ({
     },
   );
 
-  if (rest.to) {
+  if (typeof rest.to === "string") {
     return (
       <Link className={commonClassNames} {...rest}>
         {startIcon}
