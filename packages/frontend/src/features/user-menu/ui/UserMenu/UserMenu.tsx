@@ -2,8 +2,8 @@ import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/shared/ui/button";
 import { Menu, MenuItem } from "@/shared/ui/menu";
+import DefaultAvatar from "@/shared/assets/default-avatar.jpg";
 import { useLogout } from "../model/useLogout";
-import DefaultProfilePic from "../assets/default_profile_pic.jpg";
 import LogoutIcon from "../assets/log-out.svg";
 import cls from "./UserMenu.module.scss";
 
@@ -25,7 +25,7 @@ export const UserMenu = () => {
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <img
-          src={DefaultProfilePic}
+          src={DefaultAvatar}
           className={cls["user-menu__img"]}
           draggable={false}
         />

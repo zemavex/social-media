@@ -10,6 +10,7 @@ import {
 } from "@/pages/auth";
 import { HomePage } from "@/pages/home";
 import { NotFoundPage } from "@/pages/not-found";
+import { ProfilePage } from "@/pages/profile";
 import { selectAuthState, selectUser } from "@/entities/user";
 import { useAppSelector } from "@/shared/lib/redux";
 import { AuthenticatedLayout } from "./ui/AuthenticatedLayout/AuthenticatedLayout";
@@ -52,7 +53,12 @@ export const AppRouter = () => {
       } else {
         return (
           <Route element={<AuthenticatedLayout />}>
+            <Route
+              path={"/"}
+              element={<Navigate to={UI_ROUTES.FEED} replace />}
+            />
             <Route path={UI_ROUTES.FEED} element={<HomePage />} />
+            <Route path={"/u/:id"} element={<ProfilePage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         );

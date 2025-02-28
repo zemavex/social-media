@@ -1,0 +1,27 @@
+.profile-page {
+  display: flex;
+  flex-grow: 1;
+  gap: 0.5rem;
+}
+
+.profile-page__left {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 250px;
+}
+
+.profile-page__right {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.avatar {
+  width: 100%;
+}
+
+.full-name {
+  font-size: var(--font-size-xl);
+  line-height: var(--line-height-xl);
+}
