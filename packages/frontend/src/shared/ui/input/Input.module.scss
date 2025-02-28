@@ -1,3 +1,6 @@
+@use "mixins/fontMixins";
+@use "variables/sizes";
+
 .input__wrap {
   display: inline-flex;
   flex-direction: column;
@@ -9,18 +12,15 @@
   }
 
   &--small {
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-sm);
+    @include fontMixins.font(sm);
   }
 
   &--medium {
-    font-size: var(--font-size-md);
-    line-height: var(--line-height-md);
+    @include fontMixins.font(md);
   }
 
   &--large {
-    font-size: var(--font-size-lg);
-    line-height: var(--line-height-lg);
+    @include fontMixins.font(lg);
   }
 }
 
@@ -30,7 +30,7 @@
   text-decoration-color: var(--color-red-500-50);
   background-color: transparent;
   border: 1px solid var(--color-surface-1);
-  border-radius: var(--border-radius-md);
+  border-radius: #{sizes.$size-1-5};
 
   &:focus-visible {
     box-shadow: none;
@@ -46,20 +46,20 @@
 
   &--small {
     padding: 0.25rem 0.5rem;
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-sm);
+
+    @include fontMixins.font(sm);
   }
 
   &--medium {
     padding: 0.375rem 0.75rem;
-    font-size: var(--font-size-md);
-    line-height: var(--line-height-md);
+
+    @include fontMixins.font(md);
   }
 
   &--large {
     padding: 0.5rem 1rem;
-    font-size: var(--font-size-lg);
-    line-height: var(--line-height-lg);
+
+    @include fontMixins.font(lg);
   }
 }
 
@@ -69,17 +69,14 @@
   outline-color: var(--color-red-500);
 
   &--small {
-    font-size: var(--font-size-xs);
-    line-height: var(--line-height-xs);
+    @include fontMixins.font(xs);
   }
 
   &--medium {
-    font-size: var(--font-size-sm);
-    line-height: var(--line-height-sm);
+    @include fontMixins.font(sm);
   }
 
   &--large {
-    font-size: var(--font-size-md);
-    line-height: var(--line-height-md);
+    @include fontMixins.font(md);
   }
 }

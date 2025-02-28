@@ -7,7 +7,7 @@ const paths: BuildPaths = {
   entry: path.resolve(__dirname, "src", "index.tsx"),
   output: path.resolve(__dirname, "dist"),
   html: path.resolve(__dirname, "public", "index.html"),
-  scss: path.resolve(__dirname, "src", "shared", "styles"),
+  scss: path.resolve(__dirname, "src", "shared", "scss"),
 };
 
 export default (env: BuildEnv): Configuration => {

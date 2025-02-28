@@ -1,7 +1,10 @@
+@use "variables/fonts";
+@use "variables/sizes";
+
 .btn {
   // font
-  --btn-font-size: var(--font-size-md);
-  --btn-line-height: var(--line-height-md);
+  --btn-font-size: #{fonts.$font-size-md};
+  --btn-line-height: #{fonts.$line-height-md};
 
   // default color
   --btn-color: var(--color-text);
@@ -24,7 +27,7 @@
   --btn-disabled-border-color: var(--btn-disabled-bg-color);
 
   // misc
-  --btn-border-radius: var(--border-radius-md);
+  --btn-border-radius: #{sizes.$size-1-5};
   --btn-icon-size: min(
     calc(var(--btn-font-size) * 1.25),
     calc(var(--btn-line-height) * 1em)
@@ -43,7 +46,7 @@
   cursor: pointer;
   user-select: none;
   background-color: var(--btn-bg-color-override, var(--btn-bg-color));
-  border: var(--border-width) solid
+  border: sizes.$border-width solid
     var(--btn-border-color-override, var(--btn-border-color));
   border-radius: var(--btn-border-radius-override, var(--btn-border-radius));
   transition:
@@ -97,9 +100,9 @@
   }
 
   &--size-small {
-    --btn-font-size: var(--font-size-sm);
-    --btn-line-heigt: var(--line-height-sm);
-    --btn-border-radius: var(--border-radius-sm);
+    --btn-font-size: #{fonts.$font-size-sm};
+    --btn-line-heigt: #{fonts.$line-height-sm};
+    --btn-border-radius: #{sizes.$size-1};
 
     padding: 0.25rem 0.5rem;
 
@@ -109,9 +112,9 @@
   }
 
   &--size-medium {
-    --btn-font-size: var(--font-size-md);
-    --btn-line-heigt: var(--line-height-md);
-    --btn-border-radius: var(--border-radius-md);
+    --btn-font-size: #{fonts.$font-size-md};
+    --btn-line-heigt: #{fonts.$line-height-md};
+    --btn-border-radius: #{sizes.$size-1-5};
 
     padding: 0.375rem 0.75rem;
 
@@ -121,9 +124,9 @@
   }
 
   &--size-large {
-    --btn-font-size: var(--font-size-lg);
-    --btn-line-heigt: var(--line-height-lg);
-    --btn-border-radius: var(--border-radius-lg);
+    --btn-font-size: #{fonts.$font-size-lg};
+    --btn-line-heigt: #{fonts.$line-height-lg};
+    --btn-border-radius: #{sizes.$size-2};
 
     padding: 0.5rem 1rem;
 

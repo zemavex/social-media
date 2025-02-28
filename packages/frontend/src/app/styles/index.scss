@@ -1,7 +1,9 @@
 @use "./normalize";
-@use "./variables/global";
 @use "./themes/dark";
 @use "./themes/light";
+@use "variables/fonts";
+@use "variables/sizes";
+@use "mixins/fontMixins";
 
 *:focus {
   outline: none;
@@ -25,9 +27,11 @@ body,
 }
 
 body {
-  font: var(--font-md);
+  font-family: fonts.$font-family-main;
   color: var(--color-text);
-  background-color: var(--color-base);
+  background-color: var(--color-mantle);
+
+  @include fontMixins.font(md);
 }
 
 h1 {
@@ -35,7 +39,7 @@ h1 {
 }
 
 .container {
-  max-width: var(--layout-width);
+  max-width: sizes.$layout-width;
   margin-right: auto;
   margin-left: auto;
 }

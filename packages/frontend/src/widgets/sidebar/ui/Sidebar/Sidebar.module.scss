@@ -1,6 +1,8 @@
+@use "variables/sizes";
+
 .sidebar {
   display: flex;
   flex-direction: column;
-  width: var(--sidebar-width);
+  width: sizes.$sidebar-width;
   margin-top: 0.5rem;
 }

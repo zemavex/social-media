@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router";
 import { NotFoundPage } from "@/pages/not-found";
+import { Button } from "@/shared/ui/button";
 import { Divider } from "@/shared/ui/divider";
 import { Loader } from "@/shared/ui/loader";
 import DefaultAvatar from "@/shared/assets/default-avatar.jpg";
@@ -31,8 +32,13 @@ export const ProfilePage = () => {
   return (
     <div className={cls["profile-page"]}>
       <div className={cls["profile-page__left"]}>
-        <div className={cls.avatar__wrap}>
-          <img src={DefaultAvatar} className={cls.avatar} />
+        <div className={cls["profile-page__avatar-section"]}>
+          <div className={cls.avatar__wrap}>
+            <img src={DefaultAvatar} className={cls.avatar} draggable={false} />
+          </div>
+          <Button variant="outlined" color="primary" size="small">
+            Edit profile
+          </Button>
         </div>
       </div>
       <div className={cls["profile-page__right"]}>

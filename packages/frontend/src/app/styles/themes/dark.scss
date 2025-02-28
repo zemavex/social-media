@@ -39,6 +39,7 @@
   --color-crust: #181926;
 
   // shadow
+  --shadow-sm: 0 1px 3px var(--color-crust);
   --shadow-floating-md:
     0 0 8px 1px var(--color-mantle), 0 8px 16px var(--color-mantle);
 }

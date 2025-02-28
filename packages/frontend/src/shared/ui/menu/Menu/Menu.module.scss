@@ -1,3 +1,5 @@
+@use "variables/sizes";
+
 .menu {
   --menu-padding-y: 0.25rem;
   --menu-padding-x: 0;
@@ -6,6 +8,6 @@
   flex-direction: column;
   padding: var(--menu-padding-y) var(--menu-padding-x);
   background-color: var(--color-base);
-  border-radius: var(--border-radius-md);
+  border-radius: sizes.$size-1-5;
   box-shadow: var(--shadow-floating-md);
 }

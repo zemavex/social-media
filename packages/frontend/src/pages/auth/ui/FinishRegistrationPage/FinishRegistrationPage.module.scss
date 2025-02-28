@@ -1,4 +1,5 @@
-@use "variables/breakpoints.scss" as b;
+@use "variables/breakpoints";
+@use "variables/sizes";
 
 .finish-registration-page {
   display: flex;
@@ -15,13 +16,13 @@
   max-width: 350px;
   padding: 1.5rem;
   background-color: var(--color-mantle);
-  border-radius: var(--border-radius-lg);
+  border-radius: sizes.$size-2;
 
-  @media (max-width: b.$small) {
+  @media (max-width: breakpoints.$sm) {
     padding: 1rem;
   }
 
-  @media (max-width: b.$extra-small) {
+  @media (max-width: breakpoints.$xs) {
     padding: 0.75rem;
   }
 }

@@ -1,0 +1,62 @@
+// font family
+$font-family-main: "Roboto", "sans-serif";
+
+// font extra small
+$font-size-xs: 0.75rem;
+$line-height-xs: calc(1 / 0.75);
+
+// font small
+$font-size-sm: 0.875rem;
+$line-height-sm: calc(1.25 / 0.875);
+
+// font medium
+$font-size-md: 1rem;
+$line-height-md: calc(1.5 / 1);
+
+// font large
+$font-size-lg: 1.125rem;
+$line-height-lg: calc(1.75 / 1.125);
+
+// font extra large
+$font-size-xl: 1.25rem;
+$line-height-xl: calc(1.75 / 1.25);
+
+// font 2 extra large
+$font-size-2xl: 1.5rem;
+$line-height-2xl: calc(2 / 1.5);
+
+// font 3 extra large
+$font-size-3xl: 1.875rem;
+$line-height-3xl: calc(2.25 / 1.875);
+
+// fonts map
+$fonts: (
+  xs: (
+    font-size: $font-size-xs,
+    line-height: $line-height-xs,
+  ),
+  sm: (
+    font-size: $font-size-sm,
+    line-height: $line-height-sm,
+  ),
+  md: (
+    font-size: $font-size-md,
+    line-height: $line-height-md,
+  ),
+  lg: (
+    font-size: $font-size-lg,
+    line-height: $line-height-lg,
+  ),
+  xl: (
+    font-size: $font-size-xl,
+    line-height: $line-height-xl,
+  ),
+  2xl: (
+    font-size: $font-size-2xl,
+    line-height: $line-height-2xl,
+  ),
+  3xl: (
+    font-size: $font-size-3xl,
+    line-height: $line-height-3xl,
+  ),
+);
