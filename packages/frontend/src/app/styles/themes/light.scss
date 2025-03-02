@@ -39,7 +39,6 @@
   --color-crust: #dce0e8;
 
   // shadow
-  --shadow-sm: 0 1px 2px var(--color-surface-0);
   --shadow-floating-md:
-    0 0 8px 1px var(--color-surface-0), 0 8px 16px var(--color-surface-0);
+    0 0 8px 1px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
 }

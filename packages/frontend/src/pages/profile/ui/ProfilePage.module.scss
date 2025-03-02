@@ -25,16 +25,13 @@
   flex-direction: column;
   gap: sizes.$size-2;
   padding: sizes.$size-2;
-  background-color: var(--color-base);
-  border-radius: sizes.$size-3;
-  box-shadow: var(--shadow-sm);
 }
 
 .avatar__wrap {
   width: 100%;
   aspect-ratio: 1/1;
   overflow: hidden;
-  border-radius: sizes.$size-1;
+  border-radius: sizes.$size-1-5;
 }
 
 .avatar {
@@ -46,4 +43,11 @@
 
 .full-name {
   @include fontMixins.font(xl);
+}
+
+.profile-page__info {
+  display: flex;
+  flex-direction: column;
+  gap: sizes.$size-2;
+  padding: sizes.$size-2;
 }
