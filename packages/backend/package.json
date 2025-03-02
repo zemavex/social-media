@@ -4,6 +4,7 @@
   "scripts": {
     "lint": "eslint & tsc --noEmit",
     "build": "tsc && npm run copySqlFiles",
+    "start": "node --enable-source-maps ./dist/backend/src/index.js",
     "dev": "tsc && (concurrently \"tsc -w\" \"nodemon --enable-source-maps ./dist/backend/src/index.js\")",
     "copySqlFiles": "ncp src/database/migrations dist/backend/src/database/migrations",
     "migrate": "node --enable-source-maps dist/backend/src/database/scripts/runMigrations.js",

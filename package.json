@@ -12,7 +12,8 @@
     "build:front": "npm run build --workspace frontend",
     "build:back": "npm run build --workspace backend",
     "dev:front": "npm run dev --workspace frontend",
-    "dev:back": "npm run dev --workspace backend"
+    "dev:back": "npm run dev --workspace backend",
+    "start:back": "npm run start --workspace backend"
   },
   "devDependencies": {
     "@eslint/js": "^9.20.0",
