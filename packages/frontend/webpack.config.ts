@@ -5,8 +5,9 @@ import { BuildEnv, BuildPaths } from "./config/build/types/config";
 
 const paths: BuildPaths = {
   entry: path.resolve(__dirname, "src", "index.tsx"),
+  public: path.resolve(__dirname, "public"),
   output: path.resolve(__dirname, "dist"),
-  html: path.resolve(__dirname, "public", "index.html"),
+  html: path.resolve(__dirname, "index.html"),
   scss: path.resolve(__dirname, "src", "shared", "scss"),
 };
 
