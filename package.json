@@ -1,5 +1,5 @@
 {
-  "name": "vkvex",
+  "name": "social-media",
   "version": "0.0.0",
   "workspaces": [
     "packages/*"
