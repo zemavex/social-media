@@ -53,7 +53,9 @@ body {
 }
 
 h1 {
-  font: var(--font-2xl);
+  font-weight: 400;
+
+  @include fontMixins.font(2xl);
 }
 
 .container {

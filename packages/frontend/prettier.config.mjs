@@ -9,20 +9,14 @@ const config = {
 
     "<THIRD_PARTY_MODULES>",
 
+    "^~shared/(.*)$",
+
     "^@/app(.*)$",
     "^@/pages/(.*)$",
     "^@/widgets/(.*)$",
     "^@/features/(.*)$",
     "^@/entities/(.*)$",
-
-    "^@/shared/api(.*)$",
-    "^@/shared/theme(.*)$",
-    "^@/shared/ui/(.*)$",
-    "^@/shared/lib/(.*)$",
-    "^@/shared/config(.*)$",
-    "^@/shared/styles/(.*)$",
     "^@/shared/(.*)$",
-
     "^@/(.*)$",
 
     `^[./](.*)(?<!\\.(${imagePattern}|${scssPattern}))$`,
