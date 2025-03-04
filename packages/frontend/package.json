@@ -2,8 +2,10 @@
   "name": "frontend",
   "version": "0.0.0",
   "scripts": {
-    "lint": "npm run lint:ts & npm run lint:scss",
-    "lint:ts": "eslint & tsc --noEmit",
+    "lint": "npm-run-all --parallel lint:ts lint:scss",
+    "lint:ts": "npm-run-all --parallel lint:eslint lint:tsc",
+    "lint:eslint": "eslint .",
+    "lint:tsc": "tsc --noEmit",
     "lint:scss": "npx stylelint \"**/*.scss\"",
     "build": "webpack --env production",
     "dev": "webpack serve --open"

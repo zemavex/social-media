@@ -2,7 +2,9 @@
   "name": "backend",
   "version": "0.0.0",
   "scripts": {
-    "lint": "eslint & tsc --noEmit",
+    "lint": "npm-run-all --parallel lint:eslint lint:tsc",
+    "lint:eslint": "eslint .",
+    "lint:tsc": "tsc --noEmit",
     "build": "tsc && npm run copySqlFiles",
     "start": "node --enable-source-maps ./dist/backend/src/index.js",
     "dev": "tsc && (concurrently \"tsc -w\" \"nodemon --enable-source-maps ./dist/backend/src/index.js\")",
