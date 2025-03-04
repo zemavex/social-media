@@ -1,5 +1,4 @@
 @use "variables/breakpoints";
-@use "variables/sizes";
 
 .register-page {
   display: flex;
@@ -18,7 +17,7 @@
   max-width: 350px;
   padding: 1.5rem;
   background-color: var(--color-mantle);
-  border-radius: sizes.$size-2;
+  border-radius: 0.5rem;
 
   @media (max-width: breakpoints.$sm) {
     padding: 1rem;

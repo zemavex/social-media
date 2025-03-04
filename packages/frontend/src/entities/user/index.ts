@@ -10,6 +10,10 @@ export { apiFetchUserProfileById } from "./api";
 
 export { mapUserProfileDTOToLocal } from "./model/mappers";
 
-export { selectUser, selectAuthState } from "./model/userSelectors";
+export {
+  selectUser,
+  selectUserId,
+  selectAuthState,
+} from "./model/userSelectors";
 
 export type { User, UserProfile } from "./model/types";

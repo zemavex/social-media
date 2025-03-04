@@ -45,17 +45,17 @@ body,
 }
 
 body {
+  @include fontMixins.font(md);
+
   font-family: fonts.$font-family-main;
   color: var(--color-text);
   background-color: var(--color-crust);
-
-  @include fontMixins.font(md);
 }
 
 h1 {
-  font-weight: 400;
-
   @include fontMixins.font(2xl);
+
+  font-weight: 400;
 }
 
 .container {
@@ -66,6 +66,6 @@ h1 {
 
 .page-block {
   background-color: var(--color-base);
-  border-radius: sizes.$size-3;
+  border-radius: 0.75rem;
   box-shadow: 0 0 0 1px var(--color-surface-0);
 }

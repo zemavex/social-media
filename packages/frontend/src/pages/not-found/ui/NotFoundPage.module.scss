@@ -19,4 +19,6 @@
 
 .not-found-page__text {
   @include fontMixins.font(2xl);
+
+  text-align: center;
 }

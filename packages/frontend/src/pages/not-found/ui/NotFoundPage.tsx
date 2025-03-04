@@ -12,7 +12,7 @@ export const NotFoundPage = () => {
       <NotFoundErrorIcon className={cls["not-found-page__icon"]} />
       <p className={cls["not-found-page__text"]}>{t("page_not_found")}</p>
       <Button size="large" variant="contained" to={UI_ROUTES.FEED}>
-        {t("go_back")}
+        {t("go_to_news_feed")}
       </Button>
     </div>
   );

@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useParams } from "react-router";
+import { UI_ROUTES } from "~shared/core";
 import { NotFoundPage } from "@/pages/not-found";
+import { selectUserId } from "@/entities/user";
+import DefaultAvatar from "@/shared/assets/default-avatar.jpg";
+import { useAppSelector } from "@/shared/lib/redux";
 import { Button } from "@/shared/ui/button";
 import { Loader } from "@/shared/ui/loader";
-import DefaultAvatar from "@/shared/assets/default-avatar.jpg";
 import { useFetchProfile } from "../model/useFetchProfile";
 import cls from "./ProfilePage.module.scss";
 
@@ -14,6 +17,11 @@ export const ProfilePage = () => {
     return <NotFoundPage />;
   }
 
+  const currentUserId = useAppSelector(selectUserId);
+  const isCurrentUser = useMemo(
+    () => currentUserId === parsedId,
+    [currentUserId, parsedId],
+  );
   const { profile, isLoading, apiErrorCode, fetchProfileById } =
     useFetchProfile();
 
@@ -35,9 +43,16 @@ export const ProfilePage = () => {
           <div className={cls.avatar__wrap}>
             <img src={DefaultAvatar} className={cls.avatar} draggable={false} />
           </div>
-          <Button variant="outlined" color="primary">
-            Edit profile
-          </Button>
+          {isCurrentUser && (
+            <Button
+              variant="outlined"
+              color="primary"
+              size="small"
+              to={UI_ROUTES.EDIT_PROFILE}
+            >
+              Edit profile
+            </Button>
+          )}
         </div>
       </div>
       <div className={cls["profile-page__right"]}>

@@ -1,3 +1,5 @@
+@use "variables/sizes";
+
 .layout {
   display: flex;
   flex-direction: column;
@@ -9,4 +11,5 @@
   flex-grow: 1;
   flex-direction: column;
   width: 100%;
+  padding-top: sizes.$header-height;
 }

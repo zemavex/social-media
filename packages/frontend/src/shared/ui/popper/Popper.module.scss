@@ -1,5 +1,6 @@
 .popper {
   position: absolute;
+  z-index: 1100;
   width: max-content;
 
   &--measuring {

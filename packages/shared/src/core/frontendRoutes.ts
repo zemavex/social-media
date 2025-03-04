@@ -9,6 +9,7 @@ export const UI_ROUTES = {
   REGISTER: "/register",
 
   // authState = authenticated
+  EDIT_PROFILE: "/edit-profile",
   FEED: "/feed",
   MESSENGER: "/messenger",
   FRIENDS: "/friends",

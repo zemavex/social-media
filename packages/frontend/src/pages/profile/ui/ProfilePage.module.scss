@@ -1,17 +1,16 @@
-@use "variables/sizes";
 @use "mixins/fontMixins";
 
 .profile-page {
   display: flex;
   flex-grow: 1;
-  gap: sizes.$size-2;
+  gap: 0.5rem;
 }
 
 .profile-page__left {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: sizes.$spacing * 62.5;
+  max-width: 15.625rem;
 }
 
 .profile-page__right {
@@ -23,15 +22,15 @@
 .profile-page__avatar-section {
   display: flex;
   flex-direction: column;
-  gap: sizes.$size-2;
-  padding: sizes.$size-2;
+  gap: 0.5rem;
+  padding: 0.5rem;
 }
 
 .avatar__wrap {
   width: 100%;
   aspect-ratio: 1/1;
   overflow: hidden;
-  border-radius: sizes.$size-1-5;
+  border-radius: 0.375rem;
 }
 
 .avatar {
@@ -48,6 +47,6 @@
 .profile-page__info {
   display: flex;
   flex-direction: column;
-  gap: sizes.$size-2;
-  padding: sizes.$size-2;
+  gap: 0.5rem;
+  padding: 0.5rem;
 }
