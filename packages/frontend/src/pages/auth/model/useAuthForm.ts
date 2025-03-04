@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from "react";
+import { useNavigate } from "react-router";
 import type { ZodIssue, ZodType } from "zod";
-import { API_ERROR_CODES, type ApiErrorCode } from "~shared/core";
+import { API_ERROR_CODES, UI_ROUTES, type ApiErrorCode } from "~shared/core";
 import type { UserAuthDTO } from "~shared/user";
 import { authenticateUser } from "@/entities/user";
 import { isAxiosError, isValidationFailed } from "@/shared/api";
@@ -33,6 +34,7 @@ export const useAuthForm = <Payload extends Record<string, unknown>>({
   const formDataRef = useRef(formData);
   const hasSubmitted = useRef(false);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const setValidationErrors = (issues: ZodIssue[]) => {
     setErrors((prev) => ({
@@ -75,6 +77,7 @@ export const useAuthForm = <Payload extends Record<string, unknown>>({
     try {
       const userData = await apiCall(formData);
       dispatch(authenticateUser(userData));
+      navigate(UI_ROUTES.FEED);
     } catch (err) {
       if (!isAxiosError(err) || !err.response) {
         setErrors({ general: API_ERROR_CODES.UNKNOWN_ERROR });
