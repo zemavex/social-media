@@ -1,0 +1,60 @@
+name: CI/CD
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.11.0
+      - name: Install dependencies
+        run: npm install
+      - name: Run lint
+        run: npm run lint
+
+  deploy:
+    needs: lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up SSH key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H "$VPS_HOST" >> ~/.ssh/known_hosts
+      - name: SSH into VPS and deploy
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+        run: |
+          ssh -i ~/.ssh/id_rsa "$VPS_USER"@"$VPS_HOST" << "EOF"
+            echo -e ">>>>> Switching to project directory..."
+            cd /projects/social-media/
+
+            echo -e "\n>>>>> Force pulling last changes from Git...\n"
+            git fetch origin
+            git reset --hard origin/main
+
+            echo -e "\n>>>>> Building backend..."
+            npm run build:back
+
+            echo -e ">>>>> Migrating database..."
+            npm run migrate
+
+            echo -e "\n>>>>> Reloading backend...\n"
+            pm2 reload sm-back
+
+            echo -e "\n>>>>> Building frontend..."
+            npm run build:front
+          EOF
