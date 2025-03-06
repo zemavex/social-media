@@ -13,6 +13,7 @@ export const API_ERROR_CODES = {
   INSUFFICIENT_ROLE: "insufficient_role",
   INVALID_USER_ID: "invalid_user_id",
   USER_NOT_FOUND: "user_not_found",
+  NO_FIELDS_PROVIDED: "no_fields_provided",
 } as const;
 
 export type ApiErrorCode =

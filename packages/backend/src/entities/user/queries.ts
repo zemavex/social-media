@@ -1,5 +1,11 @@
-import type { RegisterSchema, UserRole } from "~shared/user";
+import { API_ERROR_CODES } from "~shared/core";
+import type {
+  RegisterSchema,
+  UpdateProfileSchema,
+  UserRole,
+} from "~shared/user";
 import { pool } from "@/database";
+import { BadRequestError } from "@/errors";
 import type { UserProfile, UserRow } from "./types";
 
 async function register(userData: RegisterSchema): Promise<UserRow> {
@@ -70,6 +76,35 @@ async function updateIsFinishedRegistration(
   const query =
     "UPDATE users SET is_finished_registration = $1 WHERE id = $2 RETURNING *";
   const values = [isFinishedRegistration, userId];
+
+  const res = await pool.query<UserRow>(query, values);
+  return res.rows[0] || null;
+}
+
+async function updateProfile(
+  userId: number,
+  updateRows: UpdateProfileSchema
+): Promise<UserRow | null> {
+  const fields = [];
+  const values = [];
+  let index = 1;
+
+  if (updateRows.firstName) {
+    fields.push(`first_name = $${index++}`);
+    values.push(updateRows.firstName);
+  }
+
+  if (updateRows.lastName !== undefined) {
+    fields.push(`last_name = $${index++}`);
+    values.push(updateRows.lastName);
+  }
+
+  if (fields.length < 1)
+    throw new BadRequestError(API_ERROR_CODES.NO_FIELDS_PROVIDED);
+
+  values.push(userId);
+
+  const query = `UPDATE users SET ${fields.join(", ")} WHERE id = $${index} RETURNING *`;
 
   const res = await pool.query<UserRow>(query, values);
   return res.rows[0] || null;
@@ -151,6 +186,7 @@ export const User = {
   updateFirstName,
   updateLastName,
   updateIsFinishedRegistration,
+  updateProfile,
   findById,
   findByEmail,
   findByGithubId,

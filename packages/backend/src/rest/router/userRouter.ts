@@ -22,6 +22,12 @@ userRouter.post("/logout", middleware.auth, userController.logout);
 
 userRouter.get("/id/:id", middleware.auth, userController.getProfileById);
 
+userRouter.post(
+  "/update-profile",
+  middleware.auth,
+  userController.updateProfile
+);
+
 userRouter.get(
   "/test",
   middleware.auth,

@@ -4,6 +4,7 @@ import {
   registerSchema,
   loginSchema,
   finishRegistrationSchema,
+  updateProfileSchema,
 } from "~shared/user";
 import { API_ERROR_CODES } from "~shared/core";
 import { Session } from "@/entities/session";
@@ -146,6 +147,23 @@ const getProfileById: RequestHandler = async (req, res, next) => {
   }
 };
 
+const updateProfile: RequestHandler = async (req, res, next) => {
+  try {
+    if (!req.session)
+      throw new InternalServerError(API_ERROR_CODES.SESSION_MISSING);
+
+    const updateRows = updateProfileSchema.parse(req.body);
+
+    const user = await User.updateProfile(req.session.userId, updateRows);
+
+    if (!user) throw new InternalServerError();
+
+    res.json(toUserAuthDTO(user));
+  } catch (err) {
+    next(err);
+  }
+};
+
 const test: RequestHandler = (req, res, next) => {
   try {
     if (!req.session)
@@ -166,5 +184,6 @@ export const userController = {
   auth,
   logout,
   getProfileById,
+  updateProfile,
   test,
 };
