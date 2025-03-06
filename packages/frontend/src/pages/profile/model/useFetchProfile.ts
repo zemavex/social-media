@@ -14,6 +14,7 @@ export const useFetchProfile = () => {
 
   const fetchProfileById = async (userId: number) => {
     if (isLoading) return;
+    setApiErrorCode(null);
     setIsLoading(true);
     try {
       const fetchedProfile = await apiFetchUserProfileById(userId);

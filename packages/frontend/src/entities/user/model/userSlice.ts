@@ -23,6 +23,9 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    setUser(state, action: PayloadAction<User>) {
+      state.user = action.payload;
+    },
     authenticateUser(state, action: PayloadAction<User>) {
       state.user = action.payload;
       state.authState = "authenticated";
@@ -39,6 +42,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { authenticateUser, setAuthState, unauthenticateUser } =
+export const { setUser, authenticateUser, setAuthState, unauthenticateUser } =
   userSlice.actions;
 export const userReducer = userSlice.reducer;

@@ -1,0 +1,30 @@
+@use "variables/sizes";
+
+.profile-editor {
+  display: flex;
+  flex-grow: 1;
+  align-items: start;
+}
+
+.profile-editor__heading {
+  padding-left: 1rem;
+}
+
+.profile-editor__general {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: sizes.$content-width;
+  padding: 1rem 0;
+}
+
+.profile-editor__status {
+  margin: 0 1rem;
+}
+
+.profile-editor__footer {
+  display: flex;
+  justify-content: end;
+  padding: 0 1rem;
+}

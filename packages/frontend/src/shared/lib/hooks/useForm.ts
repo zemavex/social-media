@@ -1,11 +1,13 @@
-import { useState, useRef, useCallback, useEffect } from "react";
-import { useNavigate } from "react-router";
-import type { ZodIssue, ZodType } from "zod";
-import { API_ERROR_CODES, UI_ROUTES, type ApiErrorCode } from "~shared/core";
-import type { UserAuthDTO } from "~shared/user";
-import { authenticateUser } from "@/entities/user";
+import {
+  useState,
+  useRef,
+  useCallback,
+  useEffect,
+  type ChangeEvent,
+} from "react";
+import type { SafeParseReturnType, ZodIssue, ZodType } from "zod";
+import { API_ERROR_CODES, type ApiErrorCode } from "~shared/core";
 import { isAxiosError, isValidationFailed } from "@/shared/api";
-import { useAppDispatch } from "@/shared/lib/redux";
 import type { NonNullishObj } from "@/shared/lib/types";
 import { debounce } from "@/shared/lib/utils";
 import {
@@ -13,30 +15,33 @@ import {
   type FormattedZodIssuesRecord,
 } from "@/shared/lib/zod";
 
-interface UseAuthFormOptions<Payload> {
-  apiCall: (payload: Payload) => Promise<UserAuthDTO>;
+interface UseFormOptions<Payload, ApiResponse> {
+  apiCall: (payload: Payload) => Promise<ApiResponse> | null;
+  onSuccess?: (res: ApiResponse) => void;
   validationSchema: ZodType<Payload>;
   initialFormData: NonNullishObj<Payload>;
 }
 
 export interface FormErrors<Keys extends string> {
-  general?: ApiErrorCode;
+  general?: string;
+  api?: ApiErrorCode;
   fields?: FormattedZodIssuesRecord<Keys>;
 }
 
-export const useAuthForm = <Payload extends Record<string, unknown>>({
+export const useForm = <Payload extends Record<string, unknown>, ApiResponse>({
   apiCall,
+  onSuccess,
   validationSchema,
   initialFormData,
-}: UseAuthFormOptions<Payload>) => {
+}: UseFormOptions<Payload, ApiResponse>) => {
   const [formData, setFormData] =
     useState<NonNullishObj<Payload>>(initialFormData);
-  const [isPending, setIsPending] = useState(false);
+  const [formState, setFormState] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const [errors, setErrors] = useState<FormErrors<keyof Payload & string>>({});
   const formDataRef = useRef(formData);
   const hasSubmitted = useRef(false);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const setValidationErrors = (issues: ZodIssue[]) => {
     setErrors((prev) => ({
@@ -45,15 +50,17 @@ export const useAuthForm = <Payload extends Record<string, unknown>>({
     }));
   };
 
-  const validate = (dataToValidate = formData): boolean => {
+  const validate = (
+    dataToValidate = formData,
+  ): SafeParseReturnType<Payload, Payload> => {
     const result = validationSchema.safeParse(dataToValidate);
 
-    setErrors((prev) => ({ general: prev.general }));
+    setErrors((prev) => ({ ...prev, fields: undefined }));
     if (!result.success) {
       setValidationErrors(result.error.issues);
     }
 
-    return result.success;
+    return result;
   };
 
   const validateDebounced = useCallback(
@@ -64,36 +71,48 @@ export const useAuthForm = <Payload extends Record<string, unknown>>({
     [],
   );
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name as keyof Payload]: value }));
+    validateDebounced();
+  };
+
   const submitForm = async () => {
-    if (isPending) return;
+    if (formState === "loading") return;
     hasSubmitted.current = true;
-    setIsPending(true);
+    setFormState("loading");
     setErrors({});
 
-    const isCredentialsValid = validate();
-    if (!isCredentialsValid) {
-      setIsPending(false);
+    const validationResult = validate();
+    if (!validationResult.success) {
+      setFormState("error");
       return;
     }
 
     try {
-      const userData = await apiCall(formData);
-      dispatch(authenticateUser(userData));
-      navigate(UI_ROUTES.FEED);
+      const res = await apiCall(validationResult.data);
+
+      if (res === null) {
+        setFormState("error");
+        setErrors({ general: "no_fields_changed" });
+        return;
+      }
+
+      onSuccess?.(res);
+      setFormState("success");
     } catch (err) {
       if (!isAxiosError(err) || !err.response) {
-        setErrors({ general: API_ERROR_CODES.UNKNOWN_ERROR });
+        setErrors({ api: API_ERROR_CODES.UNKNOWN_ERROR });
         return;
       }
 
       if (!isValidationFailed(err)) {
-        setErrors({ general: err.response.data.code });
+        setErrors({ api: err.response.data.code });
         return;
       }
 
       setValidationErrors(err.response.data.issues);
-    } finally {
-      setIsPending(false);
+      setFormState("error");
     }
   };
 
@@ -104,9 +123,9 @@ export const useAuthForm = <Payload extends Record<string, unknown>>({
   return {
     formData,
     setFormData,
-    validateDebounced,
+    handleInputChange,
     submitForm,
-    isPending,
+    formState,
     errors,
   };
 };

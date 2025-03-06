@@ -2,9 +2,9 @@ import type { ChangeEvent, FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 import { finishRegistrationSchema } from "~shared/user";
 import { apiFinishRegistration } from "@/features/auth";
+import { useErrorTranslation } from "@/shared/lib/hooks";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
-import { useErrorTranslation } from "@/shared/lib/hooks";
 import { useAuthForm } from "../../model/useAuthForm";
 import cls from "./FinishRegistrationPage.module.scss";
 

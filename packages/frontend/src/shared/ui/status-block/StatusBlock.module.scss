@@ -1,0 +1,32 @@
+@use "mixins/fontMixins";
+
+.status-block {
+  @include fontMixins.font(md);
+
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+  padding: 0.5em;
+  border-radius: 0.375rem;
+
+  svg {
+    width: 100%;
+    max-width: 1.5em;
+  }
+}
+
+.status-block--success {
+  background-color: var(--color-green-500-20);
+
+  svg {
+    stroke: var(--color-green-600);
+  }
+}
+
+.status-block--error {
+  background-color: var(--color-red-500-20);
+
+  svg {
+    stroke: var(--color-red-600);
+  }
+}

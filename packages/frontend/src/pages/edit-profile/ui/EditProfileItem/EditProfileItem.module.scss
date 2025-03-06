@@ -1,0 +1,25 @@
+@use "mixins/fontMixins";
+
+.edit-profile-page__item {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-profile-page__item-label {
+  @include fontMixins.font(sm);
+
+  width: 100%;
+  max-width: 10.25rem;
+  padding-top: 0.3125rem;
+  padding-left: 1rem;
+  color: var(--color-subtext-0);
+  text-align: end;
+}
+
+.edit-profile-page__item-content {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  max-width: 18.75rem;
+  padding-right: 1rem;
+}

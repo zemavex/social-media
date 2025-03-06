@@ -8,6 +8,7 @@ import {
   RegisterPage,
   FinishRegistrationPage,
 } from "@/pages/auth";
+import { EditProfilePage } from "@/pages/edit-profile";
 import { NotFoundPage } from "@/pages/not-found";
 import { ProfilePage } from "@/pages/profile";
 import { selectAuthState, selectUser } from "@/entities/user";
@@ -57,6 +58,10 @@ export const AppRouter = () => {
               element={<Navigate to={UI_ROUTES.FEED} replace />}
             />
             <Route path={"/u/:id"} element={<ProfilePage />} />
+            <Route
+              path={UI_ROUTES.EDIT_PROFILE}
+              element={<EditProfilePage />}
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         );

@@ -1,12 +1,13 @@
 export { userReducer } from "./model/userSlice";
 
 export {
+  setUser,
   authenticateUser,
   setAuthState,
   unauthenticateUser,
 } from "./model/userSlice";
 
-export { apiFetchUserProfileById } from "./api";
+export { apiFetchUserProfileById, apiUpdateProfile } from "./api";
 
 export { mapUserProfileDTOToLocal } from "./model/mappers";
 
